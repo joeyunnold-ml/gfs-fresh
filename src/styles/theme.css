@@ -2,43 +2,73 @@
 
 :root {
   --font-size: 16px;
+
+  /* ── Brand ── */
+  --accent-green: #B6D840;
+  --lime: #C5D63D;
+  --accent-pink: #D4567A;
+  --charcoal: #343433;
+  --near-black: #1a1a1a;
+
+  /* ── Neutral — Backgrounds ── */
+  --hover: #F7F7F6;
+  --mist: #F5F4F2;
+  --canvas: #F3F2F0;
+  --input-bg: #F2F1EF;
+  --shell: #EEEDEC;
+  --muted-bg: #ECEAE7;
+  --used-badge: #E5E5E3;
+  --border-light: #DDDBD8;
+  --card-stroke: #cccccc;
+
+  /* ── Neutral — Text & Icons ── */
+  --disabled-icon: #ADA9A4;
+  --stone: #8B8178;
+  --warm-muted: #7F746C;
+  --muted-fg: #736E69;
+  --muted-text: #6B6862;
+
+  /* ── shadcn/ui base tokens (updated to warm palette) ── */
   --background: #ffffff;
-  --foreground: oklch(0.145 0 0);
+  --foreground: var(--charcoal);
   --card: #ffffff;
-  --card-foreground: oklch(0.145 0 0);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
-  --primary: #030213;
-  --primary-foreground: oklch(1 0 0);
-  --secondary: oklch(0.95 0.0058 264.53);
-  --secondary-foreground: #030213;
-  --muted: #ececf0;
-  --muted-foreground: #717182;
-  --accent: #e9ebef;
-  --accent-foreground: #030213;
-  --destructive: #d4183d;
+  --card-foreground: var(--charcoal);
+  --popover: #ffffff;
+  --popover-foreground: var(--charcoal);
+  --primary: var(--charcoal);
+  --primary-foreground: #ffffff;
+  --secondary: var(--mist);
+  --secondary-foreground: var(--charcoal);
+  --muted: var(--muted-bg);
+  --muted-foreground: var(--muted-fg);
+  --accent: var(--shell);
+  --accent-foreground: var(--charcoal);
+  --destructive: var(--accent-pink);
   --destructive-foreground: #ffffff;
-  --border: rgba(0, 0, 0, 0.1);
+  --border: var(--border-light);
   --input: transparent;
-  --input-background: #f3f3f5;
-  --switch-background: #cbced4;
+  --input-background: var(--input-bg);
+  --switch-background: var(--disabled-icon);
+  --ring: var(--stone);
+
   --font-weight-medium: 500;
   --font-weight-normal: 400;
-  --ring: oklch(0.708 0 0);
+
   --chart-1: oklch(0.646 0.222 41.116);
   --chart-2: oklch(0.6 0.118 184.704);
   --chart-3: oklch(0.398 0.07 227.392);
   --chart-4: oklch(0.828 0.189 84.429);
   --chart-5: oklch(0.769 0.188 70.08);
   --radius: 0.625rem;
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.145 0 0);
-  --sidebar-primary: #030213;
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.97 0 0);
-  --sidebar-accent-foreground: oklch(0.205 0 0);
-  --sidebar-border: oklch(0.922 0 0);
-  --sidebar-ring: oklch(0.708 0 0);
+
+  --sidebar: var(--canvas);
+  --sidebar-foreground: var(--charcoal);
+  --sidebar-primary: var(--charcoal);
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: var(--hover);
+  --sidebar-accent-foreground: var(--near-black);
+  --sidebar-border: var(--border-light);
+  --sidebar-ring: var(--stone);
 }
 
 .dark {
@@ -78,11 +108,6 @@
   --sidebar-ring: oklch(0.439 0 0);
 }
 
-/* Card stroke token */
-:root {
-  --card-stroke: #cccccc;
-}
-
 @utility font-arquitecta {
   font-family: 'Arquitecta', sans-serif;
 }
@@ -92,6 +117,7 @@
 }
 
 @theme inline {
+  /* shadcn/ui base */
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
@@ -131,6 +157,30 @@
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
   --color-card-stroke: var(--card-stroke);
+
+  /* ── Brand tokens ── */
+  --color-accent-green: var(--accent-green);
+  --color-lime: var(--lime);
+  --color-accent-pink: var(--accent-pink);
+  --color-charcoal: var(--charcoal);
+  --color-near-black: var(--near-black);
+
+  /* ── Neutral — Background tokens ── */
+  --color-hover: var(--hover);
+  --color-mist: var(--mist);
+  --color-canvas: var(--canvas);
+  --color-input-bg: var(--input-bg);
+  --color-shell: var(--shell);
+  --color-muted-bg: var(--muted-bg);
+  --color-used-badge: var(--used-badge);
+  --color-border-light: var(--border-light);
+
+  /* ── Neutral — Text & Icon tokens ── */
+  --color-disabled-icon: var(--disabled-icon);
+  --color-stone: var(--stone);
+  --color-warm-muted: var(--warm-muted);
+  --color-muted-fg: var(--muted-fg);
+  --color-muted-text: var(--muted-text);
 }
 
 @layer base {

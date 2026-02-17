@@ -57,3 +57,19 @@ export interface GuestPass {
   dateUsed?: string;
   status: 'available' | 'used';
 }
+
+export interface TicketType {
+  id: string;
+  title: string;
+  description: string;
+  price: number;
+  quantity: number;
+  category: 'standard' | 'discounted' | 'member';
+  isFree?: boolean;
+}
+
+export interface TicketFlowStep {
+  number: number;
+  label: string;
+  status: 'completed' | 'active' | 'pending';
+}

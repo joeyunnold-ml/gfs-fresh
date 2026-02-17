@@ -5,23 +5,23 @@ import { Pencil, Plus } from 'lucide-react';
 
 const ProfileField: React.FC<{ label: string; value: string }> = ({ label, value }) => (
   <div className="flex flex-col gap-1">
-    <span className="text-[12px] font-bold uppercase tracking-wider text-[#6B6B6B] font-arquitecta">
+    <span className="text-[12px] font-bold uppercase tracking-wider text-muted-text font-arquitecta">
       {label}
     </span>
-    <span className="text-base text-[#343433]">{value}</span>
+    <span className="text-base text-charcoal">{value}</span>
   </div>
 );
 
 const ProfileInput: React.FC<{ label: string; value: string; onChange: (v: string) => void; className?: string }> = ({ label, value, onChange, className }) => (
   <div className={`flex flex-col gap-1 ${className || ''}`}>
-    <label className="text-[12px] font-bold uppercase tracking-wider text-[#6B6B6B] font-arquitecta">
+    <label className="text-[12px] font-bold uppercase tracking-wider text-muted-text font-arquitecta">
       {label}
     </label>
     <input
       type="text"
       value={value}
       onChange={(e) => onChange(e.target.value)}
-      className="text-base text-[#343433] border border-[#e0e0e0] px-3 py-2 bg-white focus:outline-none focus:border-[#B6D840] transition-colors"
+      className="text-base text-charcoal border border-border-light px-3 py-2 bg-white focus:outline-none focus:border-accent-green transition-colors"
     />
   </div>
 );
@@ -36,7 +36,7 @@ const formatPhone = (value: string): string => {
 
 const PhoneInput: React.FC<{ label: string; value: string; onChange: (v: string) => void }> = ({ label, value, onChange }) => (
   <div className="flex flex-col gap-1">
-    <label className="text-[12px] font-bold uppercase tracking-wider text-[#6B6B6B] font-arquitecta">
+    <label className="text-[12px] font-bold uppercase tracking-wider text-muted-text font-arquitecta">
       {label}
     </label>
     <input
@@ -44,7 +44,7 @@ const PhoneInput: React.FC<{ label: string; value: string; onChange: (v: string)
       value={value}
       onChange={(e) => onChange(formatPhone(e.target.value))}
       placeholder="(555) 123-4567"
-      className="text-base text-[#343433] border border-[#e0e0e0] px-3 py-2 bg-white focus:outline-none focus:border-[#B6D840] transition-colors"
+      className="text-base text-charcoal border border-border-light px-3 py-2 bg-white focus:outline-none focus:border-accent-green transition-colors"
     />
   </div>
 );
@@ -66,20 +66,20 @@ const AdditionalMemberCard: React.FC<{ member: Member; isEditing: boolean; onEdi
     <div>
       <div
         onClick={() => !isEditing && onEdit()}
-        className={`relative bg-white p-6 flex items-center justify-between group transition-colors duration-200 ${isEditing ? 'bg-[#f7f7f6]' : 'cursor-pointer hover:bg-[#f7f7f6]'}`}
+        className={`relative bg-white p-6 flex items-center justify-between group transition-colors duration-200 ${isEditing ? 'bg-hover' : 'cursor-pointer hover:bg-hover'}`}
       >
         <div
           aria-hidden="true"
-          className={`absolute inset-0 border border-[#e0e0e0] pointer-events-none transition-shadow duration-200 ${isEditing ? 'shadow-[4px_4px_0px_0px_rgba(139,129,120,0.24)]' : 'shadow-none group-hover:shadow-[4px_4px_0px_0px_rgba(139,129,120,0.24)]'}`}
+          className={`absolute inset-0 border border-border-light pointer-events-none transition-shadow duration-200 ${isEditing ? 'shadow-[4px_4px_0px_0px_rgba(139,129,120,0.24)]' : 'shadow-none group-hover:shadow-[4px_4px_0px_0px_rgba(139,129,120,0.24)]'}`}
         />
-        <h3 className="text-[18px] font-bold text-[#343433] relative">{member.name}</h3>
-        <div className={`relative w-8 h-8 flex items-center justify-center transition-colors duration-200 ${isEditing ? 'bg-[#EEEDEC]' : 'bg-transparent group-hover:bg-[#EEEDEC]'}`}>
-          <Pencil className="w-4 h-4 text-[#6B6B6B]" />
+        <h3 className="text-[18px] font-bold text-charcoal relative">{member.name}</h3>
+        <div className={`relative w-8 h-8 flex items-center justify-center transition-colors duration-200 ${isEditing ? 'bg-shell' : 'bg-transparent group-hover:bg-shell'}`}>
+          <Pencil className="w-4 h-4 text-muted-text" />
         </div>
       </div>
 
       {isEditing && (
-        <div className="border border-t-0 border-[#e0e0e0] bg-white p-6">
+        <div className="border border-t-0 border-border-light bg-white p-6">
           <div className="grid grid-cols-1 gap-4">
             <ProfileInput label="First Name" value={firstName} onChange={setFirstName} />
             <ProfileInput label="Last Name" value={lastName} onChange={setLastName} />
@@ -88,14 +88,13 @@ const AdditionalMemberCard: React.FC<{ member: Member; isEditing: boolean; onEdi
           <div className="flex gap-3 mt-6">
             <button
               onClick={onSave}
-              className="px-6 py-3 text-base font-bold uppercase tracking-wider font-arquitecta bg-[#343433] text-white hover:bg-[#1a1a1a] transition-colors"
+              className="px-6 py-3 text-base font-bold uppercase tracking-wider font-arquitecta bg-charcoal text-white hover:bg-near-black transition-colors"
             >
               Save
             </button>
             <button
               onClick={handleCancel}
-              className="px-6 py-3 text-base font-bold uppercase tracking-wider font-arquitecta hover:bg-[#f7f7f6] transition-colors"
-              style={{ border: '1.5px solid #343433' }}
+              className="px-6 py-3 text-base font-bold uppercase tracking-wider font-arquitecta border-[1.5px] border-charcoal hover:bg-hover transition-colors"
             >
               Cancel
             </button>
@@ -146,10 +145,10 @@ export const Profile: React.FC = () => {
   return (
     <>
       {/* Mobile Header */}
-      <div className="md:hidden bg-[#EEEDEC] px-4 pb-0 pt-2">
+      <div className="md:hidden bg-shell px-4 pb-0 pt-2">
         <h1 className="text-2xl font-black uppercase tracking-wide mb-4 font-arquitecta">WELCOME, TOM!</h1>
-        <div className="border-b-2 border-[#B6D840] inline-block pb-1">
-          <span className="font-bold text-gray-900 uppercase tracking-wider font-arquitecta">PROFILE</span>
+        <div className="border-b-2 border-accent-green inline-block pb-1">
+          <span className="font-bold text-charcoal uppercase tracking-wider font-arquitecta">PROFILE</span>
         </div>
       </div>
 
@@ -157,12 +156,11 @@ export const Profile: React.FC = () => {
         {/* Primary Member Section */}
         <div className="mb-10">
           <div className="flex items-center justify-between mb-6">
-            <h3 className="text-[18px] font-bold text-[#343433]">{primaryMember.name}</h3>
+            <h3 className="text-[18px] font-bold text-charcoal">{primaryMember.name}</h3>
             {!isEditing && (
               <button
                 onClick={() => setIsEditing(true)}
-                className="px-6 py-3 text-base font-bold uppercase tracking-wider font-arquitecta hover:bg-[#f7f7f6] transition-colors"
-                style={{ border: '1.5px solid #343433' }}
+                className="px-6 py-3 text-base font-bold uppercase tracking-wider font-arquitecta border-[1.5px] border-charcoal hover:bg-hover transition-colors"
               >
                 Edit
               </button>
@@ -182,14 +180,14 @@ export const Profile: React.FC = () => {
                 <ProfileInput label="City" value={editCity} onChange={setEditCity} />
                 <div className="grid grid-cols-2 gap-4">
                   <div className="flex flex-col gap-1">
-                    <label className="text-[12px] font-bold uppercase tracking-wider text-[#6B6B6B] font-arquitecta">
+                    <label className="text-[12px] font-bold uppercase tracking-wider text-muted-text font-arquitecta">
                       State
                     </label>
                     <select
                       value={editState}
                       onChange={(e) => setEditState(e.target.value)}
-                      className="text-base text-[#343433] border border-[#e0e0e0] px-3 py-2 bg-white focus:outline-none focus:border-[#B6D840] transition-colors appearance-none"
-                      style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%236B6B6B' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E")`, backgroundRepeat: 'no-repeat', backgroundPosition: 'right 10px center' }}
+                      className="text-base text-charcoal border border-border-light px-3 py-2 bg-white focus:outline-none focus:border-accent-green transition-colors appearance-none"
+                      style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%236B6862' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E")`, backgroundRepeat: 'no-repeat', backgroundPosition: 'right 10px center' }}
                     >
                       <option value="NY">NY</option>
                       <option value="CA">CA</option>
@@ -209,14 +207,13 @@ export const Profile: React.FC = () => {
               <div className="flex gap-3 mt-6">
                 <button
                   onClick={handleSave}
-                  className="px-6 py-3 text-base font-bold uppercase tracking-wider font-arquitecta bg-[#343433] text-white hover:bg-[#1a1a1a] transition-colors"
+                  className="px-6 py-3 text-base font-bold uppercase tracking-wider font-arquitecta bg-charcoal text-white hover:bg-near-black transition-colors"
                 >
                   Save
                 </button>
                 <button
                   onClick={handleCancel}
-                  className="px-6 py-3 text-base font-bold uppercase tracking-wider font-arquitecta hover:bg-[#f7f7f6] transition-colors"
-                  style={{ border: '1.5px solid #343433' }}
+                  className="px-6 py-3 text-base font-bold uppercase tracking-wider font-arquitecta border-[1.5px] border-charcoal hover:bg-hover transition-colors"
                 >
                   Cancel
                 </button>
@@ -249,7 +246,7 @@ export const Profile: React.FC = () => {
                 />
               ))}
               {isAddingMember ? (
-                <div className="border border-[#e0e0e0] bg-white p-6">
+                <div className="border border-border-light bg-white p-6">
                   <div className="grid grid-cols-1 gap-4">
                     <ProfileInput label="First Name" value={newFirstName} onChange={setNewFirstName} />
                     <ProfileInput label="Last Name" value={newLastName} onChange={setNewLastName} />
@@ -263,7 +260,7 @@ export const Profile: React.FC = () => {
                         setNewLastName('');
                         setNewEmail('');
                       }}
-                      className="px-6 py-3 text-base font-bold uppercase tracking-wider font-arquitecta bg-[#343433] text-white hover:bg-[#1a1a1a] transition-colors"
+                      className="px-6 py-3 text-base font-bold uppercase tracking-wider font-arquitecta bg-charcoal text-white hover:bg-near-black transition-colors"
                     >
                       Save
                     </button>
@@ -274,8 +271,7 @@ export const Profile: React.FC = () => {
                         setNewLastName('');
                         setNewEmail('');
                       }}
-                      className="px-6 py-3 text-base font-bold uppercase tracking-wider font-arquitecta hover:bg-[#f7f7f6] transition-colors"
-                      style={{ border: '1.5px solid #343433' }}
+                      className="px-6 py-3 text-base font-bold uppercase tracking-wider font-arquitecta border-[1.5px] border-charcoal hover:bg-hover transition-colors"
                     >
                       Cancel
                     </button>
@@ -284,7 +280,7 @@ export const Profile: React.FC = () => {
               ) : (
                 <button
                   onClick={() => setIsAddingMember(true)}
-                  className="relative p-6 flex items-center justify-center gap-2 border border-dashed border-[#e0e0e0] text-[#6B6B6B] hover:border-[#B6D840] hover:text-[#343433] transition-colors duration-200 cursor-pointer"
+                  className="relative p-6 flex items-center justify-center gap-2 border border-dashed border-border-light text-muted-text hover:border-accent-green hover:text-charcoal transition-colors duration-200 cursor-pointer"
                 >
                   <Plus className="w-5 h-5" />
                   <span className="text-base font-bold uppercase tracking-wider font-arquitecta">Add Member</span>

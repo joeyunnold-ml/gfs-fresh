@@ -12,17 +12,25 @@ export const HomePage: React.FC = () => {
           <li>
             <Link
               to="/current-member"
-              className="text-lg font-bold text-[#343433] hover:text-[#B6D840] transition-colors underline"
+              className="text-lg font-bold text-charcoal hover:text-accent-green transition-colors underline"
             >
               Current Member
             </Link>
           </li>
           <li>
             <Link
-              to="/never-member"
-              className="text-lg font-bold text-[#343433] hover:text-[#B6D840] transition-colors underline"
+              to="/mp-style"
+              className="text-lg font-bold text-charcoal hover:text-accent-green transition-colors underline"
             >
-              Never Member
+              Style Guide
+            </Link>
+          </li>
+          <li>
+            <Link
+              to="/ticket-flow-1"
+              className="text-lg font-bold text-charcoal hover:text-accent-green transition-colors underline"
+            >
+              Ticket Flow — Step X
             </Link>
           </li>
         </ul>

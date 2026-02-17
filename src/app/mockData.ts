@@ -1,4 +1,4 @@
-import { Member, Visit, BookedVisit, Event, GuestPass, MembershipTier } from './types';
+import { Member, Visit, BookedVisit, Event, GuestPass, MembershipTier, TicketType, TicketFlowStep } from './types';
 import imgFeaturedBanner from "../assets/812d952efda787a47c2af5d2990685f9bb475b24.png";
 import imgAvatar from "../assets/f4c3c5628f6037f61ffccc463010b72844a570fa.png";
 
@@ -234,4 +234,59 @@ export const primaryProfile = {
 export const assets = {
   heroBanner: imgFeaturedBanner,
   qrCode: qrCodeUrl,
+};
+
+export const ticketFlowSteps: TicketFlowStep[] = [
+  { number: 1, label: 'Visit date & entry time', status: 'completed' },
+  { number: 2, label: 'Select type of ticket', status: 'active' },
+  { number: 3, label: 'Checkout', status: 'pending' },
+];
+
+export const initialTickets: TicketType[] = [
+  {
+    id: 'adult',
+    title: 'Adult',
+    description: 'General admission for ages 18+. Includes outdoor sculptures and indoor galleries.',
+    price: 25,
+    quantity: 0,
+    category: 'standard',
+  },
+  {
+    id: 'child',
+    title: 'Child',
+    description: 'Ages 6\u201317. Children under 6 are free. Must be with an adult.',
+    price: 15,
+    quantity: 0,
+    category: 'standard',
+  },
+  {
+    id: 'senior',
+    title: 'Senior',
+    description: 'Ages 65+. Valid ID may be required.',
+    price: 20,
+    quantity: 0,
+    category: 'discounted',
+  },
+  {
+    id: 'veteran',
+    title: 'Veteran',
+    description: 'Active military and veterans. Military ID required at entry.',
+    price: 12,
+    quantity: 0,
+    category: 'discounted',
+  },
+  {
+    id: 'member-adult',
+    title: 'Adult',
+    description: 'Free for Grounds For Sculpture members. Membership card required at entry.',
+    price: 0,
+    quantity: 0,
+    category: 'member',
+    isFree: true,
+  },
+];
+
+export const ticketFlowOrderDefaults = {
+  selectedDate: 'Aug. 7, 2025',
+  selectedTime: '9:30 AM',
 };
