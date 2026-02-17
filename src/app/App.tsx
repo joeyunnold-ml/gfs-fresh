@@ -44,7 +44,7 @@ export default function App() {
   }, [updateIndicator]);
 
   return (
-    <div className="min-h-screen font-opensans text-gray-900" style={{ background: 'linear-gradient(to right, #f4f4f4 50%, #ffffff 50%)' }}>
+    <div className="min-h-screen font-opensans text-gray-900" style={{ background: 'linear-gradient(to right, #F3F2F0 50%, #ffffff 50%)' }}>
       <Header currentView={currentView} onNavigate={handleNavigate} />
 
       <div className="max-w-[1400px] mx-auto md:flex min-h-screen bg-white">
