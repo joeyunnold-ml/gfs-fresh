@@ -96,24 +96,24 @@ export const Dashboard: React.FC<DashboardProps> = ({ onNavigate }) => {
       {/* Flex wrapper: cards grid (left) + booked visits sidebar (right at 1400px+) */}
       <div className="flex flex-col min-[1400px]:flex-row gap-6">
         {/* Left side: action cards grid */}
-        <div className="flex-1 min-w-0 grid grid-cols-1 md:grid-cols-2 gap-6 auto-rows-min">
+        <div className="flex-1 min-w-0 grid grid-cols-2 gap-4 md:gap-6 auto-rows-min">
           <ActionCard
             title="Guest Passes"
             count="1 of 2 remaining"
-            className="min-h-[180px]"
+            className="order-1 min-h-[140px] md:min-h-[180px]"
             onClick={() => onNavigate?.('membership', 'guest-passes')}
           />
           <ActionCard
             title="Get Tickets"
-            className="min-h-[180px]"
+            className="order-2 min-h-[140px] md:min-h-[180px]"
           />
           <ActionCard
             title="Manage Your Membership"
-            className="min-h-[180px]"
+            className="order-3 min-h-[140px] md:min-h-[180px]"
             onClick={() => onNavigate?.('membership', 'overview')}
           />
 
-          <div className="bg-[#f4f4f4] p-6 flex flex-col justify-between min-h-[180px] relative">
+          <div className="order-5 md:order-4 bg-[#f4f4f4] p-6 flex flex-col justify-between min-h-[180px] relative col-span-2 md:col-span-1">
             <div>
               <h3 className="text-base font-black text-gray-900 uppercase tracking-wide mb-4 font-arquitecta">Weather at GFS</h3>
               <div className="flex items-center gap-4">
@@ -126,14 +126,16 @@ export const Dashboard: React.FC<DashboardProps> = ({ onNavigate }) => {
             </div>
           </div>
 
-          <div className="md:col-span-2 bg-white hover:bg-[#f7f7f6] border border-card-stroke p-6 flex justify-between items-center cursor-pointer transition-all duration-200 hover:shadow-[4px_4px_0px_0px_rgba(139,129,120,0.24)]">
-            <h3 className="text-lg font-black text-gray-900 uppercase font-arquitecta">OPEN INTERACTIVE MAP</h3>
-            <ArrowUpRight className="w-5 h-5" />
+          <div className="order-4 md:order-5 md:col-span-2">
+            <ActionCard
+              title="Open Interactive Map"
+              className="min-h-[140px] md:min-h-[90px] md:max-h-[90px]"
+            />
           </div>
         </div>
 
-        {/* Right side: Booked Visits — hidden on mobile, below cards at md, sidebar at 1400px+ */}
-        <div className="hidden md:block min-[1400px]:w-[300px] min-[1400px]:shrink-0">
+        {/* Right side: Booked Visits — below cards on mobile/md, sidebar at 1400px+ */}
+        <div className="min-[1400px]:w-[300px] min-[1400px]:shrink-0">
           <div className="border border-card-stroke p-6">
             <h3 className="text-lg font-black uppercase mb-6 font-arquitecta">Booked Visits</h3>
             <div className="space-y-6">
