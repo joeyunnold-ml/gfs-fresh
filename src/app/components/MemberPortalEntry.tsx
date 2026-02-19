@@ -14,8 +14,7 @@ export const MemberPortalEntry: React.FC = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!email.trim()) return;
-    // For now, send to current-member; real flow would validate and redirect
-    navigate('/current-member');
+    navigate('/member-portal-entry/password', { state: { email: email.trim() } });
   };
 
   const canContinue = email.trim().length > 0;
@@ -32,15 +31,16 @@ export const MemberPortalEntry: React.FC = () => {
         {/* Mobile: full-bleed image strip between logo and heading (75% of original height) */}
         <div className="w-full md:hidden">
           <img
-            src="https://images.unsplash.com/photo-1578301978693-85fa9c0320b9?w=1200&q=80"
+            src="https://res.cloudinary.com/djwd8tgyz/image/upload/v1771534540/gfs_qm8bdw.png"
             alt="Grounds for Sculpture"
             className="w-full h-[210px] object-cover"
           />
         </div>
 
-        {/* On mobile: align content to top (below image); on desktop: center */}
-        <div className="flex flex-col flex-1 px-6 md:px-12 lg:px-16 pb-6 max-w-lg mx-auto w-full md:max-w-none justify-start md:justify-center items-center">
-          <h1 className="w-full text-2xl md:text-3xl font-black uppercase tracking-wide font-arquitecta text-charcoal text-center pt-8 md:pt-0 mb-8">
+        {/* On mobile: reserve space for Back button (not shown) so labels/card align with password screen */}
+        <div className="flex flex-col flex-1 pt-8 md:pt-0 px-6 md:px-12 lg:px-16 pb-6 max-w-lg mx-auto w-full md:max-w-none justify-start md:justify-center items-center">
+          <div className="w-full h-12 md:hidden" aria-hidden />
+          <h1 className="w-full text-2xl md:text-3xl font-black uppercase tracking-wide font-arquitecta text-charcoal text-center mb-8">
             Start using the member portal
           </h1>
 
@@ -51,7 +51,7 @@ export const MemberPortalEntry: React.FC = () => {
               <div className="p-6 md:p-8">
                 <form onSubmit={handleSubmit} className="flex flex-col gap-4">
                   <div className="flex flex-col gap-1">
-                    <label className="text-sm font-bold uppercase tracking-wider text-muted-text font-arquitecta">
+                    <label className="text-base font-bold uppercase tracking-wider text-muted-text font-arquitecta">
                       Enter your email address to get started
                     </label>
                     <input
@@ -101,7 +101,7 @@ export const MemberPortalEntry: React.FC = () => {
       {/* Right: hero image — 50% width, same as text half (desktop only) */}
       <div className="hidden md:block w-full md:w-1/2 min-h-screen flex-shrink-0 bg-muted-bg">
         <img
-          src="https://images.unsplash.com/photo-1578301978693-85fa9c0320b9?w=1200&q=80"
+          src="https://res.cloudinary.com/djwd8tgyz/image/upload/v1771534540/gfs_qm8bdw.png"
           alt="Grounds for Sculpture"
           className="w-full h-full object-cover min-h-screen"
         />

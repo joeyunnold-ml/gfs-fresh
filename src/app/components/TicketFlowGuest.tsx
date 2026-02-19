@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router';
-import { ArrowLeft, ChevronDown, ChevronLeft, ChevronRight, Pencil, Check, X } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { useNavigate, useLocation } from 'react-router';
+import { ArrowLeft, ChevronDown, ChevronLeft, ChevronRight, Pencil, Check, X, Loader2 } from 'lucide-react';
 import clsx from 'clsx';
 import { format, addMonths, subMonths, startOfMonth, endOfMonth, eachDayOfInterval, isSameDay, parse } from 'date-fns';
 import { Logo } from './Logo';
-import { Dialog, DialogOverlay, DialogPortal, DialogTitle } from './ui/dialog';
+import { Dialog, DialogOverlay, DialogPortal, DialogTitle, DialogContent } from './ui/dialog';
 import {
   TicketType,
   TicketFlowStep,
@@ -20,6 +20,14 @@ import {
   ticketFlowOrderDefaults,
   primaryProfile,
 } from '../mockData';
+
+const US_STATES = [
+  'AL', 'AK', 'AZ', 'AR', 'CA', 'CO', 'CT', 'DE', 'FL', 'GA',
+  'HI', 'ID', 'IL', 'IN', 'IA', 'KS', 'KY', 'LA', 'ME', 'MD',
+  'MA', 'MI', 'MN', 'MS', 'MO', 'MT', 'NE', 'NV', 'NH', 'NJ',
+  'NM', 'NY', 'NC', 'ND', 'OH', 'OK', 'OR', 'PA', 'RI', 'SC',
+  'SD', 'TN', 'TX', 'UT', 'VT', 'VA', 'WA', 'WV', 'WI', 'WY',
+];
 
 type StepId = 1 | 2 | 3;
 
@@ -315,7 +323,9 @@ const TimeSlotDrawer: React.FC<{
   value: string;
   onChange: (value: string) => void;
   onClose: () => void;
-}> = ({ value, onChange, onClose }) => {
+  /** When true (member flow, logged in), members-only slots become available and show "Available". */
+  isMember?: boolean;
+}> = ({ value, onChange, onClose, isMember = false }) => {
   const handleSelect = (time: string) => {
     onChange(time);
     onClose();
@@ -325,7 +335,7 @@ const TimeSlotDrawer: React.FC<{
     <div className="border border-t-0 border-border-light bg-white max-h-[320px] overflow-y-auto">
       {TIME_SLOTS.map((time, index) => {
         const selected = value === time;
-        const isMembersOnly = index < 2;
+        const isMembersOnly = !isMember && index < 2;
         return (
           <button
             key={time}
@@ -362,6 +372,11 @@ interface Step1Props {
   onChangeDate: (value: string) => void;
   onChangeTime: (value: string) => void;
   onContinue: () => void;
+  onSignIn?: () => void;
+  /** When true (member flow after login), show only Continue. When false and onSignIn set, show guest + sign-in options. */
+  isMember?: boolean;
+  /** When true, use "Continue as Guest →" and "Sign in as Member →" button labels. */
+  memberFlowLabels?: boolean;
 }
 
 const Step1VisitDateTime: React.FC<Step1Props> = ({
@@ -370,10 +385,14 @@ const Step1VisitDateTime: React.FC<Step1Props> = ({
   onChangeDate,
   onChangeTime,
   onContinue,
+  onSignIn,
+  isMember = false,
+  memberFlowLabels = false,
 }) => {
   const [calendarOpen, setCalendarOpen] = useState(false);
   const [timeListOpen, setTimeListOpen] = useState(false);
   const canContinue = Boolean(selectedDate && selectedTime);
+  const showSignInOption = !isMember && onSignIn != null;
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
@@ -422,6 +441,7 @@ const Step1VisitDateTime: React.FC<Step1Props> = ({
                   value={selectedTime}
                   onChange={onChangeTime}
                   onClose={() => setTimeListOpen(false)}
+                  isMember={isMember}
                 />
               )}
             </div>
@@ -433,10 +453,26 @@ const Step1VisitDateTime: React.FC<Step1Props> = ({
       </section>
 
       <aside className="lg:col-span-4 space-y-6">
-        <MembershipUpsellCard />
-        <PrimaryCtaButton onClick={onContinue} disabled={!canContinue}>
-          Continue
-        </PrimaryCtaButton>
+        {!isMember && <MembershipUpsellCard />}
+        <div className="flex flex-col gap-3">
+          {showSignInOption && (
+            <p className="text-sm text-muted-text">
+              Sign in for member pricing and saved checkout details.
+            </p>
+          )}
+          <PrimaryCtaButton onClick={onContinue} disabled={!canContinue}>
+            {showSignInOption && memberFlowLabels ? 'Continue as Guest' : showSignInOption ? 'Continue as a guest' : 'Continue'}
+          </PrimaryCtaButton>
+          {showSignInOption && (
+            <button
+              type="button"
+              onClick={onSignIn}
+              className="w-full px-6 py-3 text-base font-bold uppercase tracking-wider font-arquitecta border-[1.5px] border-charcoal hover:bg-hover transition-colors text-center"
+            >
+              Sign In
+            </button>
+          )}
+        </div>
         {!canContinue && (
           <p className="text-sm text-muted-text text-center">
             Select a date and time to continue.
@@ -526,6 +562,8 @@ interface Step3Props {
   createAccount: boolean;
   onToggleCreateAccount: (next: boolean) => void;
   onCompleteOrder: () => void;
+  /** When true (member flow, logged in), hide "Create an account after checkout" checkbox. */
+  isMember?: boolean;
 }
 
 const Step3Checkout: React.FC<Step3Props> = ({
@@ -541,6 +579,7 @@ const Step3Checkout: React.FC<Step3Props> = ({
   createAccount,
   onToggleCreateAccount,
   onCompleteOrder,
+  isMember = false,
 }) => {
   const total = tickets.reduce((sum, t) => sum + t.price * t.quantity, 0);
   const canSubmit =
@@ -560,8 +599,6 @@ const Step3Checkout: React.FC<Step3Props> = ({
   return (
     <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
       <section className="lg:col-span-8 space-y-10">
-        <MembershipUpsellCard layout="inline" />
-
         <div className="space-y-6">
           <h2 className="text-2xl font-bold uppercase tracking-wider font-arquitecta">
             Guest information
@@ -594,27 +631,7 @@ const Step3Checkout: React.FC<Step3Props> = ({
               onChange={(v) => handleFieldChange('phone', v)}
             />
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <TextInputField
-              label="City"
-              required
-              value={guestInfo.city}
-              onChange={(v) => handleFieldChange('city', v)}
-            />
-            <TextInputField
-              label="State"
-              required
-              value={guestInfo.state}
-              onChange={(v) => handleFieldChange('state', v)}
-            />
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <TextInputField
-              label="ZIP"
-              required
-              value={guestInfo.zip}
-              onChange={(v) => handleFieldChange('zip', v)}
-            />
+          <div>
             <TextInputField
               label="Street Address"
               required
@@ -622,12 +639,48 @@ const Step3Checkout: React.FC<Step3Props> = ({
               onChange={(v) => handleFieldChange('street', v)}
             />
           </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:grid-cols-[1fr_auto_8rem]">
+            <TextInputField
+              label="City"
+              required
+              value={guestInfo.city}
+              onChange={(v) => handleFieldChange('city', v)}
+            />
+            <label className="flex flex-col gap-1 md:w-24">
+              <span className="text-base font-normal text-charcoal font-opensans">
+                State <span className="text-accent-pink">*</span>
+              </span>
+              <select
+                value={guestInfo.state}
+                onChange={(e) => handleFieldChange('state', e.target.value)}
+                className="text-base text-charcoal border border-border-light px-3 py-2 bg-white focus:outline-none focus:border-accent-green transition-colors w-full"
+              >
+                <option value="">Select</option>
+                {US_STATES.map((s) => (
+                  <option key={s} value={s}>{s}</option>
+                ))}
+              </select>
+            </label>
+            <label className="flex flex-col gap-1">
+              <span className="text-base font-normal text-charcoal font-opensans">
+                ZIP <span className="text-accent-pink">*</span>
+              </span>
+              <input
+                type="text"
+                value={guestInfo.zip}
+                onChange={(e) => handleFieldChange('zip', e.target.value)}
+                className="text-base text-charcoal border border-border-light px-3 py-2 bg-white focus:outline-none focus:border-accent-green transition-colors w-full max-w-[8rem]"
+              />
+            </label>
+          </div>
 
-          <CheckboxField
-            label="Create an account after checkout"
-            checked={createAccount}
-            onChange={onToggleCreateAccount}
-          />
+          {!isMember && (
+            <CheckboxField
+              label="Create an account after checkout"
+              checked={createAccount}
+              onChange={onToggleCreateAccount}
+            />
+          )}
         </div>
       </section>
 
@@ -641,17 +694,24 @@ const Step3Checkout: React.FC<Step3Props> = ({
 
         <section className="border border-card-stroke p-5 bg-white">
           <h3 className="text-base font-normal text-charcoal mb-4 font-opensans">
-            Support GFS With an Additional Donation
+            Support GFS With a Donation
           </h3>
-          <div className="flex items-stretch gap-3 mb-2">
-            <input
-              type="number"
-              min="0"
-              value={donation}
-              onChange={(e) => onDonationChange(e.target.value)}
-              className="flex-1 text-base text-charcoal border border-border-light px-3 py-2 bg-white focus:outline-none focus:border-accent-green transition-colors"
-            />
-            <button className="px-4 text-sm font-bold uppercase tracking-wider font-arquitecta border-[1.5px] border-charcoal hover:bg-hover transition-colors">
+          <div className="flex items-stretch gap-3 mb-2 min-w-0">
+            <div className="flex flex-1 min-w-0 items-center border border-border-light bg-white focus-within:border-accent-green transition-colors overflow-hidden">
+              {donation !== '' && (
+                <span className="pl-3 text-base text-charcoal select-none shrink-0" aria-hidden>
+                  $
+                </span>
+              )}
+              <input
+                type="number"
+                min="0"
+                value={donation}
+                onChange={(e) => onDonationChange(e.target.value)}
+                className="flex-1 min-w-0 w-full text-base text-charcoal border-0 px-3 py-2 bg-transparent focus:outline-none focus:ring-0"
+              />
+            </div>
+            <button type="button" className="shrink-0 px-4 text-sm font-bold uppercase tracking-wider font-arquitecta border-[1.5px] border-charcoal hover:bg-hover transition-colors">
               Add
             </button>
           </div>
@@ -690,13 +750,122 @@ const Step3Checkout: React.FC<Step3Props> = ({
 };
 
 /* ------------------------------------------------------------------ */
-/*  Main Guest Ticket Flow                                             */
+/*  Login modal (Member Checkout flow)                                  */
 /* ------------------------------------------------------------------ */
 
-export const TicketFlowGuest: React.FC = () => {
+const LoginModal: React.FC<{
+  open: boolean;
+  onOpenChange: (open: boolean) => void;
+  onSuccess: () => void;
+}> = ({ open, onOpenChange, onSuccess }) => {
   const navigate = useNavigate();
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [isLoggingIn, setIsLoggingIn] = useState(false);
+
+  const handleLogin = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!username.trim() || !password.trim()) return;
+    setIsLoggingIn(true);
+  };
+
+  useEffect(() => {
+    if (!isLoggingIn) return;
+    const t = setTimeout(() => {
+      onSuccess();
+      onOpenChange(false);
+      setUsername('');
+      setPassword('');
+      setIsLoggingIn(false);
+    }, 2000);
+    return () => clearTimeout(t);
+  }, [isLoggingIn, onSuccess, onOpenChange]);
+
+  return (
+    <Dialog open={open} onOpenChange={onOpenChange}>
+      <DialogContent className="bg-white border border-border-light p-0 gap-0 max-w-[calc(100%-2rem)] sm:max-w-md rounded-none">
+        {isLoggingIn ? (
+          <div className="flex flex-col items-center justify-center min-h-[360px] p-6" aria-live="polite" aria-busy="true">
+            <Loader2 className="w-10 h-10 animate-spin text-charcoal" />
+          </div>
+        ) : (
+          <>
+          <div className="p-6 pb-4 flex flex-col items-center">
+            <Logo className="h-10 w-auto text-charcoal" />
+          </div>
+          <form onSubmit={handleLogin} className="px-6 pb-6 space-y-4">
+            <div className="flex flex-col gap-1">
+              <label htmlFor="login-username" className="text-base font-bold uppercase tracking-wider text-muted-text font-arquitecta">
+                Username
+              </label>
+              <input
+                id="login-username"
+                type="text"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                placeholder="Insert your email or phone number"
+                autoComplete="username"
+                className="text-base text-charcoal border border-border-light px-3 py-2 bg-white focus:outline-none focus:border-accent-green transition-colors w-full"
+              />
+            </div>
+            <div className="flex flex-col gap-1">
+              <label htmlFor="login-password" className="text-base font-bold uppercase tracking-wider text-muted-text font-arquitecta">
+                Password
+              </label>
+              <input
+                id="login-password"
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                autoComplete="current-password"
+                className="text-base text-charcoal border border-border-light px-3 py-2 bg-white focus:outline-none focus:border-accent-green transition-colors w-full"
+              />
+            </div>
+            <a
+              href="#"
+              className="text-sm text-accent-pink hover:underline block text-right"
+              onClick={(e) => { e.preventDefault(); }}
+            >
+              Need help logging in?
+            </a>
+            <div className="flex flex-col gap-3 pt-2">
+              <button
+                type="submit"
+                disabled={!username.trim() || !password.trim()}
+                className="w-full px-6 py-3 text-base font-bold uppercase tracking-wider font-arquitecta bg-charcoal text-white hover:bg-near-black disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+              >
+                Login
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  onOpenChange(false);
+                  navigate('/account-registration');
+                }}
+                className="w-full px-6 py-3 text-base font-bold uppercase tracking-wider font-arquitecta border-[1.5px] border-charcoal hover:bg-hover transition-colors"
+              >
+                Register
+              </button>
+            </div>
+          </form>
+          </>
+        )}
+      </DialogContent>
+    </Dialog>
+  );
+};
+
+/* ------------------------------------------------------------------ */
+/*  Main Guest / Member Ticket Flow                                     */
+/* ------------------------------------------------------------------ */
+
+export const TicketFlowGuest: React.FC<{ memberFlow?: boolean }> = ({ memberFlow = false }) => {
+  const navigate = useNavigate();
+  const location = useLocation();
   const [currentStep, setCurrentStep] = useState<StepId>(1);
   const [checkoutModalOpen, setCheckoutModalOpen] = useState(false);
+  const [loginModalOpen, setLoginModalOpen] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [tickets, setTickets] = useState<TicketType[]>(initialTickets);
   const [selectedDate, setSelectedDate] = useState(ticketFlowOrderDefaults.selectedDate);
   const [selectedTime, setSelectedTime] = useState(ticketFlowOrderDefaults.selectedTime);
@@ -713,6 +882,14 @@ export const TicketFlowGuest: React.FC = () => {
   const [donation, setDonation] = useState('');
   const [discountCode, setDiscountCode] = useState('');
   const [createAccount, setCreateAccount] = useState(false);
+
+  // When arriving from Account Registration, treat as logged in (prototype)
+  useEffect(() => {
+    if (memberFlow && (location.state as { fromRegistration?: boolean } | undefined)?.fromRegistration) {
+      setIsLoggedIn(true);
+      navigate(location.pathname, { replace: true, state: {} });
+    }
+  }, [memberFlow, location.state, location.pathname, navigate]);
 
   const steps = buildSteps(currentStep);
 
@@ -781,6 +958,9 @@ export const TicketFlowGuest: React.FC = () => {
               onChangeDate={setSelectedDate}
               onChangeTime={setSelectedTime}
               onContinue={() => setCurrentStep(2)}
+              onSignIn={memberFlow ? () => setLoginModalOpen(true) : () => navigate('/member-portal-entry')}
+              isMember={memberFlow ? isLoggedIn : false}
+              memberFlowLabels={memberFlow}
             />
           )}
 
@@ -808,6 +988,7 @@ export const TicketFlowGuest: React.FC = () => {
               createAccount={createAccount}
               onToggleCreateAccount={setCreateAccount}
               onCompleteOrder={handleCompleteOrder}
+              isMember={memberFlow && isLoggedIn}
             />
           )}
         </div>
@@ -845,6 +1026,15 @@ export const TicketFlowGuest: React.FC = () => {
           </div>
         </DialogPortal>
       </Dialog>
+
+      {/* Member flow: login modal */}
+      {memberFlow && (
+        <LoginModal
+          open={loginModalOpen}
+          onOpenChange={setLoginModalOpen}
+          onSuccess={() => setIsLoggedIn(true)}
+        />
+      )}
     </div>
   );
 }

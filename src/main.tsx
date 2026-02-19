@@ -8,6 +8,11 @@ import { TicketFlow1 } from "./app/components/TicketFlow1.tsx";
 import { TicketFlowGuest } from "./app/components/TicketFlowGuest.tsx";
 import { TicketConfirmation } from "./app/components/TicketConfirmation.tsx";
 import { MemberPortalEntry } from "./app/components/MemberPortalEntry.tsx";
+import { MemberPortalPassword } from "./app/components/MemberPortalPassword.tsx";
+import { AccountRegistration } from "./app/components/AccountRegistration.tsx";
+import { MembershipPurchase } from "./app/components/MembershipPurchase.tsx";
+import { MembershipConfirmation } from "./app/components/MembershipConfirmation.tsx";
+import { EventTicketPurchase } from "./app/components/EventTicketPurchase.tsx";
 import "./styles/index.css";
 
 class GuestFlowErrorBoundary extends React.Component<
@@ -51,8 +56,22 @@ createRoot(document.getElementById("root")!).render(
           <TicketFlowGuest />
         </GuestFlowErrorBoundary>
       } />
+      <Route path="/ticket-flow-member" element={
+        <GuestFlowErrorBoundary>
+          <TicketFlowGuest memberFlow />
+        </GuestFlowErrorBoundary>
+      } />
       <Route path="/ticket-flow-guest/confirmation" element={<TicketConfirmation />} />
       <Route path="/member-portal-entry" element={<MemberPortalEntry />} />
+      <Route path="/member-portal-entry/password" element={<MemberPortalPassword />} />
+      <Route path="/account-registration" element={<AccountRegistration />} />
+      <Route path="/membership-purchase" element={<MembershipPurchase />} />
+      <Route path="/membership-purchase/confirmation" element={<MembershipConfirmation />} />
+      <Route path="/event-ticket" element={
+        <GuestFlowErrorBoundary>
+          <EventTicketPurchase />
+        </GuestFlowErrorBoundary>
+      } />
     </Routes>
   </BrowserRouter>
 );

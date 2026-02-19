@@ -1,4 +1,4 @@
-import { Member, Visit, BookedVisit, Event, GuestPass, MembershipTier, TicketType, TicketFlowStep } from './types';
+import { Member, Visit, BookedVisit, Event, GuestPass, MembershipTier, TicketType, TicketFlowStep, MembershipType } from './types';
 import imgFeaturedBanner from "../assets/812d952efda787a47c2af5d2990685f9bb475b24.png";
 import imgAvatar from "../assets/f4c3c5628f6037f61ffccc463010b72844a570fa.png";
 
@@ -290,3 +290,13 @@ export const ticketFlowOrderDefaults = {
   selectedDate: 'Aug. 7, 2025',
   selectedTime: '9:30 AM',
 };
+
+export const initialMembershipTypes: MembershipType[] = [
+  { id: 'young-adult', title: 'Young Adult (18-25)', description: 'Admits one adult aged 18-25', price: 45, quantity: 0, category: 'individual' },
+  { id: 'individual', title: 'Individual', description: 'Unlimited admission for 1 adult + 2 single-use guest passes.', price: 95, quantity: 0, category: 'individual' },
+  { id: 'individual-plus', title: 'Individual Plus', description: 'Admission for 2 adults + 2 guest passes + member discounts.', price: 150, quantity: 0, category: 'individual' },
+  { id: 'family', title: 'Family', description: '2 adults + children under 18, 2 guest passes, shop & dining discounts.', price: 75, quantity: 0, category: 'family' },
+  { id: 'family-plus', title: 'Family Plus', description: 'Family benefits + 4 guest passes and extra event discounts.', price: 215, quantity: 0, category: 'family' },
+  { id: 'sustainer', title: 'Sustainer', description: 'Supporter benefits + 8 guest passes, exclusive previews & access.', price: 500, quantity: 0, category: 'other' },
+  { id: 'benefactor', title: 'Benefactor', description: 'Sustainer benefits + 10 guest passes + VIP recognition & select events.', price: 1500, quantity: 0, category: 'other' },
+];

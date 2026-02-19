@@ -94,6 +94,9 @@ export const StyleGuide: React.FC = () => {
               ['#loaders', 'Loaders'],
               ['#guest-checkout', 'Guest Checkout Components'],
               ['#member-portal-entry', 'Member Portal Entry'],
+              ['#account-registration', 'Account Registration'],
+              ['#membership-purchase', 'Membership Purchase'],
+              ['#event-ticket-purchase', 'Event Ticket Purchase'],
             ].map(([href, label]) => (
               <a key={href} href={href} className="text-sm text-charcoal hover:text-accent-green transition-colors font-semibold">
                 {label}
@@ -660,17 +663,17 @@ export const StyleGuide: React.FC = () => {
 
         <SubSection title="Primary Green">
           <div className="flex flex-wrap gap-4 items-center p-6 border border-border-light">
-            <button className="px-6 py-3 text-base font-bold uppercase tracking-wider font-arquitecta bg-accent-green text-charcoal hover:bg-lime transition-colors">
+            <button className="px-6 py-3 text-base font-bold uppercase tracking-wider font-arquitecta bg-accent-green text-charcoal border-2 border-accent-green hover:bg-white hover:border-accent-green transition-colors">
               Primary Green CTA
             </button>
-            <button className="px-6 py-3 text-base font-bold uppercase tracking-wider font-arquitecta bg-accent-green text-charcoal opacity-50 cursor-not-allowed">
+            <button className="px-6 py-3 text-base font-bold uppercase tracking-wider font-arquitecta bg-accent-green text-charcoal border-2 border-accent-green opacity-50 cursor-not-allowed">
               Disabled
             </button>
-            <button className="px-6 py-3 text-base font-bold uppercase tracking-wider font-arquitecta bg-accent-green text-charcoal opacity-70 cursor-wait flex items-center gap-2">
+            <button className="px-6 py-3 text-base font-bold uppercase tracking-wider font-arquitecta bg-accent-green text-charcoal border-2 border-accent-green opacity-70 cursor-wait flex items-center gap-2">
               <Loader2 className="w-4 h-4 animate-spin" /> Loading
             </button>
           </div>
-          <code className="block mt-2 text-[11px] text-muted-text font-mono">bg-accent-green text-charcoal hover:bg-lime px-6 py-3 font-bold uppercase tracking-wider font-arquitecta</code>
+          <code className="block mt-2 text-[11px] text-muted-text font-mono">bg-accent-green text-charcoal border-2 border-accent-green hover:bg-white hover:border-accent-green px-6 py-3 font-bold uppercase tracking-wider font-arquitecta</code>
         </SubSection>
 
         <SubSection title="Secondary (Outlined)">
@@ -780,8 +783,8 @@ export const StyleGuide: React.FC = () => {
           </div>
         </SubSection>
 
-        <SubSection title="Form label (large)">
-          <p className="text-sm text-muted-text mb-4">14px label for better readability when the input is prominent (e.g. Member Portal entry). Same weight and tracking as standard label.</p>
+        <SubSection title="Form label (large) — Login / Member Portal entry">
+          <p className="text-sm text-muted-text mb-4">14px label for better readability when the input is prominent (e.g. <Link to="/member-portal-entry" className="font-semibold text-charcoal underline hover:text-accent-green">Member Portal entry</Link>). Same weight and tracking as standard label. Input uses same border, padding, and focus ring as standard text input; add <code className="font-mono text-charcoal">w-full</code> for full-width in forms.</p>
           <div className="flex flex-col gap-1 max-w-md">
             <label className="text-sm font-bold uppercase tracking-wider text-muted-text font-arquitecta">
               Enter your email address to get started
@@ -790,10 +793,26 @@ export const StyleGuide: React.FC = () => {
               type="email"
               placeholder="Email Address"
               readOnly
-              className="text-base text-charcoal border border-border-light px-3 py-2 bg-white"
+              className="text-base text-charcoal border border-border-light px-3 py-2 bg-white focus:outline-none focus:border-accent-green transition-colors w-full"
             />
           </div>
-          <code className="block mt-2 text-[11px] text-muted-text font-mono">text-sm font-bold uppercase tracking-wider text-muted-text font-arquitecta</code>
+          <p className="mt-2 text-[11px] text-muted-text font-mono">Label: <code className="text-charcoal">text-sm font-bold uppercase tracking-wider text-muted-text font-arquitecta</code></p>
+          <p className="mt-1 text-[11px] text-muted-text font-mono">Input: <code className="text-charcoal">text-base text-charcoal border border-border-light px-3 py-2 bg-white focus:outline-none focus:border-accent-green transition-colors w-full</code></p>
+        </SubSection>
+        <SubSection title="Form label (extra large)">
+          <p className="text-sm text-muted-text mb-4">16px label for high emphasis or when the field is the primary focus (e.g. hero forms, modals). Same weight and tracking as standard and large labels.</p>
+          <div className="flex flex-col gap-1 max-w-md">
+            <label className="text-base font-bold uppercase tracking-wider text-muted-text font-arquitecta">
+              Enter your email
+            </label>
+            <input
+              type="email"
+              placeholder="Email"
+              readOnly
+              className="text-base text-charcoal border border-border-light px-3 py-2 bg-white focus:outline-none focus:border-accent-green transition-colors w-full"
+            />
+          </div>
+          <p className="mt-2 text-[11px] text-muted-text font-mono">Label: <code className="text-charcoal">text-base font-bold uppercase tracking-wider text-muted-text font-arquitecta</code></p>
         </SubSection>
 
         <SubSection title="Textarea">
@@ -1076,6 +1095,12 @@ export const StyleGuide: React.FC = () => {
         <SubSection title="Layout — Two-Column (Desktop)">
           <p className="text-sm text-muted-text mb-4">Guest flow uses <code className="font-mono text-charcoal">grid-cols-1 lg:grid-cols-12</code> with main content in <code className="font-mono text-charcoal">lg:col-span-8</code> and sidebar (order summary, upsell, CTA) in <code className="font-mono text-charcoal">lg:col-span-4</code>. Sidebar is <code className="font-mono text-charcoal">lg:sticky lg:top-8</code> on ticket/checkout steps.</p>
         </SubSection>
+        <SubSection title="Member Checkout — Step 1 & Login modal">
+          <p className="text-sm text-muted-text mb-4">
+            <Link to="/ticket-flow-member" className="font-semibold text-charcoal underline hover:text-accent-green">Member Checkout Flow</Link> reuses the same Step 1 (date & time). When not logged in: label &quot;Sign in for member pricing and saved checkout details,&quot; then buttons &quot;Continue as Guest&quot; and &quot;Sign In&quot;. Clicking &quot;Sign In&quot; opens a login modal (no navigation). Modal: close X, logo + &quot;Grounds for Sculpture,&quot; Username (placeholder &quot;Insert your email or phone number&quot;), Password, &quot;Forgot password?&quot; link, Login (primary), Register (secondary). On successful login, modal closes and Step 1 shows only a single &quot;Continue&quot; button.
+          </p>
+          <p className="text-xs text-muted-text">Uses standard <a href="#inputs" className="font-semibold text-charcoal underline hover:text-accent-green">Text Input</a> and <a href="#buttons" className="font-semibold text-charcoal underline hover:text-accent-green">Buttons</a> (primary + secondary outlined). Modal uses <code className="font-mono text-charcoal">DialogContent</code> from ui/dialog.</p>
+        </SubSection>
 
         {/* ============================================================ */}
         {/*  21. MEMBER PORTAL ENTRY (GFS Guest Flow)                      */}
@@ -1089,6 +1114,69 @@ export const StyleGuide: React.FC = () => {
         </SubSection>
         <SubSection title="Form">
           <p className="text-sm text-muted-text mb-4">Uses standard <a href="#inputs" className="font-semibold text-charcoal underline hover:text-accent-green">Text Input</a> (label + input) and <a href="#buttons" className="font-semibold text-charcoal underline hover:text-accent-green">Primary CTA</a> button. &quot;Help logging in&quot; uses <code className="font-mono text-charcoal">text-accent-pink</code>.</p>
+        </SubSection>
+        <SubSection title="Password entry & error state">
+          <p className="text-sm text-muted-text mb-4">
+            Second step after email: <Link to="/member-portal-entry" className="font-semibold text-charcoal underline hover:text-accent-green">Member Portal Entry</Link> → <Link to="/member-portal-entry/password" className="font-semibold text-charcoal underline hover:text-accent-green">Password</Link>. Same card layout (green top bar), read-only email display, then password input and Continue. When validation fails (e.g. incorrect password), show an inline error below the password field.
+          </p>
+          <div className="flex flex-col gap-1 max-w-md p-6 border border-border-light">
+            <label className="text-[12px] font-bold uppercase tracking-wider text-muted-text font-arquitecta">Password</label>
+            <input
+              type="password"
+              readOnly
+              value="wrong"
+              aria-invalid
+              aria-describedby="sg-password-error"
+              className="text-base text-charcoal border border-accent-pink px-3 py-2 bg-white focus:outline-none focus:border-accent-pink transition-colors w-full"
+            />
+            <p id="sg-password-error" role="alert" className="text-xs text-accent-pink mt-1">
+              Wrong password. Try again or click "Help logging in" for more options.
+            </p>
+          </div>
+          <p className="text-xs text-muted-text mt-3">
+            <strong className="text-charcoal">Error styling:</strong> Input <code className="font-mono">border-accent-pink</code>, message <code className="font-mono">text-xs text-accent-pink</code>. <strong className="text-charcoal">Accessibility:</strong> <code className="font-mono">aria-invalid</code> and <code className="font-mono">aria-describedby</code> on the input (pointing to the error <code className="font-mono">id</code>), <code className="font-mono">role="alert"</code> and <code className="font-mono">aria-live="polite"</code> on the error message; focus the error when it appears so screen readers announce it.
+          </p>
+        </SubSection>
+
+        {/* ============================================================ */}
+        {/*  22. ACCOUNT REGISTRATION                                      */}
+        {/* ============================================================ */}
+        <SectionTitle id="account-registration">Account Registration</SectionTitle>
+        <p className="text-sm text-muted-text mb-8">
+          Four-step flow: email → personal details → set password → finish. Same split layout as <Link to="/member-portal-entry" className="font-semibold text-charcoal underline hover:text-accent-green">Member Portal Entry</Link> (form left, hero image right). See <Link to="/account-registration" className="font-semibold text-charcoal underline hover:text-accent-green">Account Registration</Link> for live usage.
+        </p>
+        <SubSection title="Steps">
+          <ul className="text-sm text-muted-text space-y-2 list-disc pl-5">
+            <li><strong className="text-charcoal">Step 1:</strong> &quot;Create an account&quot; — green accent line, &quot;Enter your email address to get started&quot;, email input, Continue. &quot;Already have an account? Login here&quot; links to member portal entry.</li>
+            <li><strong className="text-charcoal">Step 2:</strong> Email (read-only), &quot;Enter your personal&quot; — First Name, Last Name, Phone. &quot;Address&quot; — Street, City, State (dropdown), ZIP, Country (dropdown). Continue.</li>
+            <li><strong className="text-charcoal">Step 3:</strong> Personal details summary (Name, Email, Phone, Address with edit icons), then &quot;Create a member portal password&quot; card — Password, Confirm Password, password requirements list, Continue.</li>
+            <li><strong className="text-charcoal">Step 4:</strong> &quot;You&apos;re all set&quot; — success message and Sign in link.</li>
+          </ul>
+        </SubSection>
+        <SubSection title="Patterns">
+          <p className="text-sm text-muted-text">Uses standard <a href="#inputs" className="font-semibold text-charcoal underline hover:text-accent-green">Inputs</a> (labels, text inputs, select), <a href="#buttons" className="font-semibold text-charcoal underline hover:text-accent-green">Primary CTA</a>, white cards with green top accent (<code className="font-mono text-charcoal">h-[3px] bg-accent-green</code>), and split layout from Member Portal Entry.</p>
+        </SubSection>
+
+        {/* ============================================================ */}
+        {/*  23. MEMBERSHIP PURCHASE                                        */}
+        {/* ============================================================ */}
+        <SectionTitle id="membership-purchase">Membership Purchase</SectionTitle>
+        <p className="text-sm text-muted-text mb-8">
+          Two-step flow plus payment placeholder and confirmation. Header: logo, &quot;Return to main site&quot;, &quot;Account Portal&quot; dropdown. <strong className="text-charcoal">Step 1:</strong> &quot;Membership Type&quot; — categories (Individual, Family, Other) with membership types, price, quantity +/-; right sidebar Order Summary, &quot;Check Out as a Guest&quot;, &quot;Login&quot;. <strong className="text-charcoal">Step 2:</strong> &quot;Checkout&quot; — personal info form (First Name, Last Name, Email, Phone, City, State, ZIP, Street Address), optional &quot;Create an account for managing my membership and ticketing&quot; with password fields; sidebar Order Summary, &quot;Pay&quot;, &quot;Login&quot;. Pay opens the same placeholder checkout modal as ticketing; &quot;Complete&quot; navigates to confirmation. <strong className="text-charcoal">Confirmation:</strong> thank-you message, membership card (name, QR placeholder, logo), Print, Email, Add to wallet. See <Link to="/membership-purchase" className="font-semibold text-charcoal underline hover:text-accent-green">Membership Purchase</Link> for live usage.
+        </p>
+        <SubSection title="Patterns">
+          <p className="text-sm text-muted-text">Reuses <a href="#guest-checkout" className="font-semibold text-charcoal underline hover:text-accent-green">TicketFlowStepIndicator</a> and <a href="#guest-checkout" className="font-semibold text-charcoal underline hover:text-accent-green">TicketFlowFooter</a>, same checkout modal overlay as guest ticketing, and order summary style (green accent, line items, total). Membership types from <code className="font-mono text-charcoal">mockData.initialMembershipTypes</code>.</p>
+        </SubSection>
+
+        {/* ============================================================ */}
+        {/*  24. EVENT TICKET PURCHASE                                     */}
+        {/* ============================================================ */}
+        <SectionTitle id="event-ticket-purchase">Event Ticket Purchase</SectionTitle>
+        <p className="text-sm text-muted-text mb-8">
+          Recurring event flow (e.g. Workshop Wellness — Tai Chi). User comes from an event detail page. <strong className="text-charcoal">Step 1:</strong> Event title, steps 1–3. Calendar is always visible (not in an accordion); only certain weekdays are available (e.g. Wednesdays). Default date = next available (e.g. next Wednesday). Time is fixed per event (e.g. 10:30–11:30 AM), shown in Order Summary. &quot;Sign in to see member pricing and saved checkout details,&quot; Sign In (opens login modal from member flow), Continue as Guest. After login, single Continue. <strong className="text-charcoal">Step 2:</strong> &quot;Timed Admission&quot;, reminder banner, single ticket option (e.g. Adult, Member, FREE) with quantity; Order Summary, Continue. <strong className="text-charcoal">Step 3:</strong> Guest information, Order Summary, Complete order → placeholder checkout modal → <Link to="/ticket-flow-guest/confirmation" className="font-semibold text-charcoal underline hover:text-accent-green">Ticket Confirmation</Link>. See <Link to="/event-ticket" className="font-semibold text-charcoal underline hover:text-accent-green">Event Ticket Purchase</Link> for live usage.
+        </p>
+        <SubSection title="Patterns">
+          <p className="text-sm text-muted-text">Reuses <a href="#guest-checkout" className="font-semibold text-charcoal underline hover:text-accent-green">TicketFlowStepIndicator</a>, <a href="#guest-checkout" className="font-semibold text-charcoal underline hover:text-accent-green">TicketFlowOrderSummary</a>, <a href="#guest-checkout" className="font-semibold text-charcoal underline hover:text-accent-green">TicketFlowFooter</a>, same login modal pattern as member ticket flow (loader, 2s delay), and same payment overlay + confirmation route. Event title from <code className="font-mono text-charcoal">location.state.eventTitle</code> (default &quot;Workshop Wellness - Tai Chi&quot;).</p>
         </SubSection>
 
         {/* ============================================================ */}

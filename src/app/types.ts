@@ -73,3 +73,12 @@ export interface TicketFlowStep {
   label: string;
   status: 'completed' | 'active' | 'pending';
 }
+
+export interface MembershipType {
+  id: string;
+  title: string;
+  description: string;
+  price: number;
+  quantity: number;
+  category: 'individual' | 'family' | 'other';
+}
