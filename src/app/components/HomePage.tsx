@@ -33,6 +33,14 @@ export const HomePage: React.FC = () => {
               Ticket Flow — Step X
             </Link>
           </li>
+          <li>
+            <Link
+              to="/ticket-flow-guest"
+              className="text-lg font-bold text-charcoal hover:text-accent-green transition-colors underline"
+            >
+              Guest Checkout Flow
+            </Link>
+          </li>
         </ul>
       </div>
     </div>

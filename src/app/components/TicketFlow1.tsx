@@ -8,10 +8,19 @@ import clsx from 'clsx';
 /* ------------------------------------------------------------------ */
 /*  Step Indicator                                                      */
 /* ------------------------------------------------------------------ */
-const StepIndicator: React.FC<{ steps: TicketFlowStep[] }> = ({ steps }) => {
+const StepIndicator: React.FC<{
+  steps: TicketFlowStep[];
+  onStepClick?: (stepNumber: number) => void;
+}> = ({ steps, onStepClick }) => {
   const [mobileOpen, setMobileOpen] = useState(false);
   const activeStep = steps.find((s) => s.status === 'active') || steps[0];
   const totalSteps = steps.length;
+
+  const handleClick = (step: TicketFlowStep) => {
+    if (step.status === 'completed' && onStepClick) {
+      onStepClick(step.number);
+    }
+  };
 
   return (
     <>
@@ -19,21 +28,24 @@ const StepIndicator: React.FC<{ steps: TicketFlowStep[] }> = ({ steps }) => {
       <div className="hidden md:block w-full border-b border-border-light">
         <div className="flex items-center">
           {steps.map((step) => (
-            <div
+            <button
               key={step.number}
+              type="button"
+              onClick={() => handleClick(step)}
+              disabled={step.status !== 'completed'}
               className={clsx(
-                'flex items-center py-4 mr-8 relative text-base',
+                'flex items-center py-4 mr-8 relative text-base bg-transparent border-0',
                 step.status === 'active' &&
-                  'text-charcoal font-bold border-b-2 border-accent-green -mb-px z-10',
+                  'text-charcoal font-bold !border-b-[3px] border-accent-green -mb-px z-10',
                 step.status === 'completed' &&
-                  'text-muted-text cursor-pointer',
+                  'text-muted-text cursor-pointer hover:text-charcoal',
                 step.status === 'pending' &&
-                  'text-stone'
+                  'text-stone cursor-default'
               )}
             >
               <span className="mr-1">{step.number}.</span>
               <span>{step.label}</span>
-            </div>
+            </button>
           ))}
         </div>
       </div>
@@ -64,21 +76,24 @@ const StepIndicator: React.FC<{ steps: TicketFlowStep[] }> = ({ steps }) => {
         {mobileOpen && (
           <div className="border-b border-border-light bg-mist">
             {steps.map((step) => (
-              <div
+              <button
                 key={step.number}
+                type="button"
+                onClick={() => { handleClick(step); setMobileOpen(false); }}
+                disabled={step.status !== 'completed'}
                 className={clsx(
-                  'flex items-center px-4 py-3 text-sm',
+                  'flex items-center px-4 py-3 text-sm w-full text-left',
                   step.status === 'active' &&
                     'text-charcoal font-bold bg-white border-l-2 border-l-accent-green',
                   step.status === 'completed' &&
                     'text-muted-text cursor-pointer hover:bg-hover',
                   step.status === 'pending' &&
-                    'text-muted-fg'
+                    'text-muted-fg cursor-default'
                 )}
               >
                 <span className="mr-1.5">{step.number}.</span>
                 <span>{step.label}</span>
-              </div>
+              </button>
             ))}
           </div>
         )}
@@ -176,7 +191,7 @@ const TicketList: React.FC<{
 
       {/* Standard Tickets */}
       <section>
-        <h3 className="font-bold text-sm tracking-widest text-charcoal uppercase mb-4 font-arquitecta">
+        <h3 className="font-bold text-base tracking-widest text-charcoal uppercase mb-4 font-arquitecta">
           Standard Tickets
         </h3>
         <div className="space-y-4">
@@ -188,7 +203,7 @@ const TicketList: React.FC<{
 
       {/* Discounted Tickets */}
       <section>
-        <h3 className="font-bold text-sm tracking-widest text-charcoal uppercase mt-4 mb-4 font-arquitecta">
+        <h3 className="font-bold text-base tracking-widest text-charcoal uppercase mt-4 mb-4 font-arquitecta">
           Discounted Tickets
         </h3>
         <div className="space-y-4">
@@ -200,7 +215,7 @@ const TicketList: React.FC<{
 
       {/* Member */}
       <section>
-        <h3 className="font-bold text-sm tracking-widest text-charcoal uppercase mt-4 mb-4 font-arquitecta">
+        <h3 className="font-bold text-base tracking-widest text-charcoal uppercase mt-4 mb-4 font-arquitecta">
           Member
         </h3>
         <div className="space-y-4">
@@ -233,7 +248,7 @@ const OrderSummary: React.FC<{
       <div className="p-8">
         {/* Heading */}
         <div className="pb-4 mb-5 border-b border-border-light">
-          <h2 className="text-sm font-bold tracking-widest text-charcoal uppercase font-arquitecta">
+          <h2 className="text-base font-bold tracking-widest text-charcoal uppercase font-arquitecta">
             Order Summary
           </h2>
         </div>
@@ -241,13 +256,13 @@ const OrderSummary: React.FC<{
         {/* Date / Time */}
         <div className="flex justify-between items-start pb-4 mb-5 border-b border-border-light">
           <div>
-            <div className="text-sm font-bold text-muted-text uppercase tracking-wider font-arquitecta mb-2">
+            <div className="text-base font-bold text-muted-text uppercase tracking-wider font-arquitecta mb-2">
               Date
             </div>
             <div className="text-charcoal text-base">{selectedDate}</div>
           </div>
           <div className="text-right">
-            <div className="text-sm font-bold text-muted-text uppercase tracking-wider font-arquitecta mb-2">
+            <div className="text-base font-bold text-muted-text uppercase tracking-wider font-arquitecta mb-2">
               Time
             </div>
             <div className="text-charcoal text-base">{selectedTime}</div>
@@ -391,3 +406,14 @@ export const TicketFlow1: React.FC = () => {
     </div>
   );
 };
+
+/* ------------------------------------------------------------------ */
+/*  Re-exports for shared ticketing patterns                            */
+/* ------------------------------------------------------------------ */
+
+// These exports allow other ticketing flows (e.g., guest checkout)
+// to reuse the same visual patterns and layout primitives.
+export { StepIndicator as TicketFlowStepIndicator };
+export { TicketList as TicketFlowTicketList };
+export { OrderSummary as TicketFlowOrderSummary };
+export { TicketFooter as TicketFlowFooter };

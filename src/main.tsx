@@ -4,6 +4,7 @@ import App from "./app/App.tsx";
 import { HomePage } from "./app/components/HomePage.tsx";
 import { StyleGuide } from "./app/components/StyleGuide.tsx";
 import { TicketFlow1 } from "./app/components/TicketFlow1.tsx";
+import { TicketFlowGuest } from "./app/components/TicketFlowGuest.tsx";
 import "./styles/index.css";
 
 createRoot(document.getElementById("root")!).render(
@@ -14,6 +15,7 @@ createRoot(document.getElementById("root")!).render(
       <Route path="/never-member" element={<App />} />
       <Route path="/mp-style" element={<StyleGuide />} />
       <Route path="/ticket-flow-1" element={<TicketFlow1 />} />
+      <Route path="/ticket-flow-guest" element={<TicketFlowGuest />} />
     </Routes>
   </BrowserRouter>
 );
