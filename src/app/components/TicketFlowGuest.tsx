@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
-import { ArrowLeft, ChevronDown, Pencil, Check } from 'lucide-react';
+import { useNavigate } from 'react-router';
+import { ArrowLeft, ChevronDown, ChevronLeft, ChevronRight, Pencil, Check, X } from 'lucide-react';
 import clsx from 'clsx';
+import { format, addMonths, subMonths, startOfMonth, endOfMonth, eachDayOfInterval, isSameDay, parse } from 'date-fns';
 import { Logo } from './Logo';
+import { Dialog, DialogOverlay, DialogPortal, DialogTitle } from './ui/dialog';
 import {
   TicketType,
   TicketFlowStep,
@@ -46,11 +49,15 @@ const CardField: React.FC<{
   label: string;
   value: string;
   onClick?: () => void;
-}> = ({ label, value, onClick }) => (
+  expanded?: boolean;
+}> = ({ label, value, onClick, expanded }) => (
   <button
     type="button"
     onClick={onClick}
-    className="w-full text-left border border-border-light bg-white px-6 py-4 flex items-center justify-between hover:bg-hover transition-colors"
+    className={clsx(
+      'w-full text-left border border-border-light px-6 py-4 flex items-center justify-between hover:bg-hover transition-colors',
+      expanded ? 'bg-hover' : 'bg-white',
+    )}
   >
     <div>
       <div className="text-base font-normal text-charcoal font-opensans mb-1">
@@ -58,7 +65,11 @@ const CardField: React.FC<{
       </div>
       <div className="text-base text-charcoal">{value}</div>
     </div>
-    <Pencil className="w-4 h-4 text-muted-text" />
+    {expanded ? (
+      <X className="w-4 h-4 text-muted-text" />
+    ) : (
+      <Pencil className="w-4 h-4 text-muted-text" />
+    )}
   </button>
 );
 
@@ -150,6 +161,198 @@ const CheckboxField: React.FC<{
 );
 
 /* ------------------------------------------------------------------ */
+/*  Step 1.1: Expanded date calendar (drawer below card)               */
+/* ------------------------------------------------------------------ */
+const UNAVAILABLE_DATES: number[] = [12, 16, 17, 18]; // Aug 2025: unavailable dates
+
+const DateCalendarDrawer: React.FC<{
+  value: string;
+  onChange: (value: string) => void;
+  onClose: () => void;
+}> = ({ value, onChange, onClose }) => {
+  const parsed = value ? (() => { try { return parse(value, 'MMM. d, yyyy', new Date()); } catch { return new Date(); } })() : new Date();
+  const [viewMonth, setViewMonth] = useState(parsed);
+  const selectedDate = value ? (() => { try { return parse(value, 'MMM. d, yyyy', new Date()); } catch { return null; } })() : null;
+  const today = new Date();
+
+  const monthStart = startOfMonth(viewMonth);
+  const monthEnd = endOfMonth(viewMonth);
+  const days = eachDayOfInterval({ start: monthStart, end: monthEnd });
+
+  const firstDayOfWeek = monthStart.getDay();
+  const leadingEmpty = Array(firstDayOfWeek).fill(null);
+
+  const handleSelect = (d: Date) => {
+    const day = d.getDate();
+    if (UNAVAILABLE_DATES.includes(day)) return;
+    onChange(format(d, 'MMM. d, yyyy'));
+  };
+
+  const handleToday = () => {
+    handleSelect(today);
+  };
+
+  const handleNextAvailable = () => {
+    const next = days.find((d) => !UNAVAILABLE_DATES.includes(d.getDate()));
+    if (next) handleSelect(next);
+  };
+
+  return (
+    <div className="border border-t-0 border-border-light bg-white p-6">
+      <div className="flex items-center justify-between mb-4">
+        <h3 className="text-base font-bold uppercase tracking-wider font-arquitecta text-charcoal">
+          {format(viewMonth, 'MMMM yyyy').toUpperCase()}
+        </h3>
+        <div className="flex items-center gap-1">
+          <button
+            type="button"
+            onClick={() => setViewMonth((m) => subMonths(m, 1))}
+            className="p-1 hover:bg-hover transition-colors"
+            aria-label="Previous month"
+          >
+            <ChevronLeft className="w-4 h-4" />
+          </button>
+          <button
+            type="button"
+            onClick={() => setViewMonth((m) => addMonths(m, 1))}
+            className="p-1 hover:bg-hover transition-colors"
+            aria-label="Next month"
+          >
+            <ChevronRight className="w-4 h-4" />
+          </button>
+        </div>
+      </div>
+      <div className="flex gap-4 mb-4">
+        <button
+          type="button"
+          onClick={handleToday}
+          className="text-sm font-bold uppercase tracking-wider text-charcoal hover:underline font-arquitecta"
+        >
+          Today
+        </button>
+        <button
+          type="button"
+          onClick={handleNextAvailable}
+          className="text-sm font-bold uppercase tracking-wider text-charcoal hover:underline font-arquitecta"
+        >
+          Next available date
+        </button>
+      </div>
+      <div className="grid grid-cols-7 mb-4 border-t border-l border-border-light">
+        {['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'].map((d) => (
+          <div key={d} className="border-r border-b border-border-light bg-muted-bg text-sm font-bold uppercase tracking-wider text-muted-text font-arquitecta text-center py-2">
+            {d}
+          </div>
+        ))}
+        {leadingEmpty.map((_, i) => (
+          <div key={`empty-${i}`} className="border-r border-b border-border-light bg-white min-h-[2.75rem]" />
+        ))}
+        {days.map((d) => {
+          const dayNum = d.getDate();
+          const unavailable = UNAVAILABLE_DATES.includes(dayNum);
+          const selected = selectedDate && isSameDay(d, selectedDate);
+          return (
+            <button
+              key={d.toISOString()}
+              type="button"
+              onClick={() => handleSelect(d)}
+              disabled={unavailable}
+              className={clsx(
+                'min-h-[2.75rem] flex items-center justify-center text-base text-charcoal transition-colors',
+                selected && 'bg-lime border border-near-black font-bold',
+                !selected && 'border-r border-b border-border-light font-normal',
+                !selected && unavailable && 'bg-mist text-muted-text cursor-not-allowed',
+                !selected && !unavailable && 'bg-white hover:bg-hover',
+              )}
+            >
+              {dayNum}
+            </button>
+          );
+        })}
+      </div>
+      <div className="flex flex-wrap gap-4 text-xs text-muted-text">
+        <div className="flex items-center gap-2">
+          <div className="w-4 h-4 bg-lime border border-border-light" />
+          <span>Selected</span>
+        </div>
+        <div className="flex items-center gap-2">
+          <div className="w-4 h-4 bg-white border border-border-light" />
+          <span>Available</span>
+        </div>
+        <div className="flex items-center gap-2">
+          <div className="w-4 h-4 bg-mist border border-border-light" />
+          <span>Unavailable</span>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+/* ------------------------------------------------------------------ */
+/*  Step 1.2: Expanded time slot list (drawer below card)              */
+/* ------------------------------------------------------------------ */
+const TIME_SLOTS = [
+  '9:00 AM',
+  '9:30 AM',
+  '10:00 AM',
+  '10:30 AM',
+  '11:00 AM',
+  '11:30 AM',
+  '12:00 PM',
+  '12:30 PM',
+  '1:00 PM',
+  '1:30 PM',
+  '2:00 PM',
+  '2:30 PM',
+  '3:00 PM',
+  '3:30 PM',
+  '4:00 PM',
+  '4:30 PM',
+  '5:00 PM',
+];
+
+const TimeSlotDrawer: React.FC<{
+  value: string;
+  onChange: (value: string) => void;
+  onClose: () => void;
+}> = ({ value, onChange, onClose }) => {
+  const handleSelect = (time: string) => {
+    onChange(time);
+    onClose();
+  };
+
+  return (
+    <div className="border border-t-0 border-border-light bg-white max-h-[320px] overflow-y-auto">
+      {TIME_SLOTS.map((time, index) => {
+        const selected = value === time;
+        const isMembersOnly = index < 2;
+        return (
+          <button
+            key={time}
+            type="button"
+            onClick={() => !isMembersOnly && handleSelect(time)}
+            disabled={isMembersOnly}
+            className={clsx(
+              'w-full flex items-center justify-between px-4 py-3 text-left border-b border-border-light last:border-b-0 transition-colors',
+              selected
+                ? 'bg-lime border-l-4 border-l-accent-green'
+                : isMembersOnly
+                  ? 'bg-canvas text-muted-text cursor-not-allowed opacity-60'
+                  : 'bg-white hover:bg-lime',
+            )}
+          >
+            <span className="font-bold text-charcoal">{time}</span>
+            <div className="flex items-center gap-4 text-sm text-muted-text">
+              {isMembersOnly ? <span>Members Only</span> : <span>Available</span>}
+            </div>
+          </button>
+        );
+      })}
+    </div>
+  );
+};
+
+/* ------------------------------------------------------------------ */
 /*  Step 1: Visit date & time                                          */
 /* ------------------------------------------------------------------ */
 
@@ -168,6 +371,8 @@ const Step1VisitDateTime: React.FC<Step1Props> = ({
   onChangeTime,
   onContinue,
 }) => {
+  const [calendarOpen, setCalendarOpen] = useState(false);
+  const [timeListOpen, setTimeListOpen] = useState(false);
   const canContinue = Boolean(selectedDate && selectedTime);
 
   return (
@@ -179,19 +384,47 @@ const Step1VisitDateTime: React.FC<Step1Props> = ({
           </h2>
         </div>
 
-        <div className="space-y-8 max-w-xl">
+        <div className="space-y-8">
           <div className="space-y-3">
-            <CardField
-              label="Date"
-              value={selectedDate}
-            />
+            <div>
+              <CardField
+                label="Date"
+                value={selectedDate}
+                expanded={calendarOpen}
+                onClick={() => {
+                  setTimeListOpen(false);
+                  setCalendarOpen((prev) => !prev);
+                }}
+              />
+              {calendarOpen && (
+                <DateCalendarDrawer
+                  value={selectedDate}
+                  onChange={onChangeDate}
+                  onClose={() => setCalendarOpen(false)}
+                />
+              )}
+            </div>
           </div>
 
           <div className="space-y-3">
-            <CardField
-              label="Entry time"
-              value={selectedTime}
-            />
+            <div>
+              <CardField
+                label="Entry time"
+                value={selectedTime}
+                expanded={timeListOpen}
+                onClick={() => {
+                  setCalendarOpen(false);
+                  setTimeListOpen((prev) => !prev);
+                }}
+              />
+              {timeListOpen && (
+                <TimeSlotDrawer
+                  value={selectedTime}
+                  onChange={onChangeTime}
+                  onClose={() => setTimeListOpen(false)}
+                />
+              )}
+            </div>
             <div className="text-xs text-muted-text">
               This is your entry time — your visit has no time limit.
             </div>
@@ -461,10 +694,12 @@ const Step3Checkout: React.FC<Step3Props> = ({
 /* ------------------------------------------------------------------ */
 
 export const TicketFlowGuest: React.FC = () => {
+  const navigate = useNavigate();
   const [currentStep, setCurrentStep] = useState<StepId>(1);
+  const [checkoutModalOpen, setCheckoutModalOpen] = useState(false);
   const [tickets, setTickets] = useState<TicketType[]>(initialTickets);
-  const [selectedDate] = useState(ticketFlowOrderDefaults.selectedDate);
-  const [selectedTime] = useState(ticketFlowOrderDefaults.selectedTime);
+  const [selectedDate, setSelectedDate] = useState(ticketFlowOrderDefaults.selectedDate);
+  const [selectedTime, setSelectedTime] = useState(ticketFlowOrderDefaults.selectedTime);
   const [guestInfo, setGuestInfo] = useState<GuestInfo>({
     firstName: primaryProfile.firstName,
     lastName: primaryProfile.lastName,
@@ -488,9 +723,15 @@ export const TicketFlowGuest: React.FC = () => {
   };
 
   const handleCompleteOrder = () => {
-    // Placeholder behavior for now; real integration would hand off to backend.
-    // eslint-disable-next-line no-alert
-    alert('Order complete (prototype).');
+    setCheckoutModalOpen(true);
+  };
+
+  const handleGoToConfirmation = () => {
+    setCheckoutModalOpen(false);
+    const selectedTickets = tickets.filter((t) => t.quantity > 0).map((t) => ({ title: t.title, quantity: t.quantity, price: t.price }));
+    navigate('/ticket-flow-guest/confirmation', {
+      state: { selectedDate, selectedTime, tickets: selectedTickets },
+    });
   };
 
   return (
@@ -537,8 +778,8 @@ export const TicketFlowGuest: React.FC = () => {
             <Step1VisitDateTime
               selectedDate={selectedDate}
               selectedTime={selectedTime}
-              onChangeDate={() => {}}
-              onChangeTime={() => {}}
+              onChangeDate={setSelectedDate}
+              onChangeTime={setSelectedTime}
               onContinue={() => setCurrentStep(2)}
             />
           )}
@@ -574,6 +815,36 @@ export const TicketFlowGuest: React.FC = () => {
 
       {/* Footer */}
       <TicketFlowFooter />
+
+      {/* Checkout modal overlay */}
+      <Dialog open={checkoutModalOpen} onOpenChange={setCheckoutModalOpen}>
+        <DialogPortal>
+          <DialogOverlay
+            className="bg-black/60"
+            onClick={() => setCheckoutModalOpen(false)}
+          />
+          <div
+            data-state={checkoutModalOpen ? 'open' : 'closed'}
+            className="fixed inset-0 z-50 flex items-center justify-center data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 pointer-events-none"
+          >
+            <div
+              className="pointer-events-auto bg-white border border-border-light p-8 max-w-sm w-[calc(100%-2rem)]"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <DialogTitle className="text-xl font-black uppercase tracking-wide text-charcoal font-arquitecta mb-6">
+                Checkout
+              </DialogTitle>
+              <button
+                type="button"
+                onClick={handleGoToConfirmation}
+                className="w-full py-3 text-base font-bold uppercase tracking-wider bg-charcoal text-white hover:bg-near-black transition-colors font-arquitecta"
+              >
+                View tickets
+              </button>
+            </div>
+          </div>
+        </DialogPortal>
+      </Dialog>
     </div>
   );
 }

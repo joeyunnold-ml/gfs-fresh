@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router';
 import { ArrowUpRight, CloudSun, Search, ChevronDown, ChevronRight, Check, X, Plus, Pencil, Loader2, Info, PartyPopper } from 'lucide-react';
 
 /* ------------------------------------------------------------------ */
@@ -91,6 +92,8 @@ export const StyleGuide: React.FC = () => {
               ['#tooltips', 'Tooltips'],
               ['#dividers', 'Dividers'],
               ['#loaders', 'Loaders'],
+              ['#guest-checkout', 'Guest Checkout Components'],
+              ['#member-portal-entry', 'Member Portal Entry'],
             ].map(([href, label]) => (
               <a key={href} href={href} className="text-sm text-charcoal hover:text-accent-green transition-colors font-semibold">
                 {label}
@@ -777,6 +780,22 @@ export const StyleGuide: React.FC = () => {
           </div>
         </SubSection>
 
+        <SubSection title="Form label (large)">
+          <p className="text-sm text-muted-text mb-4">14px label for better readability when the input is prominent (e.g. Member Portal entry). Same weight and tracking as standard label.</p>
+          <div className="flex flex-col gap-1 max-w-md">
+            <label className="text-sm font-bold uppercase tracking-wider text-muted-text font-arquitecta">
+              Enter your email address to get started
+            </label>
+            <input
+              type="email"
+              placeholder="Email Address"
+              readOnly
+              className="text-base text-charcoal border border-border-light px-3 py-2 bg-white"
+            />
+          </div>
+          <code className="block mt-2 text-[11px] text-muted-text font-mono">text-sm font-bold uppercase tracking-wider text-muted-text font-arquitecta</code>
+        </SubSection>
+
         <SubSection title="Textarea">
           <div className="p-6 border border-border-light max-w-md">
             <div className="flex flex-col gap-1">
@@ -886,6 +905,12 @@ export const StyleGuide: React.FC = () => {
               <span className="font-bold text-charcoal uppercase tracking-wider font-arquitecta">Dashboard</span>
             </div>
           </div>
+          <div>
+            <p className="text-[12px] font-bold uppercase tracking-wider text-muted-text font-arquitecta mb-2">Text Link</p>
+            <a href="#" className="text-base font-semibold text-charcoal underline hover:text-muted-text transition-colors">
+              Add a Membership
+            </a>
+          </div>
         </div>
 
         {/* ============================================================ */}
@@ -983,6 +1008,88 @@ export const StyleGuide: React.FC = () => {
         <div className="mt-3 text-sm text-muted-text">
           Uses Lucide <code className="font-mono text-charcoal">Loader2</code> icon with <code className="font-mono text-charcoal">animate-spin</code>. Sizes: <code className="font-mono">w-4</code> (inline), <code className="font-mono">w-6</code> (default), <code className="font-mono">w-8</code> (page-level).
         </div>
+
+        {/* ============================================================ */}
+        {/*  20. GUEST CHECKOUT COMPONENTS                                 */}
+        {/* ============================================================ */}
+        <SectionTitle id="guest-checkout">Guest Checkout Components</SectionTitle>
+        <p className="text-sm text-muted-text mb-8">
+          Components and patterns used in the timed-ticket guest checkout flow. See <Link to="/ticket-flow-guest" className="font-semibold text-charcoal underline hover:text-accent-green transition-colors">Guest Checkout Flow</Link> for live usage.
+        </p>
+
+        <SubSection title="Card Field">
+          <p className="text-sm text-muted-text mb-4">Large, tappable card-style field for date/time selection. Label in uppercase, value below, pencil icon on right.</p>
+          <div className="max-w-md space-y-4">
+            <button
+              type="button"
+              className="w-full text-left border border-border-light bg-white px-6 py-4 flex items-center justify-between hover:bg-hover transition-colors"
+            >
+              <div>
+                <div className="text-xs font-bold uppercase tracking-wider text-muted-text font-arquitecta mb-1">Date</div>
+                <div className="text-base text-charcoal">Aug. 7, 2025</div>
+              </div>
+              <Pencil className="w-4 h-4 text-muted-text" />
+            </button>
+            <button
+              type="button"
+              className="w-full text-left border border-border-light bg-white px-6 py-4 flex items-center justify-between hover:bg-hover transition-colors"
+            >
+              <div>
+                <div className="text-xs font-bold uppercase tracking-wider text-muted-text font-arquitecta mb-1">Entry time</div>
+                <div className="text-base text-charcoal">9:30 AM</div>
+              </div>
+              <Pencil className="w-4 h-4 text-muted-text" />
+            </button>
+          </div>
+          <p className="text-xs text-muted-text mt-3">Pattern: <code className="font-mono text-charcoal">border border-border-light bg-white px-6 py-4 flex items-center justify-between hover:bg-hover</code></p>
+        </SubSection>
+
+        <SubSection title="Membership Upsell Card">
+          <p className="text-sm text-muted-text mb-4">Sidebar card promoting membership upgrade. Used in Step 1 (date/time) and Step 3 (checkout).</p>
+          <section className="bg-canvas border border-border-light p-6 max-w-sm">
+            <h3 className="font-bold text-sm tracking-widest text-charcoal uppercase mb-3 font-arquitecta">
+              Become a member
+            </h3>
+            <p className="text-sm text-muted-text leading-relaxed mb-4">
+              Skip future ticket fees — upgrade to membership for $70 &amp; unlock member benefits.
+            </p>
+            <button className="w-full border-[1.5px] border-charcoal bg-white px-6 py-3 text-sm font-bold uppercase tracking-wider font-arquitecta hover:bg-hover transition-colors">
+              Add Membership
+            </button>
+          </section>
+          <p className="text-xs text-muted-text mt-3">Pattern: <code className="font-mono text-charcoal">bg-canvas border border-border-light p-6</code></p>
+        </SubSection>
+
+        <SubSection title="Primary CTA (Guest Flow)">
+          <p className="text-sm text-muted-text mb-4">Full-width primary button for Continue / Complete order. Near-black fill, disabled state uses border-light.</p>
+          <div className="max-w-sm space-y-4">
+            <button className="w-full px-6 py-3 text-sm font-bold uppercase tracking-wider font-arquitecta text-white bg-near-black hover:bg-charcoal transition-colors text-center">
+              Continue
+            </button>
+            <button className="w-full px-6 py-3 text-sm font-bold uppercase tracking-wider font-arquitecta text-white bg-border-light cursor-not-allowed transition-colors text-center">
+              Continue
+            </button>
+          </div>
+          <p className="text-xs text-muted-text mt-3">Enabled: <code className="font-mono text-charcoal">bg-near-black hover:bg-charcoal</code> — Disabled: <code className="font-mono text-charcoal">bg-border-light cursor-not-allowed</code></p>
+        </SubSection>
+
+        <SubSection title="Layout — Two-Column (Desktop)">
+          <p className="text-sm text-muted-text mb-4">Guest flow uses <code className="font-mono text-charcoal">grid-cols-1 lg:grid-cols-12</code> with main content in <code className="font-mono text-charcoal">lg:col-span-8</code> and sidebar (order summary, upsell, CTA) in <code className="font-mono text-charcoal">lg:col-span-4</code>. Sidebar is <code className="font-mono text-charcoal">lg:sticky lg:top-8</code> on ticket/checkout steps.</p>
+        </SubSection>
+
+        {/* ============================================================ */}
+        {/*  21. MEMBER PORTAL ENTRY (GFS Guest Flow)                      */}
+        {/* ============================================================ */}
+        <SectionTitle id="member-portal-entry">Member Portal Entry</SectionTitle>
+        <p className="text-sm text-muted-text mb-8">
+          Split-screen entry from Figma GFS Guest Flow. Left: logo, heading, email form, Continue, Help logging in, Privacy Policy. Right: hero image. See <Link to="/member-portal-entry" className="font-semibold text-charcoal underline hover:text-accent-green transition-colors">Member Portal Entry</Link> for live usage.
+        </p>
+        <SubSection title="Layout">
+          <p className="text-sm text-muted-text mb-4"><code className="font-mono text-charcoal">flex flex-col md:flex-row</code> — form panel <code className="font-mono text-charcoal">flex-1 bg-shell</code>; image panel <code className="font-mono text-charcoal">md:w-[50%] lg:w-[55%]</code>. On mobile, image stacks below form.</p>
+        </SubSection>
+        <SubSection title="Form">
+          <p className="text-sm text-muted-text mb-4">Uses standard <a href="#inputs" className="font-semibold text-charcoal underline hover:text-accent-green">Text Input</a> (label + input) and <a href="#buttons" className="font-semibold text-charcoal underline hover:text-accent-green">Primary CTA</a> button. &quot;Help logging in&quot; uses <code className="font-mono text-charcoal">text-accent-pink</code>.</p>
+        </SubSection>
 
         {/* ============================================================ */}
         {/*  FOOTER                                                        */}

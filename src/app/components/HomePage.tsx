@@ -1,14 +1,24 @@
 import React from 'react';
 import { Link } from 'react-router';
+import { Palette } from 'lucide-react';
 
 export const HomePage: React.FC = () => {
   return (
     <div className="min-h-screen bg-white font-opensans">
       <div className="max-w-[1400px] mx-auto p-8">
         <h1 className="text-2xl font-black uppercase tracking-wide font-arquitecta mb-8">
-          Member Portal
+          GFS
         </h1>
         <ul className="space-y-4">
+          <li>
+            <Link
+              to="/mp-style"
+              className="text-lg font-bold text-charcoal hover:text-accent-green transition-colors underline inline-flex items-center gap-2"
+            >
+              <Palette className="w-5 h-5 shrink-0" />
+              Style guide
+            </Link>
+          </li>
           <li>
             <Link
               to="/current-member"
@@ -19,26 +29,18 @@ export const HomePage: React.FC = () => {
           </li>
           <li>
             <Link
-              to="/mp-style"
-              className="text-lg font-bold text-charcoal hover:text-accent-green transition-colors underline"
-            >
-              Style Guide
-            </Link>
-          </li>
-          <li>
-            <Link
-              to="/ticket-flow-1"
-              className="text-lg font-bold text-charcoal hover:text-accent-green transition-colors underline"
-            >
-              Ticket Flow — Step X
-            </Link>
-          </li>
-          <li>
-            <Link
               to="/ticket-flow-guest"
               className="text-lg font-bold text-charcoal hover:text-accent-green transition-colors underline"
             >
               Guest Checkout Flow
+            </Link>
+          </li>
+          <li>
+            <Link
+              to="/member-portal-entry"
+              className="text-lg font-bold text-charcoal hover:text-accent-green transition-colors underline"
+            >
+              Login: Email Input
             </Link>
           </li>
         </ul>
