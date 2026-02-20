@@ -148,7 +148,7 @@ const GuestPassCard: React.FC<{ pass: GuestPass; onShareSend: () => void }> = ({
 
       {isUsed ? (
         <div className="mt-auto px-4 py-2 bg-used-badge text-muted-text text-base font-bold uppercase tracking-wider font-arquitecta">
-          Used {pass.dateUsed}
+          Sent {pass.dateUsed}
         </div>
       ) : (
         <>

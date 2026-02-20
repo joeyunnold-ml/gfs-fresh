@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { ChevronDown } from 'lucide-react';
+import { Link } from 'react-router';
+import { ArrowRight, ChevronDown } from 'lucide-react';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -9,9 +10,12 @@ import {
 } from './ui/dropdown-menu';
 import { LogoutModal } from './LogoutModal';
 
+const accountButtonClass =
+  'flex items-center gap-2 text-base font-bold tracking-wider text-charcoal uppercase font-arquitecta hover:text-muted-text transition-colors min-h-[44px]';
+
 export const AccountDropdown: React.FC = () => {
   const [logoutOpen, setLogoutOpen] = useState(false);
-  const userName = localStorage.getItem('userName') || 'John Henderson';
+  const userName = 'tomwhite@gmail.com';
 
   const handleChangePassword = () => {
     // Navigate to change password page
@@ -32,13 +36,14 @@ export const AccountDropdown: React.FC = () => {
 
   return (
     <>
-      <DropdownMenu>
-        <DropdownMenuTrigger asChild>
-          <button className="flex items-center gap-2 text-base font-bold tracking-wider text-charcoal uppercase font-arquitecta hover:text-muted-text transition-colors min-h-[44px]">
-            Account
-            <ChevronDown className="w-4 h-4" />
-          </button>
-        </DropdownMenuTrigger>
+      <div className="flex items-center gap-4">
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <button className={accountButtonClass}>
+              Account
+              <ChevronDown className="w-4 h-4" />
+            </button>
+          </DropdownMenuTrigger>
         <DropdownMenuContent align="end" className="w-56 bg-white border border-border-light shadow-lg rounded-none">
           <DropdownMenuLabel className="text-base font-normal text-charcoal px-3 py-2">
             {userName}
@@ -56,7 +61,16 @@ export const AccountDropdown: React.FC = () => {
             Log Out
           </DropdownMenuItem>
         </DropdownMenuContent>
-      </DropdownMenu>
+        </DropdownMenu>
+        <span className="h-4 w-px bg-border-light shrink-0" aria-hidden />
+        <Link
+          to="/current-member"
+          className={accountButtonClass}
+        >
+          GFS Portal
+          <ArrowRight className="w-4 h-4" />
+        </Link>
+      </div>
 
       <LogoutModal
         open={logoutOpen}

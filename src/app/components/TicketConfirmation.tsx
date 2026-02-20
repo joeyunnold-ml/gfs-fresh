@@ -1,6 +1,7 @@
 import React from 'react';
 import { useLocation } from 'react-router';
-import { Printer } from 'lucide-react';
+import { ArrowLeft, Printer } from 'lucide-react';
+import { Logo } from './Logo';
 
 /**
  * Ticket confirmation page shown after checkout.
@@ -16,8 +17,28 @@ export const TicketConfirmation: React.FC = () => {
   const handlePrint = () => window.print();
 
   return (
-    <div className="min-h-screen bg-white font-opensans text-charcoal">
-      <main className="max-w-3xl mx-auto px-6 py-10">
+    <div className="min-h-screen flex flex-col bg-white font-opensans text-charcoal">
+      {/* Header — matches ticket flow guest */}
+      <header className="border-b border-border-light">
+        <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+          <Logo className="h-10 w-auto text-accent-green" />
+        </div>
+      </header>
+
+      <main className="flex-grow w-full max-w-7xl mx-auto px-6 py-12">
+        <a
+          href="#"
+          onClick={(e) => {
+            e.preventDefault();
+            window.history.back();
+          }}
+          className="inline-flex items-center text-warm-muted hover:text-near-black transition-colors mb-6 group"
+        >
+          <ArrowLeft className="w-4 h-4 mr-2 group-hover:-translate-x-1 transition-transform" />
+          <span className="text-base">Return to main site</span>
+        </a>
+
+        <div className="max-w-3xl mx-auto">
         <p className="text-base text-charcoal mb-2">
           Please print your tickets or have them ready on your mobile device when you arrive at check-in.
         </p>
@@ -97,6 +118,7 @@ export const TicketConfirmation: React.FC = () => {
             privacy.
           </p>
         </section>
+        </div>
       </main>
     </div>
   );

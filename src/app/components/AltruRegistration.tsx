@@ -149,10 +149,6 @@ export const AltruRegistration: React.FC = () => {
     setIsRegistered(true);
   };
 
-  const handleBack = () => {
-    window.history.back();
-  };
-
   // Show confirmation screen if registered
   if (isRegistered) {
     const userName = `${form.firstName} ${form.lastName}`.trim() || 'User';
@@ -166,16 +162,19 @@ export const AltruRegistration: React.FC = () => {
         </header>
 
         <main className="flex-grow w-full max-w-7xl mx-auto px-6 py-12">
-          <div className="max-w-2xl">
-            <h1 className="text-4xl md:text-5xl font-bold uppercase tracking-wider mb-6 font-arquitecta">
-              Thank you for registering, {userName}.
+          <div className="w-full">
+            <h1 className="text-4xl md:text-5xl font-bold uppercase tracking-wider mb-4 font-arquitecta">
+              Thank you, {userName}.
             </h1>
-            <button
-              onClick={handleBack}
-              className="px-8 py-4 text-base font-bold uppercase tracking-wider font-arquitecta border-[1.5px] border-charcoal hover:bg-hover transition-colors min-h-[44px]"
+            <p className="text-base text-muted-text mb-6">
+              One more step to registration:
+            </p>
+            <a
+              href="#"
+              className="inline-flex items-center justify-center min-h-[44px] px-6 py-4 text-base font-bold uppercase tracking-wider font-arquitecta bg-accent-green text-charcoal border-2 border-accent-green hover:bg-white hover:border-accent-green transition-colors"
             >
-              Back
-            </button>
+              Finish GFS Portal Setup
+            </a>
           </div>
         </main>
       </div>

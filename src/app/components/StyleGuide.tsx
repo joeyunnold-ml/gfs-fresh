@@ -944,7 +944,7 @@ export const StyleGuide: React.FC = () => {
             Expired
           </span>
           <span className="px-4 py-2 bg-used-badge text-muted-text text-base font-bold uppercase tracking-wider font-arquitecta">
-            Used Jan 15, 2025
+            Sent Jan 15, 2025
           </span>
           <span className="px-4 py-2 bg-mist text-charcoal text-base font-semibold">
             Upcoming

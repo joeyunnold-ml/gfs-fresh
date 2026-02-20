@@ -124,7 +124,7 @@ export const LoginNoAltruAccount: React.FC = () => {
                 <div className="border border-border-light bg-white">
                   <div className="h-[3px] bg-accent-green" aria-hidden />
                   <div className="p-6 md:p-8">
-                    <form onSubmit={handleStep1} className="flex flex-col gap-4">
+                    <form onSubmit={(e) => e.preventDefault()} className="flex flex-col gap-4">
                       <div className="flex flex-col gap-1">
                         <label htmlFor="no-altru-email" className={FIELD_LABEL}>
                           Enter your email address to get started
@@ -139,13 +139,12 @@ export const LoginNoAltruAccount: React.FC = () => {
                           className="text-base text-charcoal border border-border-light px-3 py-2 bg-white focus:outline-none focus:border-accent-green transition-colors w-full"
                         />
                       </div>
-                      <button
-                        type="submit"
-                        disabled={!canContinueStep1}
-                        className="w-full px-6 py-4 text-base font-bold uppercase tracking-wider font-arquitecta bg-charcoal text-white hover:bg-near-black disabled:opacity-50 disabled:cursor-not-allowed transition-colors text-center"
+                      <a
+                        href="#"
+                        className="w-full px-6 py-4 text-base font-bold uppercase tracking-wider font-arquitecta bg-charcoal text-white hover:bg-near-black transition-colors text-center inline-block"
                       >
                         Continue
-                      </button>
+                      </a>
                     </form>
                   </div>
                 </div>

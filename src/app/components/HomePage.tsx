@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router';
-import { Palette } from 'lucide-react';
 import { CARD_LABEL } from '../typography';
 
 export const HomePage: React.FC = () => {
@@ -17,23 +16,29 @@ export const HomePage: React.FC = () => {
               to="/gfs-org"
               className="text-lg font-bold text-charcoal hover:text-accent-green transition-colors underline inline-flex items-center gap-2"
             >
-              GFS Org
+              GFS.org Ticketing Page
             </Link>
+            <ul className="list-disc list-inside mt-1 ml-2 space-y-0.5 text-base text-charcoal">
+              <li>Ticket button in page body</li>
+              <li>Portal link in utility navigation</li>
+            </ul>
           </section>
 
           <section>
-            <Link
-              to="/mp-style"
+            <a
+              href="/gfs-email/index.html"
               className="text-lg font-bold text-charcoal hover:text-accent-green transition-colors underline inline-flex items-center gap-2"
             >
-              <Palette className="w-5 h-5 shrink-0" />
-              Style Guide
-            </Link>
+              Email Templates
+            </a>
+            <ul className="list-disc list-inside mt-1 ml-2 space-y-0.5 text-base text-charcoal">
+              <li>Use the left navigation to toggle between email templates</li>
+            </ul>
           </section>
 
           <section>
             <h2 className={`${CARD_LABEL} mb-3`}>
-              Member Portal
+              Portal
             </h2>
             <ul className="space-y-2">
               <li>
@@ -59,6 +64,10 @@ export const HomePage: React.FC = () => {
                 >
                   Timed Tickets: Guest (Calendar Exposed)
                 </Link>
+                <ul className="list-disc list-inside mt-1 ml-2 space-y-0.5 text-base text-charcoal">
+                  <li>Click &quot;Continue as a Guest&quot;</li>
+                  <li>Credit card input is &quot;placeholder&quot; and labeled &quot;Checkout&quot; with a &quot;View Tickets&quot; button to proceed</li>
+                </ul>
               </li>
               <li>
                 <Link
@@ -67,6 +76,11 @@ export const HomePage: React.FC = () => {
                 >
                   Timed Tickets: Member/User (Flows to Login and/or Register)
                 </Link>
+                <ul className="list-disc list-inside mt-1 ml-2 space-y-0.5 text-base text-charcoal">
+                  <li>Click &quot;Sign In&quot; on first screen</li>
+                  <li>Enter any email address and password to proceed</li>
+                  <li>Credit card input is &quot;placeholder&quot; and labeled &quot;Checkout&quot; with a &quot;View Tickets&quot; button to proceed</li>
+                </ul>
               </li>
               <li>
                 <Link
@@ -75,6 +89,10 @@ export const HomePage: React.FC = () => {
                 >
                   Event Ticket: Member
                 </Link>
+                <ul className="list-disc list-inside mt-1 ml-2 space-y-0.5 text-base text-charcoal">
+                  <li>Click &quot;Sign In&quot; on first screen</li>
+                  <li>Enter any email address and password to proceed</li>
+                </ul>
               </li>
               <li>
                 <Link
@@ -83,6 +101,9 @@ export const HomePage: React.FC = () => {
                 >
                   Event, Sold Out
                 </Link>
+                <ul className="list-disc list-inside mt-1 ml-2 space-y-0.5 text-base text-charcoal">
+                  <li>No action to take</li>
+                </ul>
               </li>
               <li>
                 <Link
@@ -91,6 +112,10 @@ export const HomePage: React.FC = () => {
                 >
                   Membership Purchase
                 </Link>
+                <ul className="list-disc list-inside mt-1 ml-2 space-y-0.5 text-base text-charcoal">
+                  <li>Click &quot;Continue as a Guest&quot;</li>
+                  <li>Credit card input is &quot;placeholder&quot; and labeled &quot;Checkout&quot; with a &quot;View Tickets&quot; button to proceed</li>
+                </ul>
               </li>
               <li>
                 <Link
@@ -110,19 +135,26 @@ export const HomePage: React.FC = () => {
             <ul className="space-y-2">
               <li>
                 <Link
-                  to="/login-to-reg-no-alt"
-                  className="text-lg font-bold text-charcoal hover:text-accent-green transition-colors underline"
-                >
-                  Create Portal Account (No Altru)
-                </Link>
-              </li>
-              <li>
-                <Link
                   to="/login-as-user"
                   className="text-lg font-bold text-charcoal hover:text-accent-green transition-colors underline"
                 >
                   Login as User
                 </Link>
+                <ul className="list-disc list-inside mt-1 ml-2 space-y-0.5 text-base text-charcoal">
+                  <li>Insert any email address</li>
+                  <li>Click &quot;Continue&quot;</li>
+                </ul>
+              </li>
+              <li>
+                <Link
+                  to="/login-to-reg-no-alt"
+                  className="text-lg font-bold text-charcoal hover:text-accent-green transition-colors underline"
+                >
+                  Create Portal Account (No Altru)
+                </Link>
+                <ul className="list-disc list-inside mt-1 ml-2 space-y-0.5 text-base text-charcoal">
+                  <li>Click &quot;Create Portal Account&quot;</li>
+                </ul>
               </li>
               <li>
                 <Link
@@ -131,6 +163,9 @@ export const HomePage: React.FC = () => {
                 >
                   Create Portal Account (Existing Altru)
                 </Link>
+                <ul className="list-disc list-inside mt-1 ml-2 space-y-0.5 text-base text-charcoal">
+                  <li>Click &quot;Create Portal Account&quot;</li>
+                </ul>
               </li>
             </ul>
           </section>
