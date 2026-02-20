@@ -73,6 +73,11 @@ createRoot(document.getElementById("root")!).render(
           <TicketFlowGuest />
         </GuestFlowErrorBoundary>
       } />
+      <Route path="/ticket-flow-guest-calendar-exposed" element={
+        <GuestFlowErrorBoundary>
+          <TicketFlowGuest calendarExpandedByDefault />
+        </GuestFlowErrorBoundary>
+      } />
       <Route path="/ticket-flow-member" element={
         <GuestFlowErrorBoundary>
           <TicketFlowGuest memberFlow />

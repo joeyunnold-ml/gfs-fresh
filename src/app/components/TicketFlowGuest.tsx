@@ -379,6 +379,8 @@ interface Step1Props {
   isMember?: boolean;
   /** When true, use "Continue as Guest →" and "Sign in as Member →" button labels. */
   memberFlowLabels?: boolean;
+  /** When true, the date calendar is expanded on mount. */
+  initialCalendarOpen?: boolean;
 }
 
 const Step1VisitDateTime: React.FC<Step1Props> = ({
@@ -390,8 +392,9 @@ const Step1VisitDateTime: React.FC<Step1Props> = ({
   onSignIn,
   isMember = false,
   memberFlowLabels = false,
+  initialCalendarOpen = false,
 }) => {
-  const [calendarOpen, setCalendarOpen] = useState(false);
+  const [calendarOpen, setCalendarOpen] = useState(initialCalendarOpen);
   const [timeListOpen, setTimeListOpen] = useState(false);
   const canContinue = Boolean(selectedDate && selectedTime);
   const showSignInOption = !isMember && onSignIn != null;
@@ -888,7 +891,7 @@ const LoginModal: React.FC<{
 /*  Main Guest / Member Ticket Flow                                     */
 /* ------------------------------------------------------------------ */
 
-export const TicketFlowGuest: React.FC<{ memberFlow?: boolean }> = ({ memberFlow = false }) => {
+export const TicketFlowGuest: React.FC<{ memberFlow?: boolean; calendarExpandedByDefault?: boolean }> = ({ memberFlow = false, calendarExpandedByDefault = false }) => {
   const navigate = useNavigate();
   const location = useLocation();
   const [currentStep, setCurrentStep] = useState<StepId>(1);
@@ -992,6 +995,7 @@ export const TicketFlowGuest: React.FC<{ memberFlow?: boolean }> = ({ memberFlow
               onSignIn={memberFlow ? () => setLoginModalOpen(true) : () => navigate('/member-portal-entry')}
               isMember={memberFlow ? isLoggedIn : false}
               memberFlowLabels={memberFlow}
+              initialCalendarOpen={calendarExpandedByDefault}
             />
           )}
 

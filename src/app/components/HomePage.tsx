@@ -62,6 +62,14 @@ export const HomePage: React.FC = () => {
               </li>
               <li>
                 <Link
+                  to="/ticket-flow-guest-calendar-exposed"
+                  className="text-lg font-bold text-charcoal hover:text-accent-green transition-colors underline"
+                >
+                  Timed Tickets: Guest (Calendar Exposed)
+                </Link>
+              </li>
+              <li>
+                <Link
                   to="/ticket-flow-member"
                   className="text-lg font-bold text-charcoal hover:text-accent-green transition-colors underline"
                 >
