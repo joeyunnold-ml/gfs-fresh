@@ -141,9 +141,9 @@ export const AccountRegistration: React.FC = () => {
                 </div>
                 <p className="text-center mt-4 text-sm text-charcoal">
                   Already have an account?{' '}
-                  <Link to="/member-portal-entry" className="underline hover:text-accent-green transition-colors">
+                  <a href="#" className="underline hover:text-accent-green transition-colors">
                     Login here
-                  </Link>
+                  </a>
                 </p>
               </>
             )}
@@ -288,9 +288,6 @@ export const AccountRegistration: React.FC = () => {
             {/* Step 3: Set password */}
             {step === 3 && (
               <>
-                <h1 className="text-2xl md:text-3xl font-black uppercase tracking-wide font-arquitecta text-charcoal text-center mb-6">
-                  Start using the member portal
-                </h1>
                 {isRedirecting ? (
                   <div className="flex flex-col items-center justify-center py-16" aria-live="polite" aria-busy="true">
                     <Loader2 className="w-10 h-10 animate-spin text-charcoal" />

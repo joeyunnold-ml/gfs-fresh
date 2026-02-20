@@ -453,6 +453,13 @@ const Step1VisitDateTime: React.FC<Step1Props> = ({
       </section>
 
       <aside className="lg:col-span-4 space-y-6">
+        <TicketFlowOrderSummary
+          selectedDate={selectedDate}
+          selectedTime={selectedTime}
+          tickets={[]}
+          total={0}
+          dateTimeOnly
+        />
         {!isMember && <MembershipUpsellCard />}
         <div className="flex flex-col gap-3">
           {showSignInOption && (
@@ -460,17 +467,35 @@ const Step1VisitDateTime: React.FC<Step1Props> = ({
               Sign in for member pricing and saved checkout details.
             </p>
           )}
-          <PrimaryCtaButton onClick={onContinue} disabled={!canContinue}>
-            {showSignInOption && memberFlowLabels ? 'Continue as Guest' : showSignInOption ? 'Continue as a guest' : 'Continue'}
-          </PrimaryCtaButton>
-          {showSignInOption && (
-            <button
-              type="button"
-              onClick={onSignIn}
-              className="w-full px-6 py-3 text-base font-bold uppercase tracking-wider font-arquitecta border-[1.5px] border-charcoal hover:bg-hover transition-colors text-center"
+          {showSignInOption && memberFlowLabels ? (
+            <a
+              href="#"
+              className="w-full px-6 py-3 text-base font-bold uppercase tracking-wider font-arquitecta bg-charcoal text-white hover:bg-near-black transition-colors text-center inline-block"
             >
-              Sign In
-            </button>
+              Continue as Guest
+            </a>
+          ) : (
+            <PrimaryCtaButton onClick={onContinue} disabled={!canContinue}>
+              {showSignInOption ? 'Continue as a guest' : 'Continue'}
+            </PrimaryCtaButton>
+          )}
+          {showSignInOption && (
+            memberFlowLabels ? (
+              <button
+                type="button"
+                onClick={onSignIn}
+                className="w-full px-6 py-3 text-base font-bold uppercase tracking-wider font-arquitecta border-[1.5px] border-charcoal hover:bg-hover transition-colors text-center"
+              >
+                Sign In
+              </button>
+            ) : (
+              <a
+                href="#"
+                className="w-full px-6 py-3 text-base font-bold uppercase tracking-wider font-arquitecta border-[1.5px] border-charcoal hover:bg-hover transition-colors text-center inline-block"
+              >
+                Sign In
+              </a>
+            )
           )}
         </div>
         {!canContinue && (

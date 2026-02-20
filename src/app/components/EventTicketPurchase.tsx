@@ -395,6 +395,7 @@ export const EventTicketPurchase: React.FC = () => {
                 selectedTime={FIXED_TIME}
                 tickets={[]}
                 total={0}
+                dateTimeOnly
               />
               <div className="flex flex-col gap-3">
                 {!isLoggedIn && (
@@ -402,13 +403,22 @@ export const EventTicketPurchase: React.FC = () => {
                     Sign in to see member pricing and saved checkout details.
                   </p>
                 )}
-                <button
-                  type="button"
-                  onClick={() => setCurrentStep(2)}
-                  className="w-full px-6 py-3 text-base font-bold uppercase tracking-wider font-arquitecta bg-charcoal text-white hover:bg-near-black transition-colors text-center"
-                >
-                  {isLoggedIn ? 'Continue' : 'Continue as Guest'}
-                </button>
+                {isLoggedIn ? (
+                  <button
+                    type="button"
+                    onClick={() => setCurrentStep(2)}
+                    className="w-full px-6 py-3 text-base font-bold uppercase tracking-wider font-arquitecta bg-charcoal text-white hover:bg-near-black transition-colors text-center"
+                  >
+                    Continue
+                  </button>
+                ) : (
+                  <a
+                    href="#"
+                    className="w-full px-6 py-3 text-base font-bold uppercase tracking-wider font-arquitecta bg-charcoal text-white hover:bg-near-black transition-colors text-center inline-block"
+                  >
+                    Continue as Guest
+                  </a>
+                )}
                 {!isLoggedIn && (
                   <button
                     type="button"

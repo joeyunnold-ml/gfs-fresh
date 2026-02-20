@@ -34,20 +34,12 @@ export const HomePage: React.FC = () => {
                   Current Member
                 </Link>
               </li>
-              <li>
-                <Link
-                  to="/membership-purchase"
-                  className="text-lg font-bold text-charcoal hover:text-accent-green transition-colors underline"
-                >
-                  Membership Purchase
-                </Link>
-              </li>
             </ul>
           </section>
 
           <section>
             <h2 className="text-xs font-bold uppercase tracking-wider text-muted-text font-arquitecta mb-3">
-              Ticketing
+              Transactions
             </h2>
             <ul className="space-y-2">
               <li>
@@ -55,7 +47,7 @@ export const HomePage: React.FC = () => {
                   to="/ticket-flow-guest"
                   className="text-lg font-bold text-charcoal hover:text-accent-green transition-colors underline"
                 >
-                  Guest Checkout Flow
+                  Timed Tickets: Guest
                 </Link>
               </li>
               <li>
@@ -63,7 +55,7 @@ export const HomePage: React.FC = () => {
                   to="/ticket-flow-member"
                   className="text-lg font-bold text-charcoal hover:text-accent-green transition-colors underline"
                 >
-                  Authenticated Checkout Flow
+                  Timed Tickets: Member/User (Flows to Login and/or Register)
                 </Link>
               </li>
               <li>
@@ -71,7 +63,23 @@ export const HomePage: React.FC = () => {
                   to="/event-ticket"
                   className="text-lg font-bold text-charcoal hover:text-accent-green transition-colors underline"
                 >
-                  Event Ticket Purchase
+                  Event Ticket: Member
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/event-sold-out"
+                  className="text-lg font-bold text-charcoal hover:text-accent-green transition-colors underline"
+                >
+                  Event, Sold Out
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/membership-purchase"
+                  className="text-lg font-bold text-charcoal hover:text-accent-green transition-colors underline"
+                >
+                  Membership Purchase
                 </Link>
               </li>
             </ul>
@@ -87,7 +95,7 @@ export const HomePage: React.FC = () => {
                   to="/member-portal-entry"
                   className="text-lg font-bold text-charcoal hover:text-accent-green transition-colors underline"
                 >
-                  Login: Email Input
+                  Login: Password Error / Incorrect
                 </Link>
               </li>
               <li>

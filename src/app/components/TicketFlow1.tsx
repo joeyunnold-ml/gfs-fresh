@@ -236,7 +236,9 @@ const OrderSummary: React.FC<{
   selectedTime: string;
   tickets: TicketType[];
   total: number;
-}> = ({ selectedDate, selectedTime, tickets, total }) => {
+  /** When true, show only the heading and date/time (for step 1 of timed ticket flows). */
+  dateTimeOnly?: boolean;
+}> = ({ selectedDate, selectedTime, tickets, total, dateTimeOnly = false }) => {
   const selected = tickets.filter((t) => t.quantity > 0);
   const hasTickets = selected.length > 0;
 
@@ -254,44 +256,48 @@ const OrderSummary: React.FC<{
         </div>
 
         {/* Date / Time */}
-        <div className="flex justify-between items-start pb-4 mb-5 border-b border-border-light">
-          <div>
+        <div className={dateTimeOnly ? 'grid grid-cols-2 gap-4 border-b-0 mb-0 pb-0' : 'grid grid-cols-2 gap-4 pb-4 mb-5 border-b border-border-light'}>
+          <div className="min-w-0">
             <div className="text-base font-bold text-muted-text uppercase tracking-wider font-arquitecta mb-2">
               Date
             </div>
-            <div className="text-charcoal text-base">{selectedDate}</div>
+            <div className="text-charcoal text-base break-words">{selectedDate}</div>
           </div>
-          <div className="text-right">
+          <div className="min-w-0">
             <div className="text-base font-bold text-muted-text uppercase tracking-wider font-arquitecta mb-2">
               Time
             </div>
-            <div className="text-charcoal text-base">{selectedTime}</div>
+            <div className="text-charcoal text-base break-words">{selectedTime}</div>
           </div>
         </div>
 
-        {/* Line items */}
-        <div className="space-y-3 mb-5 pb-5 border-b border-border-light min-h-16">
-          {hasTickets ? (
-            selected.map((t) => (
-              <div key={t.id} className="flex justify-between items-start text-base">
-                <span className="text-charcoal">{t.title}</span>
-                <span className="text-charcoal whitespace-nowrap">
-                  {t.quantity} &times; ${t.price}
-                </span>
-              </div>
-            ))
-          ) : (
-            <div className="text-muted-text italic text-sm py-2">
-              No tickets selected
+        {!dateTimeOnly && (
+          <>
+            {/* Line items */}
+            <div className="space-y-3 mb-5 pb-5 border-b border-border-light min-h-16">
+              {hasTickets ? (
+                selected.map((t) => (
+                  <div key={t.id} className="flex justify-between items-start text-base">
+                    <span className="text-charcoal">{t.title}</span>
+                    <span className="text-charcoal whitespace-nowrap">
+                      {t.quantity} &times; ${t.price}
+                    </span>
+                  </div>
+                ))
+              ) : (
+                <div className="text-muted-text italic text-sm py-2">
+                  No tickets selected
+                </div>
+              )}
             </div>
-          )}
-        </div>
 
-        {/* Total */}
-        <div className="flex justify-between items-center">
-          <span className="font-bold text-base text-charcoal">Total</span>
-          <span className="font-bold text-base text-charcoal">${total}</span>
-        </div>
+            {/* Total */}
+            <div className="flex justify-between items-center">
+              <span className="font-bold text-base text-charcoal">Total</span>
+              <span className="font-bold text-base text-charcoal">${total}</span>
+            </div>
+          </>
+        )}
       </div>
     </div>
   );

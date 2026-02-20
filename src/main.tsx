@@ -13,6 +13,7 @@ import { AccountRegistration } from "./app/components/AccountRegistration.tsx";
 import { MembershipPurchase } from "./app/components/MembershipPurchase.tsx";
 import { MembershipConfirmation } from "./app/components/MembershipConfirmation.tsx";
 import { EventTicketPurchase } from "./app/components/EventTicketPurchase.tsx";
+import { EventSoldOut } from "./app/components/EventSoldOut.tsx";
 import "./styles/index.css";
 
 class GuestFlowErrorBoundary extends React.Component<
@@ -70,6 +71,11 @@ createRoot(document.getElementById("root")!).render(
       <Route path="/event-ticket" element={
         <GuestFlowErrorBoundary>
           <EventTicketPurchase />
+        </GuestFlowErrorBoundary>
+      } />
+      <Route path="/event-sold-out" element={
+        <GuestFlowErrorBoundary>
+          <EventSoldOut />
         </GuestFlowErrorBoundary>
       } />
     </Routes>
