@@ -9,9 +9,17 @@ import {
 interface LogoutModalProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
+  onConfirm?: () => void;
 }
 
-export const LogoutModal: React.FC<LogoutModalProps> = ({ open, onOpenChange }) => {
+export const LogoutModal: React.FC<LogoutModalProps> = ({ open, onOpenChange, onConfirm }) => {
+  const handleConfirm = () => {
+    if (onConfirm) {
+      onConfirm();
+    }
+    onOpenChange(false);
+  };
+
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogPortal>
@@ -26,9 +34,7 @@ export const LogoutModal: React.FC<LogoutModalProps> = ({ open, onOpenChange }) 
             </DialogTitle>
             <div className="flex flex-col w-full gap-3">
               <button
-                onClick={() => {
-                  onOpenChange(false);
-                }}
+                onClick={handleConfirm}
                 className="w-full min-h-[44px] py-3 text-base font-bold uppercase tracking-wider bg-charcoal text-white hover:bg-near-black transition-colors font-arquitecta"
               >
                 Yes, Log Out

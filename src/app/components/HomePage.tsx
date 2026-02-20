@@ -92,6 +92,14 @@ export const HomePage: React.FC = () => {
                   Membership Purchase
                 </Link>
               </li>
+              <li>
+                <Link
+                  to="/altru-registration"
+                  className="text-lg font-bold text-charcoal hover:text-accent-green transition-colors underline"
+                >
+                  Altru Registration
+                </Link>
+              </li>
             </ul>
           </section>
 
@@ -114,6 +122,14 @@ export const HomePage: React.FC = () => {
                   className="text-lg font-bold text-charcoal hover:text-accent-green transition-colors underline"
                 >
                   Account Registration
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/login-no-altru-account"
+                  className="text-lg font-bold text-charcoal hover:text-accent-green transition-colors underline"
+                >
+                  Login: No Altru Acct.
                 </Link>
               </li>
             </ul>

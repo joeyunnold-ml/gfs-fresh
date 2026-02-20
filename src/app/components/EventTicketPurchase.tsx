@@ -9,6 +9,7 @@ import type { TicketType, TicketFlowStep } from '../types';
 import { TicketFlowStepIndicator, TicketFlowOrderSummary, TicketFlowFooter } from './TicketFlow1';
 import { primaryProfile } from '../mockData';
 import { FIELD_LABEL } from '../typography';
+import { AccountDropdown } from './AccountDropdown';
 
 const EVENT_TITLE_DEFAULT = 'Workshop Wellness - Tai Chi';
 const FIXED_TIME = '10:30 - 11:30 AM';
@@ -250,7 +251,7 @@ const LoginModal: React.FC<{
                   className="text-base text-charcoal border border-border-light px-3 py-2 bg-white focus:outline-none focus:border-accent-green transition-colors w-full"
                 />
               </div>
-              <a href="#" className="text-base text-accent-pink hover:underline block text-right" onClick={(e) => e.preventDefault()}>
+              <a href="#" className="text-base text-accent-pink underline hover:opacity-80 block text-right" onClick={(e) => e.preventDefault()}>
                 Need help logging in?
               </a>
               <button
@@ -368,10 +369,7 @@ export const EventTicketPurchase: React.FC = () => {
       <header className="border-b border-border-light">
         <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
           <Logo className="h-10 w-auto text-accent-green" />
-          <button className="flex items-center gap-2 text-base font-bold tracking-wider text-charcoal uppercase font-arquitecta hover:text-muted-text transition-colors">
-            Account Portal
-            <ChevronDown className="w-4 h-4" />
-          </button>
+          {isLoggedIn && <AccountDropdown />}
         </div>
       </header>
 

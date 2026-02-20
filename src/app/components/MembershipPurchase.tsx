@@ -219,12 +219,8 @@ export const MembershipPurchase: React.FC = () => {
   return (
     <div className="min-h-screen flex flex-col bg-white font-opensans text-near-black pb-24 md:pb-14">
       <header className="border-b border-border-light">
-        <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+        <div className="max-w-7xl mx-auto px-6 py-4">
           <Logo className="h-10 w-auto text-accent-green" />
-          <button className="flex items-center gap-2 text-base font-bold tracking-wider text-charcoal uppercase font-arquitecta hover:text-muted-text transition-colors">
-            Account Portal
-            <ChevronDown className="w-4 h-4" />
-          </button>
         </div>
       </header>
 

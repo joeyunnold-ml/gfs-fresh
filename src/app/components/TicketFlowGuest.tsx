@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router';
-import { ArrowLeft, ChevronDown, ChevronLeft, ChevronRight, Pencil, Check, X, Loader2 } from 'lucide-react';
+import { ArrowLeft, ChevronLeft, ChevronRight, Pencil, Check, X, Loader2 } from 'lucide-react';
 import clsx from 'clsx';
 import { FIELD_LABEL, CARD_LABEL } from '../typography';
 import { format, addMonths, subMonths, startOfMonth, endOfMonth, eachDayOfInterval, isSameDay, parse } from 'date-fns';
 import { Logo } from './Logo';
 import { Dialog, DialogOverlay, DialogPortal, DialogTitle, DialogContent } from './ui/dialog';
+import { AccountDropdown } from './AccountDropdown';
 import {
   TicketType,
   TicketFlowStep,
@@ -851,7 +852,7 @@ const LoginModal: React.FC<{
             </div>
             <a
               href="#"
-              className="text-base text-accent-pink hover:underline block text-right"
+              className="text-base text-accent-pink underline hover:opacity-80 block text-right"
               onClick={(e) => { e.preventDefault(); }}
             >
               Need help logging in?
@@ -950,10 +951,7 @@ export const TicketFlowGuest: React.FC<{ memberFlow?: boolean }> = ({ memberFlow
       <header className="border-b border-border-light">
         <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
           <Logo className="h-10 w-auto text-accent-green" />
-          <button className="flex items-center gap-2 text-base font-bold tracking-wider text-charcoal uppercase font-arquitecta hover:text-muted-text transition-colors">
-            Account Portal
-            <ChevronDown className="w-4 h-4" />
-          </button>
+          {memberFlow && isLoggedIn && <AccountDropdown />}
         </div>
       </header>
 

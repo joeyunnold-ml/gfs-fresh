@@ -2,6 +2,7 @@ import React from 'react';
 import { useLocation, Link } from 'react-router';
 import { ArrowLeft, ChevronDown, Printer, Mail } from 'lucide-react';
 import { Logo } from './Logo';
+import { AccountDropdown } from './AccountDropdown';
 
 type ConfirmationState = {
   firstName?: string;
@@ -57,10 +58,7 @@ export const MembershipConfirmation: React.FC = () => {
       <header className="border-b border-border-light">
         <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
           <Logo className="h-10 w-auto text-accent-green" />
-          <button className="flex items-center gap-2 text-base font-bold tracking-wider text-charcoal uppercase font-arquitecta hover:text-muted-text transition-colors">
-            Account Portal
-            <ChevronDown className="w-4 h-4" />
-          </button>
+          <AccountDropdown />
         </div>
       </header>
 

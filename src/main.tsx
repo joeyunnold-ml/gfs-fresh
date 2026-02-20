@@ -11,6 +11,8 @@ import { TicketConfirmation } from "./app/components/TicketConfirmation.tsx";
 import { MemberPortalEntry } from "./app/components/MemberPortalEntry.tsx";
 import { MemberPortalPassword } from "./app/components/MemberPortalPassword.tsx";
 import { AccountRegistration } from "./app/components/AccountRegistration.tsx";
+import { AltruRegistration } from "./app/components/AltruRegistration.tsx";
+import { LoginNoAltruAccount } from "./app/components/LoginNoAltruAccount.tsx";
 import { MembershipPurchase } from "./app/components/MembershipPurchase.tsx";
 import { MembershipConfirmation } from "./app/components/MembershipConfirmation.tsx";
 import { EventTicketPurchase } from "./app/components/EventTicketPurchase.tsx";
@@ -77,6 +79,8 @@ createRoot(document.getElementById("root")!).render(
       <Route path="/member-portal-entry" element={<MemberPortalEntry />} />
       <Route path="/member-portal-entry/password" element={<MemberPortalPassword />} />
       <Route path="/account-registration" element={<AccountRegistration />} />
+      <Route path="/altru-registration" element={<AltruRegistration />} />
+      <Route path="/login-no-altru-account" element={<LoginNoAltruAccount />} />
       <Route path="/membership-purchase" element={<MembershipPurchase />} />
       <Route path="/membership-purchase/confirmation" element={<MembershipConfirmation />} />
       <Route path="/event-ticket" element={
