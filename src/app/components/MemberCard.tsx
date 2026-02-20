@@ -61,14 +61,14 @@ export const MemberCard: React.FC<MemberCardProps> = ({ member, isPrimary = fals
           {/* Type + Active badge row — only on primary card */}
           {isPrimary && (
             <div className="flex items-center justify-between">
-              <span className="text-[14px] font-normal text-black">{member.type}</span>
+              <span className="text-base font-normal text-black">{member.type}</span>
               {member.status === 'ACTIVE' && (
-                <span className="px-2.5 py-1.5 text-[12px] font-bold text-black uppercase tracking-wider border border-lime rounded-none leading-none">
+                <span className="px-2.5 py-1.5 text-base font-bold text-black uppercase tracking-wider border border-lime rounded-none leading-none">
                   Active
                 </span>
               )}
               {member.status === 'EXPIRED' && (
-                <span className="px-2.5 py-1.5 text-[12px] font-bold text-accent-pink uppercase tracking-wider border border-accent-pink rounded-none leading-none">
+                <span className="px-2.5 py-1.5 text-base font-bold text-accent-pink uppercase tracking-wider border border-accent-pink rounded-none leading-none">
                   Expired
                 </span>
               )}
@@ -81,16 +81,16 @@ export const MemberCard: React.FC<MemberCardProps> = ({ member, isPrimary = fals
         {/* Bottom section */}
         <div className="flex items-end justify-between w-full relative">
           {isPrimary ? (
-            <div className="flex flex-col gap-0.5 text-[14px] font-normal">
+            <div className="flex flex-col gap-0.5 text-base font-normal">
               <p className="text-muted-text">Member Since {member.memberSince}</p>
               <p>
                 <span className="text-muted-text">Expires </span>
                 <span className="text-near-black">{member.expires}</span>
               </p>
-              <p className="text-[14px] text-muted-text mt-1">ID: {member.displayId}</p>
+              <p className="text-base text-muted-text mt-1">ID: {member.displayId}</p>
             </div>
           ) : (
-            <p className="text-[14px] font-normal text-muted-text">
+            <p className="text-base font-normal text-muted-text">
               ID: {member.displayId}
             </p>
           )}

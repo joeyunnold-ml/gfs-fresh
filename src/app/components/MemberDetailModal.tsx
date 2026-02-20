@@ -66,14 +66,14 @@ export const MemberDetailModal: React.FC<MemberDetailModalProps> = ({
               <div className="flex flex-col gap-1">
                 {isPrimary && (
                   <div className="flex items-center gap-3">
-                    <span className="text-[14px] font-normal text-black">{member.type}</span>
+                    <span className="text-base font-normal text-black">{member.type}</span>
                     {member.status === 'ACTIVE' && (
-                      <span className="px-2.5 py-1.5 text-[12px] font-bold text-black uppercase tracking-wider border border-lime rounded-none leading-none">
+                      <span className="px-2.5 py-1.5 text-base font-bold text-black uppercase tracking-wider border border-lime rounded-none leading-none">
                         Active
                       </span>
                     )}
                     {member.status === 'EXPIRED' && (
-                      <span className="px-2.5 py-1.5 text-[12px] font-bold text-accent-pink uppercase tracking-wider border border-accent-pink rounded-none leading-none">
+                      <span className="px-2.5 py-1.5 text-base font-bold text-accent-pink uppercase tracking-wider border border-accent-pink rounded-none leading-none">
                         Expired
                       </span>
                     )}
@@ -94,14 +94,14 @@ export const MemberDetailModal: React.FC<MemberDetailModalProps> = ({
             <div className="px-6 space-y-1">
               {isPrimary && (
                 <>
-                  <p className="text-[14px] text-muted-text">Member Since {member.memberSince}</p>
-                  <p className="text-[14px]">
+                  <p className="text-base text-muted-text">Member Since {member.memberSince}</p>
+                  <p className="text-base">
                     <span className="text-muted-text">Expires </span>
                     <span className="text-near-black">{member.expires}</span>
                   </p>
                 </>
               )}
-              <p className="text-[14px] text-muted-text">ID: {member.displayId}</p>
+              <p className="text-base text-muted-text">ID: {member.displayId}</p>
             </div>
 
             {/* Done Button */}

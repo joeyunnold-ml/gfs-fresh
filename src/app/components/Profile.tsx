@@ -2,10 +2,11 @@ import React, { useState } from 'react';
 import { members, primaryProfile } from '../mockData';
 import { Member } from '../types';
 import { Pencil, Plus } from 'lucide-react';
+import { FIELD_LABEL } from '../typography';
 
 const ProfileField: React.FC<{ label: string; value: string }> = ({ label, value }) => (
   <div className="flex flex-col gap-1">
-    <span className="text-[12px] font-bold uppercase tracking-wider text-muted-text font-arquitecta">
+    <span className={FIELD_LABEL}>
       {label}
     </span>
     <span className="text-base text-charcoal">{value}</span>
@@ -14,7 +15,7 @@ const ProfileField: React.FC<{ label: string; value: string }> = ({ label, value
 
 const ProfileInput: React.FC<{ label: string; value: string; onChange: (v: string) => void; className?: string }> = ({ label, value, onChange, className }) => (
   <div className={`flex flex-col gap-1 ${className || ''}`}>
-    <label className="text-[12px] font-bold uppercase tracking-wider text-muted-text font-arquitecta">
+    <label className={FIELD_LABEL}>
       {label}
     </label>
     <input
@@ -36,7 +37,7 @@ const formatPhone = (value: string): string => {
 
 const PhoneInput: React.FC<{ label: string; value: string; onChange: (v: string) => void }> = ({ label, value, onChange }) => (
   <div className="flex flex-col gap-1">
-    <label className="text-[12px] font-bold uppercase tracking-wider text-muted-text font-arquitecta">
+    <label className={FIELD_LABEL}>
       {label}
     </label>
     <input
@@ -88,13 +89,13 @@ const AdditionalMemberCard: React.FC<{ member: Member; isEditing: boolean; onEdi
           <div className="flex gap-3 mt-6">
             <button
               onClick={onSave}
-              className="px-6 py-3 text-base font-bold uppercase tracking-wider font-arquitecta bg-charcoal text-white hover:bg-near-black transition-colors"
+              className="px-6 py-4 text-base font-bold uppercase tracking-wider font-arquitecta bg-charcoal text-white hover:bg-near-black transition-colors"
             >
               Save
             </button>
             <button
               onClick={handleCancel}
-              className="px-6 py-3 text-base font-bold uppercase tracking-wider font-arquitecta border-[1.5px] border-charcoal hover:bg-hover transition-colors"
+              className="px-6 py-4 text-base font-bold uppercase tracking-wider font-arquitecta border-[1.5px] border-charcoal hover:bg-hover transition-colors"
             >
               Cancel
             </button>
@@ -160,7 +161,7 @@ export const Profile: React.FC = () => {
             {!isEditing && (
               <button
                 onClick={() => setIsEditing(true)}
-                className="px-6 py-3 text-base font-bold uppercase tracking-wider font-arquitecta border-[1.5px] border-charcoal hover:bg-hover transition-colors"
+                className="px-6 py-4 text-base font-bold uppercase tracking-wider font-arquitecta border-[1.5px] border-charcoal hover:bg-hover transition-colors"
               >
                 Edit
               </button>
@@ -180,7 +181,7 @@ export const Profile: React.FC = () => {
                 <ProfileInput label="City" value={editCity} onChange={setEditCity} />
                 <div className="grid grid-cols-2 gap-4">
                   <div className="flex flex-col gap-1">
-                    <label className="text-[12px] font-bold uppercase tracking-wider text-muted-text font-arquitecta">
+                    <label className={FIELD_LABEL}>
                       State
                     </label>
                     <select
@@ -207,13 +208,13 @@ export const Profile: React.FC = () => {
               <div className="flex gap-3 mt-6">
                 <button
                   onClick={handleSave}
-                  className="px-6 py-3 text-base font-bold uppercase tracking-wider font-arquitecta bg-charcoal text-white hover:bg-near-black transition-colors"
+                  className="px-6 py-4 text-base font-bold uppercase tracking-wider font-arquitecta bg-charcoal text-white hover:bg-near-black transition-colors"
                 >
                   Save
                 </button>
                 <button
                   onClick={handleCancel}
-                  className="px-6 py-3 text-base font-bold uppercase tracking-wider font-arquitecta border-[1.5px] border-charcoal hover:bg-hover transition-colors"
+                  className="px-6 py-4 text-base font-bold uppercase tracking-wider font-arquitecta border-[1.5px] border-charcoal hover:bg-hover transition-colors"
                 >
                   Cancel
                 </button>
@@ -260,7 +261,7 @@ export const Profile: React.FC = () => {
                         setNewLastName('');
                         setNewEmail('');
                       }}
-                      className="px-6 py-3 text-base font-bold uppercase tracking-wider font-arquitecta bg-charcoal text-white hover:bg-near-black transition-colors"
+                      className="px-6 py-4 text-base font-bold uppercase tracking-wider font-arquitecta bg-charcoal text-white hover:bg-near-black transition-colors"
                     >
                       Save
                     </button>
@@ -271,7 +272,7 @@ export const Profile: React.FC = () => {
                         setNewLastName('');
                         setNewEmail('');
                       }}
-                      className="px-6 py-3 text-base font-bold uppercase tracking-wider font-arquitecta border-[1.5px] border-charcoal hover:bg-hover transition-colors"
+                      className="px-6 py-4 text-base font-bold uppercase tracking-wider font-arquitecta border-[1.5px] border-charcoal hover:bg-hover transition-colors"
                     >
                       Cancel
                     </button>

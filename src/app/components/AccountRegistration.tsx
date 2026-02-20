@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router';
 import { Pencil, Loader2 } from 'lucide-react';
+import clsx from 'clsx';
 import { Logo } from './Logo';
+import { FIELD_LABEL } from '../typography';
 
 const HERO_IMAGE = 'https://res.cloudinary.com/djwd8tgyz/image/upload/v1771534540/gfs_qm8bdw.png';
 
@@ -52,6 +54,11 @@ export const AccountRegistration: React.FC = () => {
     setDetails((prev) => ({ ...prev, [field]: value }));
   };
 
+  // Scroll to top when step changes (e.g. after tapping Continue)
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [step]);
+
   const canContinueStep1 = email.trim().length > 0;
   const canContinueStep2 =
     details.firstName.trim() &&
@@ -92,23 +99,28 @@ export const AccountRegistration: React.FC = () => {
   const fullAddress = [details.street, details.city, details.state, details.zip].filter(Boolean).join(', ') || '—';
 
   return (
-    <div className="min-h-screen flex flex-col md:flex-row font-opensans text-charcoal">
-      <div className="flex-1 md:w-1/2 flex flex-col min-h-screen md:min-h-0" style={{ backgroundColor: '#f7f5f2' }}>
+    <div className="min-h-screen flex flex-col md:flex-row md:h-screen font-opensans text-charcoal">
+      <div className="flex-1 md:w-1/2 flex flex-col min-h-screen md:min-h-0 md:overflow-y-auto" style={{ backgroundColor: '#f7f5f2' }}>
         <div className="w-full flex justify-center pt-4 pb-4 md:pt-12 md:pb-12 lg:pt-16 border-b border-border-light">
           <Logo className="h-12 w-12 md:h-14 md:w-14 text-charcoal" />
         </div>
 
-        <div className="w-full md:hidden">
+        <div
+          className={clsx(
+            'w-full md:hidden overflow-hidden transition-[max-height] duration-300 ease-out',
+            step === 2 || step === 3 ? 'max-h-0' : 'max-h-[210px]'
+          )}
+        >
           <img src={HERO_IMAGE} alt="Grounds for Sculpture" className="w-full h-[210px] object-cover" />
         </div>
 
-        <div className="flex flex-col flex-1 pt-8 md:pt-0 px-6 md:px-12 lg:px-16 pb-6 max-w-lg mx-auto w-full md:max-w-none justify-start md:justify-center items-center">
+        <div className="flex flex-col flex-1 pt-8 md:pt-16 lg:pt-20 px-6 md:px-12 lg:px-16 pb-6 max-w-lg mx-auto w-full md:max-w-none justify-start items-center">
           <div className="w-full max-w-md">
 
             {/* Step 1: Email */}
             {step === 1 && (
               <>
-                <h1 className="text-2xl md:text-3xl font-black uppercase tracking-wide font-arquitecta text-charcoal text-center mb-8">
+                <h1 className="text-2xl md:text-3xl font-black uppercase tracking-wide font-arquitecta text-charcoal text-center mb-6">
                   Create an account
                 </h1>
                 <div className="border border-border-light bg-white">
@@ -116,7 +128,7 @@ export const AccountRegistration: React.FC = () => {
                   <div className="p-6 md:p-8">
                     <form onSubmit={handleStep1} className="flex flex-col gap-4">
                       <div className="flex flex-col gap-1">
-                        <label htmlFor="reg-email" className="text-base font-bold uppercase tracking-wider text-muted-text font-arquitecta">
+                        <label htmlFor="reg-email" className={FIELD_LABEL}>
                           Enter your email address to get started
                         </label>
                         <input
@@ -132,14 +144,14 @@ export const AccountRegistration: React.FC = () => {
                       <button
                         type="submit"
                         disabled={!canContinueStep1}
-                        className="w-full px-6 py-3 text-base font-bold uppercase tracking-wider font-arquitecta bg-charcoal text-white hover:bg-near-black disabled:opacity-50 disabled:cursor-not-allowed transition-colors text-center"
+                        className="w-full px-6 py-4 text-base font-bold uppercase tracking-wider font-arquitecta bg-charcoal text-white hover:bg-near-black disabled:opacity-50 disabled:cursor-not-allowed transition-colors text-center"
                       >
                         Continue
                       </button>
                     </form>
                   </div>
                 </div>
-                <p className="text-center mt-4 text-sm text-charcoal">
+                <p className="text-center mt-4 text-base text-charcoal">
                   Already have an account?{' '}
                   <a href="#" className="underline hover:text-accent-green transition-colors">
                     Login here
@@ -154,12 +166,22 @@ export const AccountRegistration: React.FC = () => {
                 <h1 className="text-2xl md:text-3xl font-black uppercase tracking-wide font-arquitecta text-charcoal text-center mb-6">
                   Create an account
                 </h1>
-                {/* Card 1: Email (read-only) */}
+                {/* Card 1: Email (read-only, editable via back to step 1) */}
                 <div className="border border-border-light bg-white mb-6">
                   <div className="h-[3px] bg-accent-green" aria-hidden />
                   <div className="p-6 md:p-8">
                     <div className="flex flex-col gap-1">
-                      <span className="text-base font-bold uppercase tracking-wider text-muted-text font-arquitecta">Email</span>
+                      <div className="flex items-center justify-between gap-2">
+                        <span className={FIELD_LABEL}>Email</span>
+                        <button
+                          type="button"
+                          onClick={() => setStep(1)}
+                          className="p-1 text-charcoal hover:text-accent-green transition-colors"
+                          aria-label="Edit email address"
+                        >
+                          <Pencil className="w-4 h-4" />
+                        </button>
+                      </div>
                       <p className="text-base text-muted-text">{email}</p>
                     </div>
                   </div>
@@ -174,7 +196,7 @@ export const AccountRegistration: React.FC = () => {
                       </p>
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div className="flex flex-col gap-1">
-                          <label htmlFor="reg-first" className="text-base font-bold uppercase tracking-wider text-muted-text font-arquitecta">First Name</label>
+                          <label htmlFor="reg-first" className={FIELD_LABEL}>First Name</label>
                           <input
                             id="reg-first"
                             type="text"
@@ -184,7 +206,7 @@ export const AccountRegistration: React.FC = () => {
                           />
                         </div>
                         <div className="flex flex-col gap-1">
-                          <label htmlFor="reg-last" className="text-base font-bold uppercase tracking-wider text-muted-text font-arquitecta">Last Name</label>
+                          <label htmlFor="reg-last" className={FIELD_LABEL}>Last Name</label>
                           <input
                             id="reg-last"
                             type="text"
@@ -194,7 +216,7 @@ export const AccountRegistration: React.FC = () => {
                           />
                         </div>
                         <div className="flex flex-col gap-1 md:col-span-2">
-                          <label htmlFor="reg-phone" className="text-base font-bold uppercase tracking-wider text-muted-text font-arquitecta">Phone</label>
+                          <label htmlFor="reg-phone" className={FIELD_LABEL}>Phone</label>
                           <input
                             id="reg-phone"
                             type="tel"
@@ -212,7 +234,7 @@ export const AccountRegistration: React.FC = () => {
                       </p>
                       <div className="space-y-4">
                         <div className="flex flex-col gap-1">
-                          <label htmlFor="reg-street" className="text-base font-bold uppercase tracking-wider text-muted-text font-arquitecta">Street Address</label>
+                          <label htmlFor="reg-street" className={FIELD_LABEL}>Street Address</label>
                           <input
                             id="reg-street"
                             type="text"
@@ -223,7 +245,7 @@ export const AccountRegistration: React.FC = () => {
                         </div>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                           <div className="flex flex-col gap-1">
-                            <label htmlFor="reg-city" className="text-base font-bold uppercase tracking-wider text-muted-text font-arquitecta">City</label>
+                            <label htmlFor="reg-city" className={FIELD_LABEL}>City</label>
                             <input
                               id="reg-city"
                               type="text"
@@ -233,7 +255,7 @@ export const AccountRegistration: React.FC = () => {
                             />
                           </div>
                           <div className="flex flex-col gap-1">
-                            <label htmlFor="reg-state" className="text-base font-bold uppercase tracking-wider text-muted-text font-arquitecta">State</label>
+                            <label htmlFor="reg-state" className={FIELD_LABEL}>State</label>
                             <select
                               id="reg-state"
                               value={details.state}
@@ -249,7 +271,7 @@ export const AccountRegistration: React.FC = () => {
                         </div>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                           <div className="flex flex-col gap-1">
-                            <label htmlFor="reg-zip" className="text-base font-bold uppercase tracking-wider text-muted-text font-arquitecta">ZIP</label>
+                            <label htmlFor="reg-zip" className={FIELD_LABEL}>ZIP</label>
                             <input
                               id="reg-zip"
                               type="text"
@@ -259,7 +281,7 @@ export const AccountRegistration: React.FC = () => {
                             />
                           </div>
                           <div className="flex flex-col gap-1">
-                            <label htmlFor="reg-country" className="text-base font-bold uppercase tracking-wider text-muted-text font-arquitecta">Country</label>
+                            <label htmlFor="reg-country" className={FIELD_LABEL}>Country</label>
                             <select
                               id="reg-country"
                               value={details.country}
@@ -276,7 +298,7 @@ export const AccountRegistration: React.FC = () => {
                       type="button"
                       onClick={() => canContinueStep2 && setStep(3)}
                       disabled={!canContinueStep2}
-                      className="w-full px-6 py-3 text-base font-bold uppercase tracking-wider font-arquitecta bg-charcoal text-white hover:bg-near-black disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                      className="w-full px-6 py-4 text-base font-bold uppercase tracking-wider font-arquitecta bg-charcoal text-white hover:bg-near-black disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
                     >
                       Continue
                     </button>
@@ -294,20 +316,29 @@ export const AccountRegistration: React.FC = () => {
                   </div>
                 ) : (
                 <div className="space-y-6">
+                  <h1 className="text-2xl md:text-3xl font-black uppercase tracking-wide font-arquitecta text-charcoal text-center mb-6">
+                    Create an account
+                  </h1>
                   <div className="border border-border-light bg-white">
+                    <div className="h-[3px] bg-accent-green" aria-hidden />
                     <div className="p-6 space-y-4">
                       {[
-                        { label: 'Name', value: fullName },
-                        { label: 'Email', value: email },
-                        { label: 'Phone', value: details.phone || '—' },
-                        { label: 'Address', value: fullAddress },
-                      ].map(({ label, value }) => (
+                        { label: 'Email', value: email, editStep: 1 },
+                        { label: 'Name', value: fullName, editStep: 2 },
+                        { label: 'Phone', value: details.phone || '—', editStep: 2 },
+                        { label: 'Address', value: fullAddress, editStep: 2 },
+                      ].map(({ label, value, editStep }) => (
                         <div key={label} className="flex items-center justify-between gap-4 border-b border-border-light pb-4 last:border-b-0 last:pb-0">
                           <div>
-                            <span className="text-[12px] font-bold uppercase tracking-wider text-muted-text font-arquitecta block">{label}</span>
+                            <span className={`${FIELD_LABEL} block`}>{label}</span>
                             <span className="text-base text-charcoal truncate block max-w-[200px] md:max-w-none">{value}</span>
                           </div>
-                          <button type="button" className="shrink-0 p-1 text-muted-text hover:text-charcoal transition-colors" aria-label={`Edit ${label}`}>
+                          <button
+                            type="button"
+                            onClick={() => setStep(editStep)}
+                            className="shrink-0 p-1 text-muted-text hover:text-accent-green transition-colors"
+                            aria-label={`Edit ${label}`}
+                          >
                             <Pencil className="w-4 h-4" />
                           </button>
                         </div>
@@ -317,11 +348,11 @@ export const AccountRegistration: React.FC = () => {
                   <div className="border border-border-light bg-white">
                     <div className="h-[3px] bg-accent-green" aria-hidden />
                     <div className="p-6 md:p-8 space-y-4">
-                      <h2 className="text-base font-bold uppercase tracking-wider font-arquitecta text-charcoal">
-                        Create a member portal password
-                      </h2>
+                      <p className="text-lg font-black uppercase tracking-wide text-charcoal font-arquitecta mb-4">
+                        Create a password
+                      </p>
                       <div className="flex flex-col gap-1">
-                        <label htmlFor="reg-password" className="text-[12px] font-bold uppercase tracking-wider text-muted-text font-arquitecta">Password</label>
+                        <label htmlFor="reg-password" className={FIELD_LABEL}>Password</label>
                         <input
                           id="reg-password"
                           type="password"
@@ -333,7 +364,7 @@ export const AccountRegistration: React.FC = () => {
                         />
                       </div>
                       <div className="flex flex-col gap-1">
-                        <label htmlFor="reg-confirm" className="text-[12px] font-bold uppercase tracking-wider text-muted-text font-arquitecta">Confirm Password</label>
+                        <label htmlFor="reg-confirm" className={FIELD_LABEL}>Confirm Password</label>
                         <input
                           id="reg-confirm"
                           type="password"
@@ -346,8 +377,8 @@ export const AccountRegistration: React.FC = () => {
                       </div>
                       {!bothPasswordsFilled && (
                         <div className="pt-2">
-                          <p className="text-[12px] font-bold uppercase tracking-wider text-muted-text font-arquitecta mb-2">Password requirements</p>
-                          <ul className="text-sm text-muted-text space-y-1">
+                          <p className={`${FIELD_LABEL} mb-2`}>Password requirements</p>
+                          <ul className="text-base text-muted-text space-y-1">
                             <li>At least 8 characters</li>
                             <li>Includes one uppercase letter</li>
                             <li>Includes one lowercase letter</li>
@@ -360,7 +391,7 @@ export const AccountRegistration: React.FC = () => {
                         type="button"
                         onClick={() => handleStep3()}
                         disabled={!canContinueStep3}
-                        className="w-full px-6 py-3 text-base font-bold uppercase tracking-wider font-arquitecta bg-charcoal text-white hover:bg-near-black disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                        className="w-full px-6 py-4 text-base font-bold uppercase tracking-wider font-arquitecta bg-charcoal text-white hover:bg-near-black disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
                       >
                         Continue
                       </button>
@@ -396,8 +427,8 @@ export const AccountRegistration: React.FC = () => {
         </div>
       </div>
 
-      <div className="hidden md:block w-full md:w-1/2 min-h-screen flex-shrink-0 bg-muted-bg">
-        <img src={HERO_IMAGE} alt="Grounds for Sculpture" className="w-full h-full object-cover min-h-screen" />
+      <div className="hidden md:flex md:w-1/2 md:h-screen flex-shrink-0 bg-muted-bg overflow-hidden">
+        <img src={HERO_IMAGE} alt="Grounds for Sculpture" className="w-full h-full object-cover" />
       </div>
     </div>
   );

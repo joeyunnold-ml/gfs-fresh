@@ -27,11 +27,11 @@ export const Dashboard: React.FC<DashboardProps> = ({ onNavigate }) => {
             </svg>
           </div>
           <div>
-            <p className="text-sm font-semibold mb-1">Your membership ends on May 5th.</p>
-            <p className="text-xs text-muted-text mb-3 leading-relaxed">
+            <p className="text-base font-semibold mb-1">Your membership ends on May 5th.</p>
+            <p className="text-base text-muted-text mb-3 leading-relaxed">
               Renew your membership soon to continue visiting, reserving, and enjoying member perks.
             </p>
-            <button className="text-sm font-semibold flex items-center gap-1 hover:underline">
+            <button className="text-base font-semibold flex items-center gap-1 hover:underline">
               Renew Now <ArrowUpRight className="w-3 h-3" />
             </button>
           </div>
@@ -145,12 +145,12 @@ export const Dashboard: React.FC<DashboardProps> = ({ onNavigate }) => {
                   <div className="flex justify-between items-start">
                     <a href="#" className="text-base md:text-[20px] font-bold text-charcoal font-arquitecta hover:underline cursor-pointer">{visit.title}</a>
                     <div className="text-right">
-                      <div className="text-sm text-charcoal">{visit.date}</div>
-                      <div className="text-sm text-muted-text">{visit.time}</div>
+                      <div className="text-base text-charcoal">{visit.date}</div>
+                      <div className="text-base text-muted-text">{visit.time}</div>
                     </div>
                   </div>
                   {visit.info && (
-                    <div className="bg-canvas p-3 mt-3 text-sm text-muted-text leading-relaxed flex gap-2">
+                    <div className="bg-canvas p-3 mt-3 text-base text-muted-text leading-relaxed flex gap-2">
                       <Info className="w-4 h-4 mt-0.5 shrink-0 text-muted-text" />
                       {visit.info}
                     </div>
@@ -164,11 +164,11 @@ export const Dashboard: React.FC<DashboardProps> = ({ onNavigate }) => {
                 <div key={i} className="pb-4 border-b border-card-stroke last:border-0 last:pb-0 flex justify-between items-start">
                   <div>
                      <a href="#" className="text-base md:text-[20px] font-bold text-charcoal font-arquitecta hover:underline cursor-pointer">{event.title}</a>
-                     <p className="text-sm text-warm-muted italic mt-1">{event.tag}</p>
+                     <p className="text-base text-warm-muted italic mt-1">{event.tag}</p>
                   </div>
                   <div className="text-right">
-                    <div className="text-sm text-charcoal">{event.date}</div>
-                    <div className="text-sm text-muted-text">{event.time}</div>
+                    <div className="text-base text-charcoal">{event.date}</div>
+                    <div className="text-base text-muted-text">{event.time}</div>
                   </div>
                 </div>
               ))}

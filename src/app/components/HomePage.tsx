@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router';
 import { Palette } from 'lucide-react';
+import { CARD_LABEL } from '../typography';
 
 export const HomePage: React.FC = () => {
   return (
@@ -22,7 +23,7 @@ export const HomePage: React.FC = () => {
           </section>
 
           <section>
-            <h2 className="text-xs font-bold uppercase tracking-wider text-muted-text font-arquitecta mb-3">
+            <h2 className={`${CARD_LABEL} mb-3`}>
               Member Portal
             </h2>
             <ul className="space-y-2">
@@ -38,7 +39,7 @@ export const HomePage: React.FC = () => {
           </section>
 
           <section>
-            <h2 className="text-xs font-bold uppercase tracking-wider text-muted-text font-arquitecta mb-3">
+            <h2 className={`${CARD_LABEL} mb-3`}>
               Transactions
             </h2>
             <ul className="space-y-2">
@@ -86,7 +87,7 @@ export const HomePage: React.FC = () => {
           </section>
 
           <section>
-            <h2 className="text-xs font-bold uppercase tracking-wider text-muted-text font-arquitecta mb-3">
+            <h2 className={`${CARD_LABEL} mb-3`}>
               Credentials
             </h2>
             <ul className="space-y-2">

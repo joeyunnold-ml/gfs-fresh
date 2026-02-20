@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router';
 import { Logo } from './Logo';
+import { FIELD_LABEL } from '../typography';
 
 /**
  * GFS Member Portal entry screen (Figma node 15-1946).
@@ -20,9 +21,9 @@ export const MemberPortalEntry: React.FC = () => {
   const canContinue = email.trim().length > 0;
 
   return (
-    <div className="min-h-screen flex flex-col md:flex-row font-opensans text-charcoal">
+    <div className="min-h-screen flex flex-col md:flex-row md:h-screen font-opensans text-charcoal">
       {/* Left: form panel — 50% width, warm beige background */}
-      <div className="flex-1 md:w-1/2 flex flex-col min-h-screen md:min-h-0" style={{ backgroundColor: '#f7f5f2' }}>
+      <div className="flex-1 md:w-1/2 flex flex-col min-h-screen md:min-h-0 md:overflow-y-auto" style={{ backgroundColor: '#f7f5f2' }}>
         {/* Logo: tighter padding on mobile, more on desktop */}
         <div className="w-full flex justify-center pt-4 pb-4 md:pt-12 md:pb-12 lg:pt-16 border-b border-border-light">
           <Logo className="h-12 w-12 md:h-14 md:w-14 text-charcoal" />
@@ -38,10 +39,10 @@ export const MemberPortalEntry: React.FC = () => {
         </div>
 
         {/* On mobile: reserve space for Back button (not shown) so labels/card align with password screen */}
-        <div className="flex flex-col flex-1 pt-8 md:pt-0 px-6 md:px-12 lg:px-16 pb-6 max-w-lg mx-auto w-full md:max-w-none justify-start md:justify-center items-center">
+        <div className="flex flex-col flex-1 pt-8 md:pt-16 lg:pt-20 px-6 md:px-12 lg:px-16 pb-6 max-w-lg mx-auto w-full md:max-w-none justify-start items-center">
           <div className="w-full h-12 md:hidden" aria-hidden />
           <h1 className="w-full text-2xl md:text-3xl font-black uppercase tracking-wide font-arquitecta text-charcoal text-center mb-8">
-            Start using the member portal
+            Login to GFS
           </h1>
 
           {/* Form in white container: green stroke at top, border, no shadow */}
@@ -51,7 +52,7 @@ export const MemberPortalEntry: React.FC = () => {
               <div className="p-6 md:p-8">
                 <form onSubmit={handleSubmit} className="flex flex-col gap-4">
                   <div className="flex flex-col gap-1">
-                    <label className="text-base font-bold uppercase tracking-wider text-muted-text font-arquitecta">
+                    <label className={FIELD_LABEL}>
                       Enter your email address to get started
                     </label>
                     <input
@@ -67,7 +68,7 @@ export const MemberPortalEntry: React.FC = () => {
                   <button
                     type="submit"
                     disabled={!canContinue}
-                    className="w-full px-6 py-3 text-base font-bold uppercase tracking-wider font-arquitecta bg-charcoal text-white hover:bg-near-black disabled:opacity-50 disabled:cursor-not-allowed transition-colors text-center"
+                    className="w-full px-6 py-4 text-base font-bold uppercase tracking-wider font-arquitecta bg-charcoal text-white hover:bg-near-black disabled:opacity-50 disabled:cursor-not-allowed transition-colors text-center"
                   >
                     Continue
                   </button>
@@ -78,7 +79,7 @@ export const MemberPortalEntry: React.FC = () => {
             <div className="mt-4 flex justify-end">
               <a
                 href="#"
-                className="text-sm text-accent-pink hover:underline font-opensans"
+                className="text-base text-accent-pink hover:underline font-opensans"
                 onClick={(e) => { e.preventDefault(); /* help logging in */ }}
               >
                 Help logging in
@@ -90,7 +91,7 @@ export const MemberPortalEntry: React.FC = () => {
         <div className="px-6 md:px-12 lg:px-16 py-6 flex justify-center">
           <a
             href="#"
-            className="text-sm text-charcoal hover:text-muted-text transition-colors underline font-opensans"
+            className="text-base text-charcoal hover:text-muted-text transition-colors underline font-opensans"
             onClick={(e) => e.preventDefault()}
           >
             Privacy Policy
@@ -98,12 +99,12 @@ export const MemberPortalEntry: React.FC = () => {
         </div>
       </div>
 
-      {/* Right: hero image — 50% width, same as text half (desktop only) */}
-      <div className="hidden md:block w-full md:w-1/2 min-h-screen flex-shrink-0 bg-muted-bg">
+      {/* Right: hero image — 50% width, fixed viewport height (desktop only) */}
+      <div className="hidden md:flex md:w-1/2 md:h-screen flex-shrink-0 bg-muted-bg overflow-hidden">
         <img
           src="https://res.cloudinary.com/djwd8tgyz/image/upload/v1771534540/gfs_qm8bdw.png"
           alt="Grounds for Sculpture"
-          className="w-full h-full object-cover min-h-screen"
+          className="w-full h-full object-cover"
         />
       </div>
     </div>

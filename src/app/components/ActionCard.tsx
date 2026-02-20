@@ -23,7 +23,7 @@ export const ActionCard: React.FC<ActionCardProps> = ({ title, subtitle, count, 
             <span className="font-normal text-charcoal">{count.split(' ')[0]}</span> {count.split(' ').slice(1).join(' ')}
           </p>
         )}
-        {subtitle && <p className="text-sm text-stone mt-2 italic">{subtitle}</p>}
+        {subtitle && <p className="text-base text-stone mt-2 italic">{subtitle}</p>}
       </div>
 
       <div className="absolute bottom-4 right-4">

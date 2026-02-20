@@ -85,7 +85,7 @@ export const Visits: React.FC = () => {
                 <div className="hidden md:grid grid-cols-12 gap-6 items-center">
                   <div className="col-span-3">
                     <p className="font-medium text-charcoal">{visit.date}</p>
-                    <p className="text-stone text-sm mt-1">{visit.time}</p>
+                    <p className="text-stone text-base mt-1">{visit.time}</p>
                   </div>
                   <div className="col-span-3">
                     <p className="text-muted-text">{visit.title}</p>
@@ -132,25 +132,25 @@ export const Visits: React.FC = () => {
                       <div>
                         <h4 className="text-base font-bold text-muted-text uppercase tracking-wider mb-1 font-arquitecta">DATE & TIME</h4>
                         <div className="flex flex-col gap-1">
-                           <p className="text-sm font-medium text-charcoal">{visit.date}</p>
-                           <p className="text-sm text-stone">{visit.time}</p>
+                           <p className="text-base font-medium text-charcoal">{visit.date}</p>
+                           <p className="text-base text-stone">{visit.time}</p>
                         </div>
                       </div>
                    </div>
 
                    <div>
                      <h4 className="text-base font-bold text-muted-text uppercase tracking-wider mb-1 font-arquitecta">VISIT</h4>
-                     <p className="text-sm text-charcoal">{visit.title}</p>
+                     <p className="text-base text-charcoal">{visit.title}</p>
                    </div>
 
                    <div>
                      <h4 className="text-base font-bold text-muted-text uppercase tracking-wider mb-1 font-arquitecta">TICKET</h4>
-                     <p className="text-sm text-charcoal">{visit.tickets}</p>
+                     <p className="text-base text-charcoal">{visit.tickets}</p>
                    </div>
 
                    <div>
                      <h4 className="text-base font-bold text-muted-text uppercase tracking-wider mb-1 font-arquitecta">FEE</h4>
-                     <p className="text-sm text-charcoal">{visit.fee}</p>
+                     <p className="text-base text-charcoal">{visit.fee}</p>
                    </div>
 
                    <div className="pt-2 flex items-center gap-2">
@@ -168,7 +168,7 @@ export const Visits: React.FC = () => {
                    {/* Mobile Expanded Content */}
                    {isExpanded && visit.description && (
                      <div className="border-t border-card-stroke pt-6">
-                       <p className="text-sm text-muted-text leading-relaxed">{visit.description}</p>
+                       <p className="text-base text-muted-text leading-relaxed">{visit.description}</p>
                        <a href="#" className="text-base font-semibold text-charcoal flex items-center gap-1 mt-4 hover:underline font-arquitecta">
                          More Info <ArrowUpRight className="w-3.5 h-3.5" />
                        </a>

@@ -3,6 +3,7 @@ import { guestPasses, membershipTiers } from '../mockData';
 import { GuestPass, MembershipTier } from '../types';
 import { Check, ArrowUpRight } from 'lucide-react';
 import clsx from 'clsx';
+import { FIELD_LABEL } from '../typography';
 import {
   Dialog,
   DialogOverlay,
@@ -55,7 +56,7 @@ const SharePassModal: React.FC<{ open: boolean; onOpenChange: (open: boolean) =>
 
             <div className="flex flex-col gap-5">
               <div className="flex flex-col gap-1">
-                <label className="text-[12px] font-bold uppercase tracking-wider text-muted-text font-arquitecta">
+                <label className={FIELD_LABEL}>
                   First Name <span className="text-red-500">*</span>
                 </label>
                 <input
@@ -66,7 +67,7 @@ const SharePassModal: React.FC<{ open: boolean; onOpenChange: (open: boolean) =>
                 />
               </div>
               <div className="flex flex-col gap-1">
-                <label className="text-[12px] font-bold uppercase tracking-wider text-muted-text font-arquitecta">
+                <label className={FIELD_LABEL}>
                   Last Name <span className="text-red-500">*</span>
                 </label>
                 <input
@@ -77,7 +78,7 @@ const SharePassModal: React.FC<{ open: boolean; onOpenChange: (open: boolean) =>
                 />
               </div>
               <div className="flex flex-col gap-1">
-                <label className="text-[12px] font-bold uppercase tracking-wider text-muted-text font-arquitecta">
+                <label className={FIELD_LABEL}>
                   Email <span className="text-red-500">*</span>
                 </label>
                 <input
@@ -88,8 +89,8 @@ const SharePassModal: React.FC<{ open: boolean; onOpenChange: (open: boolean) =>
                 />
               </div>
               <div className="flex flex-col gap-1">
-                <label className="text-[12px] font-bold uppercase tracking-wider text-muted-text font-arquitecta">
-                  Phone <span className="text-muted-text text-[11px] normal-case tracking-normal font-normal">(optional)</span>
+                <label className={FIELD_LABEL}>
+                  Phone <span className="text-muted-text text-base normal-case tracking-normal font-normal">(optional)</span>
                 </label>
                 <input
                   type="tel"
@@ -146,17 +147,17 @@ const GuestPassCard: React.FC<{ pass: GuestPass; onShareSend: () => void }> = ({
       </h4>
 
       {isUsed ? (
-        <div className="mt-auto px-4 py-2 bg-used-badge text-muted-text text-sm font-bold uppercase tracking-wider font-arquitecta">
+        <div className="mt-auto px-4 py-2 bg-used-badge text-muted-text text-base font-bold uppercase tracking-wider font-arquitecta">
           Used {pass.dateUsed}
         </div>
       ) : (
         <>
-          <p className="text-sm text-muted-text mb-auto">
+          <p className="text-base text-muted-text mb-auto">
             Expires {pass.expires}
           </p>
           <button
             onClick={() => setShareOpen(true)}
-            className="relative mt-4 px-6 py-3 text-base font-bold uppercase tracking-wider font-arquitecta border-[1.5px] border-charcoal hover:bg-hover transition-colors z-10"
+            className="relative mt-4 px-6 py-4 text-base font-bold uppercase tracking-wider font-arquitecta border-[1.5px] border-charcoal hover:bg-hover transition-colors z-10"
           >
             Share Pass
           </button>
@@ -185,7 +186,7 @@ const TierCard: React.FC<{ tier: MembershipTier }> = ({ tier }) => {
 
       <div className="mb-6">
         {isCurrent && (
-          <span className="inline-block px-2.5 py-1.5 text-[12px] font-bold uppercase tracking-wider border border-accent-green text-accent-green mb-3 leading-none">
+          <span className="inline-block px-2.5 py-1.5 text-base font-bold uppercase tracking-wider border border-accent-green text-accent-green mb-3 leading-none">
             Your Membership
           </span>
         )}
@@ -194,7 +195,7 @@ const TierCard: React.FC<{ tier: MembershipTier }> = ({ tier }) => {
         </h3>
         <div className="mt-2">
           <span className="text-2xl font-bold font-arquitecta">{tier.price}</span>
-          <span className={clsx("text-sm ml-1", isCurrent ? "text-disabled-icon" : "text-muted-text")}>
+          <span className={clsx("text-base ml-1", isCurrent ? "text-disabled-icon" : "text-muted-text")}>
             {tier.priceInterval}
           </span>
         </div>
@@ -203,7 +204,7 @@ const TierCard: React.FC<{ tier: MembershipTier }> = ({ tier }) => {
       <div className={clsx("border-t pt-4 mb-6", isCurrent ? "border-muted-text" : "border-card-stroke")}>
         <ul className="space-y-3">
           {tier.benefits.map((benefit, i) => (
-            <li key={i} className="flex items-start gap-2 text-sm">
+            <li key={i} className="flex items-start gap-2 text-base">
               <Check className={clsx("w-4 h-4 mt-0.5 shrink-0", isCurrent ? "text-accent-green" : "text-muted-text")} />
               <span className={isCurrent ? "text-border-light" : "text-muted-text"}>{benefit}</span>
             </li>
@@ -213,7 +214,7 @@ const TierCard: React.FC<{ tier: MembershipTier }> = ({ tier }) => {
 
       <div className="mt-auto">
         {isCurrent && tier.expires && (
-          <p className="text-sm text-disabled-icon mb-3">Expires {tier.expires}</p>
+          <p className="text-base text-disabled-icon mb-3">Expires {tier.expires}</p>
         )}
         {isCurrent ? (
           <button

@@ -57,7 +57,7 @@ export const MembershipConfirmation: React.FC = () => {
       <header className="border-b border-border-light">
         <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
           <Logo className="h-10 w-auto text-accent-green" />
-          <button className="flex items-center gap-2 text-sm font-bold tracking-wider text-charcoal uppercase font-arquitecta hover:text-muted-text transition-colors">
+          <button className="flex items-center gap-2 text-base font-bold tracking-wider text-charcoal uppercase font-arquitecta hover:text-muted-text transition-colors">
             Account Portal
             <ChevronDown className="w-4 h-4" />
           </button>
@@ -92,14 +92,14 @@ export const MembershipConfirmation: React.FC = () => {
             <div className="relative flex flex-1 flex-col justify-between p-4 md:p-6 min-w-0">
               <div className="flex flex-col gap-1.5">
                 <div className="flex items-center justify-between gap-3 flex-wrap">
-                  <span className="text-[14px] font-normal text-black">{primaryLevel} Member</span>
-                  <span className="px-2.5 py-1.5 text-[12px] font-bold text-black uppercase tracking-wider border border-lime leading-none shrink-0">
+                  <span className="text-base font-normal text-black">{primaryLevel} Member</span>
+                  <span className="px-2.5 py-1.5 text-base font-bold text-black uppercase tracking-wider border border-lime leading-none shrink-0">
                     Active
                   </span>
                 </div>
                 <h2 className="text-xl font-bold text-charcoal">{fullName}</h2>
               </div>
-              <div className="flex flex-col gap-0.5 text-[14px] font-normal mt-4">
+              <div className="flex flex-col gap-0.5 text-base font-normal mt-4">
                 <p className="text-muted-text">Member Since {new Date().getFullYear()}</p>
                 <p>
                   <span className="text-muted-text">Expires </span>
@@ -117,14 +117,14 @@ export const MembershipConfirmation: React.FC = () => {
               <button
                 type="button"
                 onClick={handlePrint}
-                className="inline-flex items-center justify-center gap-2 px-6 py-3 text-base font-bold uppercase tracking-wider font-arquitecta border-[1.5px] border-charcoal hover:bg-hover transition-colors"
+                className="inline-flex items-center justify-center gap-2 px-6 py-4 text-base font-bold uppercase tracking-wider font-arquitecta border-[1.5px] border-charcoal hover:bg-hover transition-colors"
               >
                 <Printer className="w-4 h-4" />
                 Print
               </button>
               <button
                 type="button"
-                className="inline-flex items-center justify-center gap-2 px-6 py-3 text-base font-bold uppercase tracking-wider font-arquitecta border-[1.5px] border-charcoal hover:bg-hover transition-colors"
+                className="inline-flex items-center justify-center gap-2 px-6 py-4 text-base font-bold uppercase tracking-wider font-arquitecta border-[1.5px] border-charcoal hover:bg-hover transition-colors"
               >
                 <Mail className="w-4 h-4" />
                 Email
@@ -132,7 +132,7 @@ export const MembershipConfirmation: React.FC = () => {
             </div>
             <Link
               to="/current-member"
-              className="inline-flex items-center justify-center px-6 py-3 text-base font-bold uppercase tracking-wider font-arquitecta bg-accent-green text-charcoal border-2 border-accent-green hover:bg-white hover:border-accent-green transition-colors shrink-0"
+              className="inline-flex items-center justify-center px-6 py-4 text-base font-bold uppercase tracking-wider font-arquitecta bg-accent-green text-charcoal border-2 border-accent-green hover:bg-white hover:border-accent-green transition-colors shrink-0"
             >
               Open member portal
             </Link>

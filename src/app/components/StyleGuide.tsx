@@ -8,15 +8,15 @@ import { ArrowUpRight, CloudSun, Search, ChevronDown, ChevronRight, Check, X, Pl
 const Swatch: React.FC<{ color: string; label: string; hex?: string; className?: string }> = ({ color, label, hex, className }) => (
   <div className={`flex flex-col items-center gap-2 ${className}`}>
     <div className="w-16 h-16 border border-border-light" style={{ backgroundColor: color }} />
-    <span className="text-xs font-bold uppercase tracking-wider font-arquitecta text-charcoal">{label}</span>
-    {hex && <span className="text-[11px] text-muted-text font-mono">{hex}</span>}
+    <span className="text-base font-bold uppercase tracking-wider font-arquitecta text-charcoal">{label}</span>
+    {hex && <span className="text-base text-muted-text font-mono">{hex}</span>}
   </div>
 );
 
 const SpacingBlock: React.FC<{ size: number; label: string }> = ({ size, label }) => (
   <div className="flex items-center gap-3">
     <div className="bg-accent-green opacity-60" style={{ width: size, height: 24 }} />
-    <span className="text-sm text-charcoal font-mono whitespace-nowrap">{label} &mdash; {size}px</span>
+    <span className="text-base text-charcoal font-mono whitespace-nowrap">{label} &mdash; {size}px</span>
   </div>
 );
 
@@ -34,9 +34,9 @@ const SubSection: React.FC<{ title: string; children: React.ReactNode }> = ({ ti
 );
 
 const TokenRow: React.FC<{ token: string; value: string; desc?: string }> = ({ token, value, desc }) => (
-  <div className="grid grid-cols-12 gap-4 py-3 border-b border-border-light items-start text-sm">
-    <code className="col-span-4 font-mono text-charcoal text-[13px]">{token}</code>
-    <code className="col-span-3 font-mono text-muted-text text-[13px]">{value}</code>
+  <div className="grid grid-cols-12 gap-4 py-3 border-b border-border-light items-start text-base">
+    <code className="col-span-4 font-mono text-charcoal text-base">{token}</code>
+    <code className="col-span-3 font-mono text-muted-text text-base">{value}</code>
     {desc && <span className="col-span-5 text-muted-text">{desc}</span>}
   </div>
 );
@@ -56,7 +56,7 @@ export const StyleGuide: React.FC = () => {
       {/* Header */}
       <div className="bg-charcoal text-white py-12 px-4 md:px-8">
         <div className="max-w-5xl mx-auto">
-          <p className="text-accent-green font-bold tracking-wider text-sm mb-2 uppercase font-arquitecta">Design System</p>
+          <p className="text-accent-green font-bold tracking-wider text-base mb-2 uppercase font-arquitecta">Design System</p>
           <h1 className="text-3xl md:text-5xl font-black uppercase tracking-wide font-arquitecta mb-4">MP Style Guide</h1>
           <p className="text-disabled-icon text-base max-w-xl">
             A living reference for the Member Portal&apos;s visual language &mdash; typography, color, spacing, components, and interaction patterns.
@@ -93,12 +93,8 @@ export const StyleGuide: React.FC = () => {
               ['#dividers', 'Dividers'],
               ['#loaders', 'Loaders'],
               ['#guest-checkout', 'Guest Checkout Components'],
-              ['#member-portal-entry', 'Member Portal Entry'],
-              ['#account-registration', 'Account Registration'],
-              ['#membership-purchase', 'Membership Purchase'],
-              ['#event-ticket-purchase', 'Event Ticket Purchase'],
             ].map(([href, label]) => (
-              <a key={href} href={href} className="text-sm text-charcoal hover:text-accent-green transition-colors font-semibold">
+              <a key={href} href={href} className="text-base text-charcoal hover:text-accent-green transition-colors font-semibold">
                 {label}
               </a>
             ))}
@@ -113,10 +109,10 @@ export const StyleGuide: React.FC = () => {
         <SubSection title="Typefaces">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             <div className="p-6 border border-border-light">
-              <p className="text-[12px] font-bold uppercase tracking-wider text-muted-text font-arquitecta mb-3">Display / Heading</p>
+              <p className="text-base font-bold uppercase tracking-wider text-muted-text font-arquitecta mb-3">Display / Heading</p>
               <p className="text-3xl font-black font-arquitecta uppercase tracking-wide mb-2">Arquitecta</p>
-              <p className="text-sm text-muted-text">Used for all headings, labels, buttons, navigation, and branded display text. Always uppercase with wide tracking.</p>
-              <div className="mt-4 space-y-1 text-sm text-muted-text">
+              <p className="text-base text-muted-text">Used for all headings, labels, buttons, navigation, and branded display text. Always uppercase with wide tracking.</p>
+              <div className="mt-4 space-y-1 text-base text-muted-text">
                 <p><span className="font-arquitecta" style={{ fontWeight: 400 }}>Regular 400</span> &mdash; Dropdowns, subtle labels</p>
                 <p><span className="font-arquitecta" style={{ fontWeight: 500 }}>Medium 500</span> &mdash; Rare, secondary emphasis</p>
                 <p><span className="font-arquitecta font-bold">Bold 700</span> &mdash; Buttons, sub-headings</p>
@@ -124,10 +120,10 @@ export const StyleGuide: React.FC = () => {
               </div>
             </div>
             <div className="p-6 border border-border-light">
-              <p className="text-[12px] font-bold uppercase tracking-wider text-muted-text font-arquitecta mb-3">Body / UI</p>
+              <p className="text-base font-bold uppercase tracking-wider text-muted-text font-arquitecta mb-3">Body / UI</p>
               <p className="text-3xl font-bold font-opensans mb-2">Open Sans</p>
-              <p className="text-sm text-muted-text">Used for body copy, descriptions, form inputs, and general UI text. Variable weight from 300&ndash;800.</p>
-              <div className="mt-4 space-y-1 text-sm text-muted-text">
+              <p className="text-base text-muted-text">Used for body copy, descriptions, form inputs, and general UI text. Variable weight from 300&ndash;800.</p>
+              <div className="mt-4 space-y-1 text-base text-muted-text">
                 <p><span className="font-opensans font-normal">Normal 400</span> &mdash; Body text, input values</p>
                 <p><span className="font-opensans font-semibold">Semibold 600</span> &mdash; Links, emphasis</p>
                 <p><span className="font-opensans font-bold">Bold 700</span> &mdash; Strong emphasis</p>
@@ -139,39 +135,39 @@ export const StyleGuide: React.FC = () => {
         <SubSection title="Type Scale">
           <div className="space-y-6">
             <div className="border-b border-border-light pb-4">
-              <p className="text-[11px] font-bold uppercase tracking-wider text-muted-text font-arquitecta mb-1">Display / 2xl &mdash; 28px</p>
+              <p className="text-base font-bold uppercase tracking-wider text-muted-text font-arquitecta mb-1">Display / 2xl &mdash; 28px</p>
               <p className="text-2xl font-black uppercase tracking-wide font-arquitecta">Welcome, Tom!</p>
             </div>
             <div className="border-b border-border-light pb-4">
-              <p className="text-[11px] font-bold uppercase tracking-wider text-muted-text font-arquitecta mb-1">Heading / xl &mdash; 24px</p>
+              <p className="text-base font-bold uppercase tracking-wider text-muted-text font-arquitecta mb-1">Heading / xl &mdash; 24px</p>
               <p className="text-xl font-black uppercase tracking-wide font-arquitecta">Section Heading</p>
             </div>
             <div className="border-b border-border-light pb-4">
-              <p className="text-[11px] font-bold uppercase tracking-wider text-muted-text font-arquitecta mb-1">Title / lg &mdash; 20px</p>
+              <p className="text-base font-bold uppercase tracking-wider text-muted-text font-arquitecta mb-1">Title / lg &mdash; 20px</p>
               <p className="text-lg font-black uppercase tracking-wide font-arquitecta">Card Title</p>
             </div>
             <div className="border-b border-border-light pb-4">
-              <p className="text-[11px] font-bold uppercase tracking-wider text-muted-text font-arquitecta mb-1">Body / base &mdash; 16px</p>
+              <p className="text-base font-bold uppercase tracking-wider text-muted-text font-arquitecta mb-1">Body / base &mdash; 16px</p>
               <p className="text-base font-normal">This is standard body text used throughout the portal for descriptions, paragraphs, and general UI copy.</p>
             </div>
             <div className="border-b border-border-light pb-4">
-              <p className="text-[11px] font-bold uppercase tracking-wider text-muted-text font-arquitecta mb-1">Small / sm &mdash; 14px</p>
-              <p className="text-sm text-muted-text">Secondary text, dates, metadata, and supporting information.</p>
+              <p className="text-base font-bold uppercase tracking-wider text-muted-text font-arquitecta mb-1">Secondary / base &mdash; 16px</p>
+              <p className="text-base text-muted-text">Secondary text, dates, metadata, and supporting information. Minimum body size is 16px.</p>
             </div>
             <div className="border-b border-border-light pb-4">
-              <p className="text-[11px] font-bold uppercase tracking-wider text-muted-text font-arquitecta mb-1">Caption / xs &mdash; 12px</p>
-              <p className="text-xs text-muted-text">Captions, fine print, and tertiary information.</p>
+              <p className="text-base font-bold uppercase tracking-wider text-muted-text font-arquitecta mb-1">Labels &amp; captions &mdash; 16px</p>
+              <p className="text-base text-muted-text">Form labels, captions, and fine print use 16px (base) for accessibility.</p>
             </div>
             <div className="pb-4">
-              <p className="text-[11px] font-bold uppercase tracking-wider text-muted-text font-arquitecta mb-1">Label &mdash; 12px Bold Uppercase</p>
-              <p className="text-[12px] font-bold uppercase tracking-wider text-muted-text font-arquitecta">Form Label</p>
+              <p className="text-base font-bold uppercase tracking-wider text-muted-text font-arquitecta mb-1">Label &mdash; 16px Bold Uppercase</p>
+              <p className="text-base font-bold uppercase tracking-wider text-muted-text font-arquitecta">Form Label</p>
             </div>
           </div>
         </SubSection>
 
         <SubSection title="Typography Tokens">
           <div className="border border-border-light p-4 overflow-x-auto">
-            <div className="grid grid-cols-12 gap-4 py-2 border-b border-charcoal text-xs font-bold uppercase tracking-wider font-arquitecta text-muted-text">
+            <div className="grid grid-cols-12 gap-4 py-2 border-b border-charcoal text-base font-bold uppercase tracking-wider font-arquitecta text-muted-text">
               <span className="col-span-4">Token</span>
               <span className="col-span-3">Value</span>
               <span className="col-span-5">Usage</span>
@@ -223,7 +219,7 @@ export const StyleGuide: React.FC = () => {
             <Swatch color="#736E69" label="Muted FG" hex="#736E69" />
             <Swatch color="#6B6862" label="Muted Text" hex="#6B6862" />
           </div>
-          <p className="text-xs text-muted-text mt-3">All neutrals use a warm undertone to stay cohesive with the brand palette. No cool/blue grays.</p>
+          <p className="text-base text-muted-text mt-3">All neutrals use a warm undertone to stay cohesive with the brand palette. No cool/blue grays.</p>
         </SubSection>
 
         <SubSection title="Semantic Colors">
@@ -231,7 +227,7 @@ export const StyleGuide: React.FC = () => {
             <Swatch color="#B6D840" label="Success" hex="#B6D840" />
             <Swatch color="#D4567A" label="Error / Accent" hex="#D4567A" />
           </div>
-          <p className="text-xs text-muted-text mt-3"><code className="font-mono text-charcoal">#D4567A</code> serves double duty as the error/destructive color and as a secondary brand accent.</p>
+          <p className="text-base text-muted-text mt-3"><code className="font-mono text-charcoal">#D4567A</code> serves double duty as the error/destructive color and as a secondary brand accent.</p>
         </SubSection>
 
         <SubSection title="Overlay & Shadow Colors">
@@ -239,25 +235,25 @@ export const StyleGuide: React.FC = () => {
             <div className="flex items-center gap-4">
               <div className="w-16 h-16 border border-border-light" style={{ backgroundColor: 'rgba(139,129,120,0.24)' }} />
               <div>
-                <span className="text-xs font-bold uppercase tracking-wider font-arquitecta text-charcoal">Shadow</span>
-                <code className="block text-[11px] text-muted-text font-mono">rgba(139,129,120,0.24)</code>
-                <span className="text-xs text-muted-text">Card hover shadow (level 1)</span>
+                <span className="text-base font-bold uppercase tracking-wider font-arquitecta text-charcoal">Shadow</span>
+                <code className="block text-base text-muted-text font-mono">rgba(139,129,120,0.24)</code>
+                <span className="text-base text-muted-text">Card hover shadow (level 1)</span>
               </div>
             </div>
             <div className="flex items-center gap-4">
               <div className="w-16 h-16 border border-border-light" style={{ backgroundColor: 'rgba(139,129,120,0.32)' }} />
               <div>
-                <span className="text-xs font-bold uppercase tracking-wider font-arquitecta text-charcoal">Shadow Deep</span>
-                <code className="block text-[11px] text-muted-text font-mono">rgba(139,129,120,0.32)</code>
-                <span className="text-xs text-muted-text">Card active hover shadow (level 2)</span>
+                <span className="text-base font-bold uppercase tracking-wider font-arquitecta text-charcoal">Shadow Deep</span>
+                <code className="block text-base text-muted-text font-mono">rgba(139,129,120,0.32)</code>
+                <span className="text-base text-muted-text">Card active hover shadow (level 2)</span>
               </div>
             </div>
             <div className="flex items-center gap-4">
               <div className="w-16 h-16 border border-border-light" style={{ background: 'linear-gradient(45deg, rgba(26,26,26,0.75), rgba(26,26,26,0))' }} />
               <div>
-                <span className="text-xs font-bold uppercase tracking-wider font-arquitecta text-charcoal">Hero Overlay</span>
-                <code className="block text-[11px] text-muted-text font-mono">rgba(26,26,26,0.75) &rarr; rgba(26,26,26,0)</code>
-                <span className="text-xs text-muted-text">45&deg; gradient overlay on hero images</span>
+                <span className="text-base font-bold uppercase tracking-wider font-arquitecta text-charcoal">Hero Overlay</span>
+                <code className="block text-base text-muted-text font-mono">rgba(26,26,26,0.75) &rarr; rgba(26,26,26,0)</code>
+                <span className="text-base text-muted-text">45&deg; gradient overlay on hero images</span>
               </div>
             </div>
           </div>
@@ -265,20 +261,20 @@ export const StyleGuide: React.FC = () => {
 
         <SubSection title="All Color Tokens">
           <div className="border border-border-light p-4 overflow-x-auto">
-            <div className="grid grid-cols-12 gap-4 py-2 border-b border-charcoal text-xs font-bold uppercase tracking-wider font-arquitecta text-muted-text">
+            <div className="grid grid-cols-12 gap-4 py-2 border-b border-charcoal text-base font-bold uppercase tracking-wider font-arquitecta text-muted-text">
               <span className="col-span-4">Token / Value</span>
               <span className="col-span-3">Hex</span>
               <span className="col-span-5">Usage</span>
             </div>
 
-            <div className="py-2 text-xs font-bold uppercase tracking-wider font-arquitecta text-accent-green mt-2">Brand</div>
+            <div className="py-2 text-base font-bold uppercase tracking-wider font-arquitecta text-accent-green mt-2">Brand</div>
             <TokenRow token="#B6D840" value="Accent Green" desc="Logo, active indicators, accent borders, links hover" />
             <TokenRow token="#C5D63D" value="Lime" desc="Active member badge border (lighter green variant)" />
             <TokenRow token="#D4567A" value="Accent Pink" desc="Error/destructive states, secondary brand accent" />
             <TokenRow token="#343433" value="Charcoal" desc="Primary text, button fills, heading text" />
             <TokenRow token="#1A1A1A" value="Near Black" desc="Hover state for primary buttons, deep text" />
 
-            <div className="py-2 text-xs font-bold uppercase tracking-wider font-arquitecta text-muted-text mt-2">Neutral — Backgrounds</div>
+            <div className="py-2 text-base font-bold uppercase tracking-wider font-arquitecta text-muted-text mt-2">Neutral — Backgrounds</div>
             <TokenRow token="#FFFFFF" value="White" desc="Page background, card backgrounds" />
             <TokenRow token="#F7F7F6" value="Hover" desc="Card/button hover background" />
             <TokenRow token="#F5F4F2" value="Mist" desc="Active tab bg, mobile nav bg, member card bg" />
@@ -289,7 +285,7 @@ export const StyleGuide: React.FC = () => {
             <TokenRow token="#E5E5E3" value="Used Badge" desc="Used guest pass badge background" />
             <TokenRow token="#DDDBD8" value="Border" desc="Input borders, subtle separators, dashed borders" />
 
-            <div className="py-2 text-xs font-bold uppercase tracking-wider font-arquitecta text-muted-text mt-2">Neutral — Text & Icons</div>
+            <div className="py-2 text-base font-bold uppercase tracking-wider font-arquitecta text-muted-text mt-2">Neutral — Text & Icons</div>
             <TokenRow token="#CCCCCC" value="Card Stroke" desc="Card borders, dividers (CSS var --card-stroke)" />
             <TokenRow token="#ADA9A4" value="Disabled Icon" desc="Muted/disabled ticket icon, inactive states" />
             <TokenRow token="#8B8178" value="Stone" desc="Warm mid-gray, shadow base tone" />
@@ -297,10 +293,10 @@ export const StyleGuide: React.FC = () => {
             <TokenRow token="#736E69" value="Muted FG" desc="Placeholder text, disabled text (CSS var --muted-foreground)" />
             <TokenRow token="#6B6862" value="Muted Text" desc="Secondary text, labels, inactive nav, descriptions" />
 
-            <div className="py-2 text-xs font-bold uppercase tracking-wider font-arquitecta text-muted-text mt-2">Semantic</div>
+            <div className="py-2 text-base font-bold uppercase tracking-wider font-arquitecta text-muted-text mt-2">Semantic</div>
             <TokenRow token="#D4567A" value="Error / Accent" desc="Error borders, validation messages, secondary brand accent" />
 
-            <div className="py-2 text-xs font-bold uppercase tracking-wider font-arquitecta text-muted-text mt-2">CSS Theme Variables</div>
+            <div className="py-2 text-base font-bold uppercase tracking-wider font-arquitecta text-muted-text mt-2">CSS Theme Variables</div>
             <TokenRow token="--background" value="#FFFFFF" desc="Page background" />
             <TokenRow token="--foreground" value="oklch(0.145 0 0)" desc="Default text color" />
             <TokenRow token="--primary" value="#030213" desc="shadcn/ui primary (buttons, links)" />
@@ -312,7 +308,7 @@ export const StyleGuide: React.FC = () => {
             <TokenRow token="--input-background" value="#F2F1EF" desc="Default input background" />
             <TokenRow token="--border" value="rgba(0,0,0,0.1)" desc="Default border color" />
 
-            <div className="py-2 text-xs font-bold uppercase tracking-wider font-arquitecta text-muted-text mt-2">Shadow / Overlay</div>
+            <div className="py-2 text-base font-bold uppercase tracking-wider font-arquitecta text-muted-text mt-2">Shadow / Overlay</div>
             <TokenRow token="rgba(139,129,120,0.24)" value="Shadow L1" desc="Flat offset shadow — card hover" />
             <TokenRow token="rgba(139,129,120,0.32)" value="Shadow L2" desc="Flat offset shadow — active hover" />
             <TokenRow token="rgba(26,26,26,0.75)" value="Overlay Dark" desc="Hero image gradient overlay (45deg)" />
@@ -340,18 +336,18 @@ export const StyleGuide: React.FC = () => {
         <SubSection title="Usage Guidance">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="p-6 border border-border-light">
-              <p className="text-[12px] font-bold uppercase tracking-wider text-muted-text font-arquitecta mb-3">Padding</p>
-              <ul className="space-y-2 text-sm text-muted-text">
+              <p className="text-base font-bold uppercase tracking-wider text-muted-text font-arquitecta mb-3">Padding</p>
+              <ul className="space-y-2 text-base text-muted-text">
                 <li><code className="text-charcoal font-mono">p-4</code> &mdash; Mobile page padding (16px)</li>
                 <li><code className="text-charcoal font-mono">p-6</code> &mdash; Card internal padding (24px)</li>
                 <li><code className="text-charcoal font-mono">p-8</code> &mdash; Desktop page padding (32px)</li>
                 <li><code className="text-charcoal font-mono">px-3 py-2</code> &mdash; Input fields</li>
-                <li><code className="text-charcoal font-mono">px-6 py-3</code> &mdash; Buttons (CTA)</li>
+                <li><code className="text-charcoal font-mono">px-6 py-4</code> &mdash; Buttons (CTA)</li>
               </ul>
             </div>
             <div className="p-6 border border-border-light">
-              <p className="text-[12px] font-bold uppercase tracking-wider text-muted-text font-arquitecta mb-3">Gap / Margin</p>
-              <ul className="space-y-2 text-sm text-muted-text">
+              <p className="text-base font-bold uppercase tracking-wider text-muted-text font-arquitecta mb-3">Gap / Margin</p>
+              <ul className="space-y-2 text-base text-muted-text">
                 <li><code className="text-charcoal font-mono">gap-4</code> &mdash; Mobile grid gap (16px)</li>
                 <li><code className="text-charcoal font-mono">gap-6</code> &mdash; Desktop grid gap (24px)</li>
                 <li><code className="text-charcoal font-mono">mb-4</code> &mdash; Between section title and content</li>
@@ -368,18 +364,18 @@ export const StyleGuide: React.FC = () => {
         <SectionTitle id="grid-layout">Grid & Layout</SectionTitle>
 
         <SubSection title="Grid System">
-          <div className="space-y-4 text-sm text-muted-text">
+          <div className="space-y-4 text-base text-muted-text">
             <div className="p-6 border border-border-light">
-              <p className="text-[12px] font-bold uppercase tracking-wider text-muted-text font-arquitecta mb-3">Columns</p>
+              <p className="text-base font-bold uppercase tracking-wider text-muted-text font-arquitecta mb-3">Columns</p>
               <div className="grid grid-cols-2 gap-2 mb-4">
                 {[1, 2].map(i => (
-                  <div key={i} className="bg-accent-green opacity-20 h-12 flex items-center justify-center text-xs font-bold text-charcoal">{i}</div>
+                  <div key={i} className="bg-accent-green opacity-20 h-12 flex items-center justify-center text-base font-bold text-charcoal">{i}</div>
                 ))}
               </div>
               <p className="mb-2"><code className="font-mono text-charcoal">grid-cols-2</code> &mdash; Default card grid (dashboard, mobile)</p>
               <div className="grid grid-cols-3 gap-2 mb-4 mt-4">
                 {[1, 2, 3].map(i => (
-                  <div key={i} className="bg-accent-green opacity-20 h-12 flex items-center justify-center text-xs font-bold text-charcoal">{i}</div>
+                  <div key={i} className="bg-accent-green opacity-20 h-12 flex items-center justify-center text-base font-bold text-charcoal">{i}</div>
                 ))}
               </div>
               <p><code className="font-mono text-charcoal">grid-cols-3</code> &mdash; Membership tiers, guest passes (lg+)</p>
@@ -389,7 +385,7 @@ export const StyleGuide: React.FC = () => {
 
         <SubSection title="Container & Max Widths">
           <div className="border border-border-light p-4 overflow-x-auto">
-            <div className="grid grid-cols-12 gap-4 py-2 border-b border-charcoal text-xs font-bold uppercase tracking-wider font-arquitecta text-muted-text">
+            <div className="grid grid-cols-12 gap-4 py-2 border-b border-charcoal text-base font-bold uppercase tracking-wider font-arquitecta text-muted-text">
               <span className="col-span-4">Token</span>
               <span className="col-span-3">Value</span>
               <span className="col-span-5">Usage</span>
@@ -415,8 +411,8 @@ export const StyleGuide: React.FC = () => {
             { bp: 'min-[1400px]', px: '1400px', desc: 'Wide — Booked Visits becomes sidebar column alongside card grid' },
           ].map(({ bp, px, desc }) => (
             <div key={bp} className="flex items-start gap-4 p-4 border border-border-light">
-              <code className="font-mono text-sm text-charcoal font-bold whitespace-nowrap min-w-[120px]">{bp} <span className="text-muted-text font-normal">({px})</span></code>
-              <p className="text-sm text-muted-text">{desc}</p>
+              <code className="font-mono text-base text-charcoal font-bold whitespace-nowrap min-w-[120px]">{bp} <span className="text-muted-text font-normal">({px})</span></code>
+              <p className="text-base text-muted-text">{desc}</p>
             </div>
           ))}
         </div>
@@ -429,21 +425,21 @@ export const StyleGuide: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <div className="p-6 border border-border-light flex flex-col items-center gap-4">
             <div className="w-full h-24 bg-white border border-border-light" />
-            <p className="text-[12px] font-bold uppercase tracking-wider text-muted-text font-arquitecta">Level 0 &mdash; Flat</p>
-            <p className="text-xs text-muted-text text-center">Default cards, containers. No shadow.</p>
+            <p className="text-base font-bold uppercase tracking-wider text-muted-text font-arquitecta">Level 0 &mdash; Flat</p>
+            <p className="text-base text-muted-text text-center">Default cards, containers. No shadow.</p>
           </div>
           <div className="p-6 border border-border-light flex flex-col items-center gap-4">
             <div className="w-full h-24 bg-white border border-border-light shadow-[4px_4px_0px_0px_rgba(139,129,120,0.24)]" />
-            <p className="text-[12px] font-bold uppercase tracking-wider text-muted-text font-arquitecta">Level 1 &mdash; Hover</p>
-            <code className="text-[11px] text-muted-text font-mono text-center">shadow-[4px_4px_0px_0px _rgba(139,129,120,0.24)]</code>
+            <p className="text-base font-bold uppercase tracking-wider text-muted-text font-arquitecta">Level 1 &mdash; Hover</p>
+            <code className="text-base text-muted-text font-mono text-center">shadow-[4px_4px_0px_0px _rgba(139,129,120,0.24)]</code>
           </div>
           <div className="p-6 border border-border-light flex flex-col items-center gap-4">
             <div className="w-full h-24 bg-white border border-border-light shadow-[6px_6px_0px_0px_rgba(139,129,120,0.32)]" />
-            <p className="text-[12px] font-bold uppercase tracking-wider text-muted-text font-arquitecta">Level 2 &mdash; Active Hover</p>
-            <code className="text-[11px] text-muted-text font-mono text-center">shadow-[6px_6px_0px_0px _rgba(139,129,120,0.32)]</code>
+            <p className="text-base font-bold uppercase tracking-wider text-muted-text font-arquitecta">Level 2 &mdash; Active Hover</p>
+            <code className="text-base text-muted-text font-mono text-center">shadow-[6px_6px_0px_0px _rgba(139,129,120,0.32)]</code>
           </div>
         </div>
-        <div className="mt-4 p-4 bg-canvas text-sm text-muted-text">
+        <div className="mt-4 p-4 bg-canvas text-base text-muted-text">
           <strong className="text-charcoal">Note:</strong> Shadows are flat, offset-style (no blur). This gives a tactile, print-inspired feel. Modal overlays use standard <code className="font-mono">shadow-lg</code>.
         </div>
 
@@ -461,12 +457,12 @@ export const StyleGuide: React.FC = () => {
           ].map(({ label, value, className: rClass, token }) => (
             <div key={label} className="flex flex-col items-center gap-3 p-4 border border-border-light">
               <div className={`w-20 h-20 bg-charcoal ${rClass}`} />
-              <p className="text-[12px] font-bold uppercase tracking-wider text-muted-text font-arquitecta">{label} ({value})</p>
-              <code className="text-[11px] text-muted-text font-mono">{token}</code>
+              <p className="text-base font-bold uppercase tracking-wider text-muted-text font-arquitecta">{label} ({value})</p>
+              <code className="text-base text-muted-text font-mono">{token}</code>
             </div>
           ))}
         </div>
-        <div className="mt-4 p-4 bg-canvas text-sm text-muted-text">
+        <div className="mt-4 p-4 bg-canvas text-base text-muted-text">
           <strong className="text-charcoal">Convention:</strong> The portal primarily uses <code className="font-mono">rounded-none</code> for cards, buttons, and inputs — producing sharp, geometric edges. <code className="font-mono">rounded-md</code> is used by the shadcn/ui base components.
         </div>
 
@@ -487,9 +483,9 @@ export const StyleGuide: React.FC = () => {
             <div key={label} className="flex items-center gap-4 p-4 border border-border-light">
               <div className="w-24 shrink-0" style={{ borderBottom: style, height: 0 }} />
               <div>
-                <p className="text-sm font-bold text-charcoal">{label}</p>
-                <code className="text-[11px] text-muted-text font-mono">{token}</code>
-                <p className="text-xs text-muted-text mt-1">{desc}</p>
+                <p className="text-base font-bold text-charcoal">{label}</p>
+                <code className="text-base text-muted-text font-mono">{token}</code>
+                <p className="text-base text-muted-text mt-1">{desc}</p>
               </div>
             </div>
           ))}
@@ -501,7 +497,7 @@ export const StyleGuide: React.FC = () => {
         <SectionTitle id="icons">Icons</SectionTitle>
 
         <SubSection title="Library & Style">
-          <div className="p-6 border border-border-light text-sm text-muted-text space-y-2">
+          <div className="p-6 border border-border-light text-base text-muted-text space-y-2">
             <p><strong className="text-charcoal">Library:</strong> Lucide React (outline style, consistent 24px viewBox)</p>
             <p><strong className="text-charcoal">Stroke Weight:</strong> Default 2px. Custom: 1.5px (detail icons), 2.5px (hamburger menu)</p>
             <p><strong className="text-charcoal">Fill:</strong> Outline only &mdash; no filled variants</p>
@@ -521,8 +517,8 @@ export const StyleGuide: React.FC = () => {
             ].map(({ size, px, label }) => (
               <div key={label} className="flex flex-col items-center gap-2">
                 <ArrowUpRight className={`${size} text-charcoal`} />
-                <span className="text-[11px] font-bold uppercase tracking-wider text-muted-text font-arquitecta">{label}</span>
-                <span className="text-[10px] text-muted-text font-mono">{px}</span>
+                <span className="text-base font-bold uppercase tracking-wider text-muted-text font-arquitecta">{label}</span>
+                <span className="text-base text-muted-text font-mono">{px}</span>
               </div>
             ))}
           </div>
@@ -544,7 +540,7 @@ export const StyleGuide: React.FC = () => {
             ].map(({ icon, name }) => (
               <div key={name} className="flex flex-col items-center gap-2 min-w-[60px]">
                 <div className="text-charcoal">{icon}</div>
-                <span className="text-[10px] text-muted-text font-mono">{name}</span>
+                <span className="text-base text-muted-text font-mono">{name}</span>
               </div>
             ))}
           </div>
@@ -556,7 +552,7 @@ export const StyleGuide: React.FC = () => {
         <SectionTitle id="motion">Motion / Transitions</SectionTitle>
 
         <div className="border border-border-light p-4 overflow-x-auto">
-          <div className="grid grid-cols-12 gap-4 py-2 border-b border-charcoal text-xs font-bold uppercase tracking-wider font-arquitecta text-muted-text">
+          <div className="grid grid-cols-12 gap-4 py-2 border-b border-charcoal text-base font-bold uppercase tracking-wider font-arquitecta text-muted-text">
             <span className="col-span-3">Token</span>
             <span className="col-span-2">Duration</span>
             <span className="col-span-3">Property</span>
@@ -570,15 +566,15 @@ export const StyleGuide: React.FC = () => {
             { token: 'transition-transform', dur: '700ms', prop: 'transform', use: 'Hero image zoom on hover' },
             { token: 'transition-all', dur: '300ms', prop: 'all', use: 'Layout shifts, nav indicator' },
           ].map(({ token, dur, prop, use }) => (
-            <div key={token} className="grid grid-cols-12 gap-4 py-3 border-b border-border-light items-start text-sm">
-              <code className="col-span-3 font-mono text-charcoal text-[13px]">{token}</code>
-              <code className="col-span-2 font-mono text-muted-text text-[13px]">{dur}</code>
-              <span className="col-span-3 text-muted-text text-[13px]">{prop}</span>
-              <span className="col-span-4 text-muted-text text-[13px]">{use}</span>
+            <div key={token} className="grid grid-cols-12 gap-4 py-3 border-b border-border-light items-start text-base">
+              <code className="col-span-3 font-mono text-charcoal text-base">{token}</code>
+              <code className="col-span-2 font-mono text-muted-text text-base">{dur}</code>
+              <span className="col-span-3 text-muted-text text-base">{prop}</span>
+              <span className="col-span-4 text-muted-text text-base">{use}</span>
             </div>
           ))}
         </div>
-        <div className="mt-4 p-4 bg-canvas text-sm text-muted-text">
+        <div className="mt-4 p-4 bg-canvas text-base text-muted-text">
           <strong className="text-charcoal">Easing:</strong> Default CSS <code className="font-mono">ease</code> for most transitions. Navigation indicator uses <code className="font-mono">ease-in-out</code> via <code className="font-mono">transition-all duration-300 ease-in-out</code>.
         </div>
 
@@ -597,11 +593,11 @@ export const StyleGuide: React.FC = () => {
             { state: 'Loading', desc: 'Awaiting response', classes: 'bg-canvas border border-border-light text-muted-text cursor-wait opacity-70' },
           ].map(({ state, desc, classes }) => (
             <div key={state} className="p-4 border border-border-light">
-              <p className="text-[12px] font-bold uppercase tracking-wider text-muted-text font-arquitecta mb-3">{state}</p>
-              <div className={`p-4 text-sm font-bold uppercase tracking-wider font-arquitecta text-center ${classes}`}>
+              <p className="text-base font-bold uppercase tracking-wider text-muted-text font-arquitecta mb-3">{state}</p>
+              <div className={`p-4 text-base font-bold uppercase tracking-wider font-arquitecta text-center ${classes}`}>
                 {state} State
               </div>
-              <p className="text-xs text-muted-text mt-2">{desc}</p>
+              <p className="text-base text-muted-text mt-2">{desc}</p>
             </div>
           ))}
         </div>
@@ -613,8 +609,8 @@ export const StyleGuide: React.FC = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div className="p-6 border border-border-light">
-            <p className="text-[12px] font-bold uppercase tracking-wider text-muted-text font-arquitecta mb-3">Contrast Ratios</p>
-            <ul className="space-y-3 text-sm text-muted-text">
+            <p className="text-base font-bold uppercase tracking-wider text-muted-text font-arquitecta mb-3">Contrast Ratios</p>
+            <ul className="space-y-3 text-base text-muted-text">
               <li className="flex items-center gap-3">
                 <span className="inline-block w-6 h-6 bg-charcoal border border-border-light" />
                 <span><code className="font-mono text-charcoal">#343433</code> on white &mdash; <strong className="text-charcoal">12.56:1</strong> (AAA)</span>
@@ -630,8 +626,8 @@ export const StyleGuide: React.FC = () => {
             </ul>
           </div>
           <div className="p-6 border border-border-light">
-            <p className="text-[12px] font-bold uppercase tracking-wider text-muted-text font-arquitecta mb-3">Focus & Touch Targets</p>
-            <ul className="space-y-2 text-sm text-muted-text">
+            <p className="text-base font-bold uppercase tracking-wider text-muted-text font-arquitecta mb-3">Focus & Touch Targets</p>
+            <ul className="space-y-2 text-base text-muted-text">
               <li><strong className="text-charcoal">Focus ring:</strong> 3px ring, <code className="font-mono">ring-ring/50</code> (50% opacity)</li>
               <li><strong className="text-charcoal">Min touch target:</strong> 44&times;44px (WCAG 2.5.5)</li>
               <li><strong className="text-charcoal">Min text size:</strong> 12px (captions), 14px preferred minimum</li>
@@ -648,59 +644,59 @@ export const StyleGuide: React.FC = () => {
 
         <SubSection title="Primary">
           <div className="flex flex-wrap gap-4 items-center p-6 border border-border-light">
-            <button className="px-6 py-3 text-base font-bold uppercase tracking-wider font-arquitecta bg-charcoal text-white hover:bg-near-black transition-colors">
+            <button className="px-6 py-4 text-base font-bold uppercase tracking-wider font-arquitecta bg-charcoal text-white hover:bg-near-black transition-colors">
               Primary CTA
             </button>
-            <button className="px-6 py-3 text-base font-bold uppercase tracking-wider font-arquitecta bg-charcoal text-white opacity-50 cursor-not-allowed">
+            <button className="px-6 py-4 text-base font-bold uppercase tracking-wider font-arquitecta bg-charcoal text-white opacity-50 cursor-not-allowed">
               Disabled
             </button>
-            <button className="px-6 py-3 text-base font-bold uppercase tracking-wider font-arquitecta bg-charcoal text-white opacity-70 cursor-wait flex items-center gap-2">
+            <button className="px-6 py-4 text-base font-bold uppercase tracking-wider font-arquitecta bg-charcoal text-white opacity-70 cursor-wait flex items-center gap-2">
               <Loader2 className="w-4 h-4 animate-spin" /> Loading
             </button>
           </div>
-          <code className="block mt-2 text-[11px] text-muted-text font-mono">bg-charcoal text-white hover:bg-near-black px-6 py-3 font-bold uppercase tracking-wider font-arquitecta</code>
+          <code className="block mt-2 text-base text-muted-text font-mono">bg-charcoal text-white hover:bg-near-black px-6 py-4 font-bold uppercase tracking-wider font-arquitecta</code>
         </SubSection>
 
         <SubSection title="Primary Green">
           <div className="flex flex-wrap gap-4 items-center p-6 border border-border-light">
-            <button className="px-6 py-3 text-base font-bold uppercase tracking-wider font-arquitecta bg-accent-green text-charcoal border-2 border-accent-green hover:bg-white hover:border-accent-green transition-colors">
+            <button className="px-6 py-4 text-base font-bold uppercase tracking-wider font-arquitecta bg-accent-green text-charcoal border-2 border-accent-green hover:bg-white hover:border-accent-green transition-colors">
               Primary Green CTA
             </button>
-            <button className="px-6 py-3 text-base font-bold uppercase tracking-wider font-arquitecta bg-accent-green text-charcoal border-2 border-accent-green opacity-50 cursor-not-allowed">
+            <button className="px-6 py-4 text-base font-bold uppercase tracking-wider font-arquitecta bg-accent-green text-charcoal border-2 border-accent-green opacity-50 cursor-not-allowed">
               Disabled
             </button>
-            <button className="px-6 py-3 text-base font-bold uppercase tracking-wider font-arquitecta bg-accent-green text-charcoal border-2 border-accent-green opacity-70 cursor-wait flex items-center gap-2">
+            <button className="px-6 py-4 text-base font-bold uppercase tracking-wider font-arquitecta bg-accent-green text-charcoal border-2 border-accent-green opacity-70 cursor-wait flex items-center gap-2">
               <Loader2 className="w-4 h-4 animate-spin" /> Loading
             </button>
           </div>
-          <code className="block mt-2 text-[11px] text-muted-text font-mono">bg-accent-green text-charcoal border-2 border-accent-green hover:bg-white hover:border-accent-green px-6 py-3 font-bold uppercase tracking-wider font-arquitecta</code>
+          <code className="block mt-2 text-base text-muted-text font-mono">bg-accent-green text-charcoal border-2 border-accent-green hover:bg-white hover:border-accent-green px-6 py-4 font-bold uppercase tracking-wider font-arquitecta</code>
         </SubSection>
 
         <SubSection title="Secondary (Outlined)">
           <div className="flex flex-wrap gap-4 items-center p-6 border border-border-light">
             <button
-              className="px-6 py-3 text-base font-bold uppercase tracking-wider font-arquitecta border-[1.5px] border-charcoal hover:bg-hover transition-colors"
+              className="px-6 py-4 text-base font-bold uppercase tracking-wider font-arquitecta border-[1.5px] border-charcoal hover:bg-hover transition-colors"
             >
               Secondary
             </button>
             <button
-              className="px-6 py-3 text-base font-bold uppercase tracking-wider font-arquitecta border-[1.5px] border-charcoal opacity-50 cursor-not-allowed"
+              className="px-6 py-4 text-base font-bold uppercase tracking-wider font-arquitecta border-[1.5px] border-charcoal opacity-50 cursor-not-allowed"
             >
               Disabled
             </button>
           </div>
-          <code className="block mt-2 text-[11px] text-muted-text font-mono">border: 1.5px solid #343433; hover:bg-hover px-6 py-3 font-bold uppercase tracking-wider font-arquitecta</code>
+          <code className="block mt-2 text-base text-muted-text font-mono">border: 1.5px solid #343433; hover:bg-hover px-6 py-4 font-bold uppercase tracking-wider font-arquitecta</code>
         </SubSection>
 
         <SubSection title="Accent Outlined (on dark bg)">
           <div className="flex flex-wrap gap-4 items-center p-6 bg-charcoal border border-border-light">
             <button
-              className="px-6 py-3 text-base font-bold uppercase tracking-wider font-arquitecta text-white border-[1.5px] border-accent-green hover:bg-near-black transition-colors"
+              className="px-6 py-4 text-base font-bold uppercase tracking-wider font-arquitecta text-white border-[1.5px] border-accent-green hover:bg-near-black transition-colors"
             >
               Renew Membership
             </button>
           </div>
-          <code className="block mt-2 text-[11px] text-muted-text font-mono">border: 1.5px solid #B6D840; text-white hover:bg-near-black (on dark backgrounds)</code>
+          <code className="block mt-2 text-base text-muted-text font-mono">border: 1.5px solid #B6D840; text-white hover:bg-near-black (on dark backgrounds)</code>
         </SubSection>
 
         <SubSection title="Tertiary / Text">
@@ -708,7 +704,7 @@ export const StyleGuide: React.FC = () => {
             <button className="text-base font-semibold flex items-center gap-1 hover:underline font-arquitecta text-charcoal">
               Text Link <ArrowUpRight className="w-3.5 h-3.5" />
             </button>
-            <button className="text-sm font-semibold flex items-center gap-1 hover:underline text-charcoal">
+            <button className="text-base font-semibold flex items-center gap-1 hover:underline text-charcoal">
               Renew Now <ArrowUpRight className="w-3 h-3" />
             </button>
           </div>
@@ -736,7 +732,7 @@ export const StyleGuide: React.FC = () => {
         <SubSection title="Text Input">
           <div className="space-y-6 p-6 border border-border-light max-w-md">
             <div className="flex flex-col gap-1">
-              <label className="text-[12px] font-bold uppercase tracking-wider text-muted-text font-arquitecta">
+              <label className="text-base font-bold uppercase tracking-wider text-muted-text font-arquitecta">
                 First Name <span className="text-red-500">*</span>
               </label>
               <input
@@ -748,7 +744,7 @@ export const StyleGuide: React.FC = () => {
               />
             </div>
             <div className="flex flex-col gap-1">
-              <label className="text-[12px] font-bold uppercase tracking-wider text-muted-text font-arquitecta">
+              <label className="text-base font-bold uppercase tracking-wider text-muted-text font-arquitecta">
                 Email <span className="text-red-500">*</span>
               </label>
               <input
@@ -759,7 +755,7 @@ export const StyleGuide: React.FC = () => {
               />
             </div>
             <div className="flex flex-col gap-1">
-              <label className="text-[12px] font-bold uppercase tracking-wider text-muted-text font-arquitecta">
+              <label className="text-base font-bold uppercase tracking-wider text-muted-text font-arquitecta">
                 Error State
               </label>
               <input
@@ -767,10 +763,10 @@ export const StyleGuide: React.FC = () => {
                 defaultValue="Invalid value"
                 className="text-base text-charcoal border border-accent-pink px-3 py-2 bg-white focus:outline-none focus:border-accent-pink transition-colors"
               />
-              <span className="text-xs text-accent-pink">This field is required.</span>
+              <span className="text-base text-accent-pink">This field is required.</span>
             </div>
             <div className="flex flex-col gap-1 opacity-50">
-              <label className="text-[12px] font-bold uppercase tracking-wider text-muted-text font-arquitecta">
+              <label className="text-base font-bold uppercase tracking-wider text-muted-text font-arquitecta">
                 Disabled
               </label>
               <input
@@ -784,9 +780,9 @@ export const StyleGuide: React.FC = () => {
         </SubSection>
 
         <SubSection title="Form label (large) — Login / Member Portal entry">
-          <p className="text-sm text-muted-text mb-4">14px label for better readability when the input is prominent (e.g. <Link to="/member-portal-entry" className="font-semibold text-charcoal underline hover:text-accent-green">Member Portal entry</Link>). Same weight and tracking as standard label. Input uses same border, padding, and focus ring as standard text input; add <code className="font-mono text-charcoal">w-full</code> for full-width in forms.</p>
+          <p className="text-base text-muted-text mb-4">16px label for better readability when the input is prominent (e.g. <Link to="/member-portal-entry" className="font-semibold text-charcoal underline hover:text-accent-green">Member Portal entry</Link>). Same weight and tracking as standard label. Input uses same border, padding, and focus ring as standard text input; add <code className="font-mono text-charcoal">w-full</code> for full-width in forms.</p>
           <div className="flex flex-col gap-1 max-w-md">
-            <label className="text-sm font-bold uppercase tracking-wider text-muted-text font-arquitecta">
+            <label className="text-base font-bold uppercase tracking-wider text-muted-text font-arquitecta">
               Enter your email address to get started
             </label>
             <input
@@ -796,11 +792,11 @@ export const StyleGuide: React.FC = () => {
               className="text-base text-charcoal border border-border-light px-3 py-2 bg-white focus:outline-none focus:border-accent-green transition-colors w-full"
             />
           </div>
-          <p className="mt-2 text-[11px] text-muted-text font-mono">Label: <code className="text-charcoal">text-sm font-bold uppercase tracking-wider text-muted-text font-arquitecta</code></p>
-          <p className="mt-1 text-[11px] text-muted-text font-mono">Input: <code className="text-charcoal">text-base text-charcoal border border-border-light px-3 py-2 bg-white focus:outline-none focus:border-accent-green transition-colors w-full</code></p>
+          <p className="mt-2 text-base text-muted-text font-mono">Label: <code className="text-charcoal">text-base font-bold uppercase tracking-wider text-muted-text font-arquitecta</code></p>
+          <p className="mt-1 text-base text-muted-text font-mono">Input: <code className="text-charcoal">text-base text-charcoal border border-border-light px-3 py-2 bg-white focus:outline-none focus:border-accent-green transition-colors w-full</code></p>
         </SubSection>
         <SubSection title="Form label (extra large)">
-          <p className="text-sm text-muted-text mb-4">16px label for high emphasis or when the field is the primary focus (e.g. hero forms, modals). Same weight and tracking as standard and large labels.</p>
+          <p className="text-base text-muted-text mb-4">16px label for high emphasis or when the field is the primary focus (e.g. hero forms, modals). Same weight and tracking as standard and large labels.</p>
           <div className="flex flex-col gap-1 max-w-md">
             <label className="text-base font-bold uppercase tracking-wider text-muted-text font-arquitecta">
               Enter your email
@@ -812,13 +808,13 @@ export const StyleGuide: React.FC = () => {
               className="text-base text-charcoal border border-border-light px-3 py-2 bg-white focus:outline-none focus:border-accent-green transition-colors w-full"
             />
           </div>
-          <p className="mt-2 text-[11px] text-muted-text font-mono">Label: <code className="text-charcoal">text-base font-bold uppercase tracking-wider text-muted-text font-arquitecta</code></p>
+          <p className="mt-2 text-base text-muted-text font-mono">Label: <code className="text-charcoal">text-base font-bold uppercase tracking-wider text-muted-text font-arquitecta</code></p>
         </SubSection>
 
         <SubSection title="Textarea">
           <div className="p-6 border border-border-light max-w-md">
             <div className="flex flex-col gap-1">
-              <label className="text-[12px] font-bold uppercase tracking-wider text-muted-text font-arquitecta">
+              <label className="text-base font-bold uppercase tracking-wider text-muted-text font-arquitecta">
                 Notes
               </label>
               <textarea
@@ -833,7 +829,7 @@ export const StyleGuide: React.FC = () => {
         <SubSection title="Select">
           <div className="p-6 border border-border-light max-w-md">
             <div className="flex flex-col gap-1">
-              <label className="text-[12px] font-bold uppercase tracking-wider text-muted-text font-arquitecta">
+              <label className="text-base font-bold uppercase tracking-wider text-muted-text font-arquitecta">
                 State
               </label>
               <div className="relative">
@@ -856,7 +852,7 @@ export const StyleGuide: React.FC = () => {
         <SubSection title="Checkbox & Radio">
           <div className="p-6 border border-border-light max-w-md space-y-6">
             <div>
-              <p className="text-[12px] font-bold uppercase tracking-wider text-muted-text font-arquitecta mb-3">Checkbox</p>
+              <p className="text-base font-bold uppercase tracking-wider text-muted-text font-arquitecta mb-3">Checkbox</p>
               <label className="flex items-center gap-3 cursor-pointer group">
                 <div
                   onClick={() => setCheckboxChecked(!checkboxChecked)}
@@ -864,11 +860,11 @@ export const StyleGuide: React.FC = () => {
                 >
                   {checkboxChecked && <Check className="w-3.5 h-3.5 text-white" strokeWidth={3} />}
                 </div>
-                <span className="text-sm text-charcoal">I agree to the terms</span>
+                <span className="text-base text-charcoal">I agree to the terms</span>
               </label>
             </div>
             <div>
-              <p className="text-[12px] font-bold uppercase tracking-wider text-muted-text font-arquitecta mb-3">Radio</p>
+              <p className="text-base font-bold uppercase tracking-wider text-muted-text font-arquitecta mb-3">Radio</p>
               <div className="space-y-3">
                 {['a', 'b', 'c'].map((val) => (
                   <label key={val} className="flex items-center gap-3 cursor-pointer group">
@@ -878,7 +874,7 @@ export const StyleGuide: React.FC = () => {
                     >
                       {radioValue === val && <div className="w-2.5 h-2.5 rounded-full bg-charcoal" />}
                     </div>
-                    <span className="text-sm text-charcoal">Option {val.toUpperCase()}</span>
+                    <span className="text-base text-charcoal">Option {val.toUpperCase()}</span>
                   </label>
                 ))}
               </div>
@@ -895,7 +891,7 @@ export const StyleGuide: React.FC = () => {
               >
                 <div className={`absolute top-0.5 w-5 h-5 rounded-full bg-white shadow transition-transform duration-200 ${toggleOn ? 'translate-x-[22px]' : 'translate-x-0.5'}`} />
               </div>
-              <span className="text-sm text-charcoal">Email notifications</span>
+              <span className="text-base text-charcoal">Email notifications</span>
             </label>
           </div>
         </SubSection>
@@ -907,25 +903,25 @@ export const StyleGuide: React.FC = () => {
 
         <div className="space-y-6 p-6 border border-border-light">
           <div>
-            <p className="text-[12px] font-bold uppercase tracking-wider text-muted-text font-arquitecta mb-2">Inline Link</p>
+            <p className="text-base font-bold uppercase tracking-wider text-muted-text font-arquitecta mb-2">Inline Link</p>
             <p className="text-base text-charcoal">
               Visit our <a href="#" className="font-semibold text-charcoal underline hover:text-accent-green transition-colors">member benefits page</a> to learn more.
             </p>
           </div>
           <div>
-            <p className="text-[12px] font-bold uppercase tracking-wider text-muted-text font-arquitecta mb-2">Standalone Link (with icon)</p>
+            <p className="text-base font-bold uppercase tracking-wider text-muted-text font-arquitecta mb-2">Standalone Link (with icon)</p>
             <a href="#" className="text-base font-semibold flex items-center gap-1 cursor-pointer hover:underline font-arquitecta text-charcoal">
               See All Visits <ArrowUpRight className="w-3.5 h-3.5" />
             </a>
           </div>
           <div>
-            <p className="text-[12px] font-bold uppercase tracking-wider text-muted-text font-arquitecta mb-2">Navigation Link (active indicator)</p>
+            <p className="text-base font-bold uppercase tracking-wider text-muted-text font-arquitecta mb-2">Navigation Link (active indicator)</p>
             <div className="inline-block border-b-2 border-accent-green pb-1">
               <span className="font-bold text-charcoal uppercase tracking-wider font-arquitecta">Dashboard</span>
             </div>
           </div>
           <div>
-            <p className="text-[12px] font-bold uppercase tracking-wider text-muted-text font-arquitecta mb-2">Text Link</p>
+            <p className="text-base font-bold uppercase tracking-wider text-muted-text font-arquitecta mb-2">Text Link</p>
             <a href="#" className="text-base font-semibold text-charcoal underline hover:text-muted-text transition-colors">
               Add a Membership
             </a>
@@ -938,27 +934,27 @@ export const StyleGuide: React.FC = () => {
         <SectionTitle id="tags-badges">Tags / Badges / Chips</SectionTitle>
 
         <div className="flex flex-wrap gap-4 items-center p-6 border border-border-light">
-          <span className="px-2.5 py-1.5 text-[12px] font-bold uppercase tracking-wider border border-accent-green text-accent-green leading-none">
+          <span className="px-2.5 py-1.5 text-base font-bold uppercase tracking-wider border border-accent-green text-accent-green leading-none">
             Your Membership
           </span>
-          <span className="px-2.5 py-1.5 text-[12px] font-bold text-black uppercase tracking-wider border border-lime leading-none">
+          <span className="px-2.5 py-1.5 text-base font-bold text-black uppercase tracking-wider border border-lime leading-none">
             Active
           </span>
-          <span className="px-2.5 py-1.5 text-[12px] font-bold text-accent-pink uppercase tracking-wider border border-accent-pink leading-none">
+          <span className="px-2.5 py-1.5 text-base font-bold text-accent-pink uppercase tracking-wider border border-accent-pink leading-none">
             Expired
           </span>
-          <span className="px-4 py-2 bg-used-badge text-muted-text text-sm font-bold uppercase tracking-wider font-arquitecta">
+          <span className="px-4 py-2 bg-used-badge text-muted-text text-base font-bold uppercase tracking-wider font-arquitecta">
             Used Jan 15, 2025
           </span>
-          <span className="px-4 py-2 bg-mist text-charcoal text-sm font-semibold">
+          <span className="px-4 py-2 bg-mist text-charcoal text-base font-semibold">
             Upcoming
           </span>
-          <span className="px-4 py-2 bg-charcoal text-white text-sm font-bold uppercase tracking-wider font-arquitecta">
+          <span className="px-4 py-2 bg-charcoal text-white text-base font-bold uppercase tracking-wider font-arquitecta">
             New
           </span>
         </div>
-        <div className="mt-3 text-sm text-muted-text">
-          <p>Badge pattern: <code className="font-mono text-charcoal">px-2.5 py-1.5 text-[12px] font-bold uppercase tracking-wider border leading-none</code></p>
+        <div className="mt-3 text-base text-muted-text">
+          <p>Badge pattern: <code className="font-mono text-charcoal">px-2.5 py-1.5 text-base font-bold uppercase tracking-wider border leading-none</code></p>
         </div>
 
         {/* ============================================================ */}
@@ -967,19 +963,19 @@ export const StyleGuide: React.FC = () => {
         <SectionTitle id="tooltips">Tooltips</SectionTitle>
 
         <div className="p-6 border border-border-light">
-          <p className="text-[12px] font-bold uppercase tracking-wider text-muted-text font-arquitecta mb-4">Info Banner (inline tooltip pattern)</p>
-          <div className="bg-canvas p-3 text-sm text-muted-text leading-relaxed flex gap-2 max-w-md">
+          <p className="text-base font-bold uppercase tracking-wider text-muted-text font-arquitecta mb-4">Info Banner (inline tooltip pattern)</p>
+          <div className="bg-canvas p-3 text-base text-muted-text leading-relaxed flex gap-2 max-w-md">
             <Info className="w-4 h-4 mt-0.5 shrink-0 text-muted-text" />
             This ticket requires advance reservations. You&apos;ll receive a confirmation email after booking.
           </div>
-          <p className="text-xs text-muted-text mt-3">Used in booked visits and contextual info banners. Pattern: <code className="font-mono">bg-canvas p-3 text-sm text-muted-text leading-relaxed</code></p>
+          <p className="text-base text-muted-text mt-3">Used in booked visits and contextual info banners. Pattern: <code className="font-mono">bg-canvas p-3 text-base text-muted-text leading-relaxed</code></p>
 
-          <p className="text-[12px] font-bold uppercase tracking-wider text-muted-text font-arquitecta mb-4 mt-8">Info Banner — Large</p>
+          <p className="text-base font-bold uppercase tracking-wider text-muted-text font-arquitecta mb-4 mt-8">Info Banner — Large</p>
           <div className="bg-canvas p-4 text-base text-muted-text leading-relaxed flex gap-3 max-w-lg">
             <PartyPopper className="w-5 h-5 mt-0.5 shrink-0 text-muted-text" />
             You&apos;ve saved $250 with your membership this year.
           </div>
-          <p className="text-xs text-muted-text mt-3">Used for prominent page-level banners. Pattern: <code className="font-mono">bg-canvas p-4 text-base text-muted-text leading-relaxed flex gap-3</code> with <code className="font-mono">w-5 h-5</code> icon.</p>
+          <p className="text-base text-muted-text mt-3">Used for prominent page-level banners. Pattern: <code className="font-mono">bg-canvas p-4 text-base text-muted-text leading-relaxed flex gap-3</code> with <code className="font-mono">w-5 h-5</code> icon.</p>
         </div>
 
         {/* ============================================================ */}
@@ -989,19 +985,19 @@ export const StyleGuide: React.FC = () => {
 
         <div className="space-y-6 p-6 border border-border-light">
           <div>
-            <p className="text-[12px] font-bold uppercase tracking-wider text-muted-text font-arquitecta mb-3">Standard Divider</p>
+            <p className="text-base font-bold uppercase tracking-wider text-muted-text font-arquitecta mb-3">Standard Divider</p>
             <hr className="border-border-light" />
-            <code className="text-[11px] text-muted-text font-mono mt-2 block">border-b border-border-light or border-b border-card-stroke</code>
+            <code className="text-base text-muted-text font-mono mt-2 block">border-b border-border-light or border-b border-card-stroke</code>
           </div>
           <div>
-            <p className="text-[12px] font-bold uppercase tracking-wider text-muted-text font-arquitecta mb-3">Accent Divider</p>
+            <p className="text-base font-bold uppercase tracking-wider text-muted-text font-arquitecta mb-3">Accent Divider</p>
             <div className="border-b-2 border-accent-green w-32" />
-            <code className="text-[11px] text-muted-text font-mono mt-2 block">border-b-2 border-accent-green</code>
+            <code className="text-base text-muted-text font-mono mt-2 block">border-b-2 border-accent-green</code>
           </div>
           <div>
-            <p className="text-[12px] font-bold uppercase tracking-wider text-muted-text font-arquitecta mb-3">Dark Accent Line (top of card)</p>
+            <p className="text-base font-bold uppercase tracking-wider text-muted-text font-arquitecta mb-3">Dark Accent Line (top of card)</p>
             <div className="w-full h-[3px] bg-accent-green mb-2" />
-            <code className="text-[11px] text-muted-text font-mono">h-[3px] bg-accent-green (top accent on current membership tier)</code>
+            <code className="text-base text-muted-text font-mono">h-[3px] bg-accent-green (top accent on current membership tier)</code>
           </div>
         </div>
 
@@ -1013,18 +1009,18 @@ export const StyleGuide: React.FC = () => {
         <div className="flex flex-wrap gap-8 items-center p-6 border border-border-light">
           <div className="flex flex-col items-center gap-3">
             <Loader2 className="w-6 h-6 animate-spin text-charcoal" />
-            <span className="text-[11px] font-bold uppercase tracking-wider text-muted-text font-arquitecta">Default</span>
+            <span className="text-base font-bold uppercase tracking-wider text-muted-text font-arquitecta">Default</span>
           </div>
           <div className="flex flex-col items-center gap-3">
             <Loader2 className="w-8 h-8 animate-spin text-accent-green" />
-            <span className="text-[11px] font-bold uppercase tracking-wider text-muted-text font-arquitecta">Accent</span>
+            <span className="text-base font-bold uppercase tracking-wider text-muted-text font-arquitecta">Accent</span>
           </div>
           <div className="flex flex-col items-center gap-3">
             <Loader2 className="w-4 h-4 animate-spin text-white" />
-            <span className="text-[11px] font-bold uppercase tracking-wider text-muted-text font-arquitecta">In-button</span>
+            <span className="text-base font-bold uppercase tracking-wider text-muted-text font-arquitecta">In-button</span>
           </div>
         </div>
-        <div className="mt-3 text-sm text-muted-text">
+        <div className="mt-3 text-base text-muted-text">
           Uses Lucide <code className="font-mono text-charcoal">Loader2</code> icon with <code className="font-mono text-charcoal">animate-spin</code>. Sizes: <code className="font-mono">w-4</code> (inline), <code className="font-mono">w-6</code> (default), <code className="font-mono">w-8</code> (page-level).
         </div>
 
@@ -1032,19 +1028,19 @@ export const StyleGuide: React.FC = () => {
         {/*  20. GUEST CHECKOUT COMPONENTS                                 */}
         {/* ============================================================ */}
         <SectionTitle id="guest-checkout">Guest Checkout Components</SectionTitle>
-        <p className="text-sm text-muted-text mb-8">
+        <p className="text-base text-muted-text mb-8">
           Components and patterns used in the timed-ticket guest checkout flow. See <Link to="/ticket-flow-guest" className="font-semibold text-charcoal underline hover:text-accent-green transition-colors">Guest Checkout Flow</Link> for live usage.
         </p>
 
         <SubSection title="Card Field">
-          <p className="text-sm text-muted-text mb-4">Large, tappable card-style field for date/time selection. Label in uppercase, value below, pencil icon on right.</p>
+          <p className="text-base text-muted-text mb-4">Large, tappable card-style field for date/time selection. Label in uppercase, value below, pencil icon on right.</p>
           <div className="max-w-md space-y-4">
             <button
               type="button"
               className="w-full text-left border border-border-light bg-white px-6 py-4 flex items-center justify-between hover:bg-hover transition-colors"
             >
               <div>
-                <div className="text-xs font-bold uppercase tracking-wider text-muted-text font-arquitecta mb-1">Date</div>
+                <div className="text-base font-bold uppercase tracking-wider text-muted-text font-arquitecta mb-1">Date</div>
                 <div className="text-base text-charcoal">Aug. 7, 2025</div>
               </div>
               <Pencil className="w-4 h-4 text-muted-text" />
@@ -1054,136 +1050,53 @@ export const StyleGuide: React.FC = () => {
               className="w-full text-left border border-border-light bg-white px-6 py-4 flex items-center justify-between hover:bg-hover transition-colors"
             >
               <div>
-                <div className="text-xs font-bold uppercase tracking-wider text-muted-text font-arquitecta mb-1">Entry time</div>
+                <div className="text-base font-bold uppercase tracking-wider text-muted-text font-arquitecta mb-1">Entry time</div>
                 <div className="text-base text-charcoal">9:30 AM</div>
               </div>
               <Pencil className="w-4 h-4 text-muted-text" />
             </button>
           </div>
-          <p className="text-xs text-muted-text mt-3">Pattern: <code className="font-mono text-charcoal">border border-border-light bg-white px-6 py-4 flex items-center justify-between hover:bg-hover</code></p>
+          <p className="text-base text-muted-text mt-3">Pattern: <code className="font-mono text-charcoal">border border-border-light bg-white px-6 py-4 flex items-center justify-between hover:bg-hover</code></p>
         </SubSection>
 
         <SubSection title="Membership Upsell Card">
-          <p className="text-sm text-muted-text mb-4">Sidebar card promoting membership upgrade. Used in Step 1 (date/time) and Step 3 (checkout).</p>
+          <p className="text-base text-muted-text mb-4">Sidebar card promoting membership upgrade. Used in Step 1 (date/time) and Step 3 (checkout).</p>
           <section className="bg-canvas border border-border-light p-6 max-w-sm">
-            <h3 className="font-bold text-sm tracking-widest text-charcoal uppercase mb-3 font-arquitecta">
+            <h3 className="font-bold text-base tracking-widest text-charcoal uppercase mb-3 font-arquitecta">
               Become a member
             </h3>
-            <p className="text-sm text-muted-text leading-relaxed mb-4">
+            <p className="text-base text-muted-text leading-relaxed mb-4">
               Skip future ticket fees — upgrade to membership for $70 &amp; unlock member benefits.
             </p>
-            <button className="w-full border-[1.5px] border-charcoal bg-white px-6 py-3 text-sm font-bold uppercase tracking-wider font-arquitecta hover:bg-hover transition-colors">
+            <button className="w-full border-[1.5px] border-charcoal bg-white px-6 py-4 text-base font-bold uppercase tracking-wider font-arquitecta hover:bg-hover transition-colors">
               Add Membership
             </button>
           </section>
-          <p className="text-xs text-muted-text mt-3">Pattern: <code className="font-mono text-charcoal">bg-canvas border border-border-light p-6</code></p>
+          <p className="text-base text-muted-text mt-3">Pattern: <code className="font-mono text-charcoal">bg-canvas border border-border-light p-6</code></p>
         </SubSection>
 
         <SubSection title="Primary CTA (Guest Flow)">
-          <p className="text-sm text-muted-text mb-4">Full-width primary button for Continue / Complete order. Near-black fill, disabled state uses border-light.</p>
+          <p className="text-base text-muted-text mb-4">Full-width primary button for Continue / Complete order. Near-black fill, disabled state uses border-light.</p>
           <div className="max-w-sm space-y-4">
-            <button className="w-full px-6 py-3 text-sm font-bold uppercase tracking-wider font-arquitecta text-white bg-near-black hover:bg-charcoal transition-colors text-center">
+            <button className="w-full px-6 py-4 text-base font-bold uppercase tracking-wider font-arquitecta text-white bg-near-black hover:bg-charcoal transition-colors text-center">
               Continue
             </button>
-            <button className="w-full px-6 py-3 text-sm font-bold uppercase tracking-wider font-arquitecta text-white bg-border-light cursor-not-allowed transition-colors text-center">
+            <button className="w-full px-6 py-4 text-base font-bold uppercase tracking-wider font-arquitecta text-white bg-border-light cursor-not-allowed transition-colors text-center">
               Continue
             </button>
           </div>
-          <p className="text-xs text-muted-text mt-3">Enabled: <code className="font-mono text-charcoal">bg-near-black hover:bg-charcoal</code> — Disabled: <code className="font-mono text-charcoal">bg-border-light cursor-not-allowed</code></p>
+          <p className="text-base text-muted-text mt-3">Enabled: <code className="font-mono text-charcoal">bg-near-black hover:bg-charcoal</code> — Disabled: <code className="font-mono text-charcoal">bg-border-light cursor-not-allowed</code></p>
         </SubSection>
 
         <SubSection title="Layout — Two-Column (Desktop)">
-          <p className="text-sm text-muted-text mb-4">Guest flow uses <code className="font-mono text-charcoal">grid-cols-1 lg:grid-cols-12</code> with main content in <code className="font-mono text-charcoal">lg:col-span-8</code> and sidebar (order summary, upsell, CTA) in <code className="font-mono text-charcoal">lg:col-span-4</code>. Sidebar is <code className="font-mono text-charcoal">lg:sticky lg:top-8</code> on ticket/checkout steps.</p>
-        </SubSection>
-        <SubSection title="Member Checkout — Step 1 & Login modal">
-          <p className="text-sm text-muted-text mb-4">
-            <Link to="/ticket-flow-member" className="font-semibold text-charcoal underline hover:text-accent-green">Member Checkout Flow</Link> reuses the same Step 1 (date & time). When not logged in: label &quot;Sign in for member pricing and saved checkout details,&quot; then buttons &quot;Continue as Guest&quot; and &quot;Sign In&quot;. Clicking &quot;Sign In&quot; opens a login modal (no navigation). Modal: close X, logo + &quot;Grounds for Sculpture,&quot; Username (placeholder &quot;Insert your email or phone number&quot;), Password, &quot;Forgot password?&quot; link, Login (primary), Register (secondary). On successful login, modal closes and Step 1 shows only a single &quot;Continue&quot; button.
-          </p>
-          <p className="text-xs text-muted-text">Uses standard <a href="#inputs" className="font-semibold text-charcoal underline hover:text-accent-green">Text Input</a> and <a href="#buttons" className="font-semibold text-charcoal underline hover:text-accent-green">Buttons</a> (primary + secondary outlined). Modal uses <code className="font-mono text-charcoal">DialogContent</code> from ui/dialog.</p>
-        </SubSection>
-
-        {/* ============================================================ */}
-        {/*  21. MEMBER PORTAL ENTRY (GFS Guest Flow)                      */}
-        {/* ============================================================ */}
-        <SectionTitle id="member-portal-entry">Member Portal Entry</SectionTitle>
-        <p className="text-sm text-muted-text mb-8">
-          Split-screen entry from Figma GFS Guest Flow. Left: logo, heading, email form, Continue, Help logging in, Privacy Policy. Right: hero image. See <Link to="/member-portal-entry" className="font-semibold text-charcoal underline hover:text-accent-green transition-colors">Member Portal Entry</Link> for live usage.
-        </p>
-        <SubSection title="Layout">
-          <p className="text-sm text-muted-text mb-4"><code className="font-mono text-charcoal">flex flex-col md:flex-row</code> — form panel <code className="font-mono text-charcoal">flex-1 bg-shell</code>; image panel <code className="font-mono text-charcoal">md:w-[50%] lg:w-[55%]</code>. On mobile, image stacks below form.</p>
-        </SubSection>
-        <SubSection title="Form">
-          <p className="text-sm text-muted-text mb-4">Uses standard <a href="#inputs" className="font-semibold text-charcoal underline hover:text-accent-green">Text Input</a> (label + input) and <a href="#buttons" className="font-semibold text-charcoal underline hover:text-accent-green">Primary CTA</a> button. &quot;Help logging in&quot; uses <code className="font-mono text-charcoal">text-accent-pink</code>.</p>
-        </SubSection>
-        <SubSection title="Password entry & error state">
-          <p className="text-sm text-muted-text mb-4">
-            Second step after email: <Link to="/member-portal-entry" className="font-semibold text-charcoal underline hover:text-accent-green">Member Portal Entry</Link> → <Link to="/member-portal-entry/password" className="font-semibold text-charcoal underline hover:text-accent-green">Password</Link>. Same card layout (green top bar), read-only email display, then password input and Continue. When validation fails (e.g. incorrect password), show an inline error below the password field.
-          </p>
-          <div className="flex flex-col gap-1 max-w-md p-6 border border-border-light">
-            <label className="text-[12px] font-bold uppercase tracking-wider text-muted-text font-arquitecta">Password</label>
-            <input
-              type="password"
-              readOnly
-              value="wrong"
-              aria-invalid
-              aria-describedby="sg-password-error"
-              className="text-base text-charcoal border border-accent-pink px-3 py-2 bg-white focus:outline-none focus:border-accent-pink transition-colors w-full"
-            />
-            <p id="sg-password-error" role="alert" className="text-xs text-accent-pink mt-1">
-              Wrong password. Try again or click "Help logging in" for more options.
-            </p>
-          </div>
-          <p className="text-xs text-muted-text mt-3">
-            <strong className="text-charcoal">Error styling:</strong> Input <code className="font-mono">border-accent-pink</code>, message <code className="font-mono">text-xs text-accent-pink</code>. <strong className="text-charcoal">Accessibility:</strong> <code className="font-mono">aria-invalid</code> and <code className="font-mono">aria-describedby</code> on the input (pointing to the error <code className="font-mono">id</code>), <code className="font-mono">role="alert"</code> and <code className="font-mono">aria-live="polite"</code> on the error message; focus the error when it appears so screen readers announce it.
-          </p>
-        </SubSection>
-
-        {/* ============================================================ */}
-        {/*  22. ACCOUNT REGISTRATION                                      */}
-        {/* ============================================================ */}
-        <SectionTitle id="account-registration">Account Registration</SectionTitle>
-        <p className="text-sm text-muted-text mb-8">
-          Four-step flow: email → personal details → set password → finish. Same split layout as <Link to="/member-portal-entry" className="font-semibold text-charcoal underline hover:text-accent-green">Member Portal Entry</Link> (form left, hero image right). See <Link to="/account-registration" className="font-semibold text-charcoal underline hover:text-accent-green">Account Registration</Link> for live usage.
-        </p>
-        <SubSection title="Steps">
-          <ul className="text-sm text-muted-text space-y-2 list-disc pl-5">
-            <li><strong className="text-charcoal">Step 1:</strong> &quot;Create an account&quot; — green accent line, &quot;Enter your email address to get started&quot;, email input, Continue. &quot;Already have an account? Login here&quot; links to member portal entry.</li>
-            <li><strong className="text-charcoal">Step 2:</strong> Email (read-only), &quot;Enter your personal&quot; — First Name, Last Name, Phone. &quot;Address&quot; — Street, City, State (dropdown), ZIP, Country (dropdown). Continue.</li>
-            <li><strong className="text-charcoal">Step 3:</strong> Personal details summary (Name, Email, Phone, Address with edit icons), then &quot;Create a member portal password&quot; card — Password, Confirm Password, password requirements list, Continue.</li>
-            <li><strong className="text-charcoal">Step 4:</strong> &quot;You&apos;re all set&quot; — success message and Sign in link.</li>
-          </ul>
-        </SubSection>
-        <SubSection title="Patterns">
-          <p className="text-sm text-muted-text">Uses standard <a href="#inputs" className="font-semibold text-charcoal underline hover:text-accent-green">Inputs</a> (labels, text inputs, select), <a href="#buttons" className="font-semibold text-charcoal underline hover:text-accent-green">Primary CTA</a>, white cards with green top accent (<code className="font-mono text-charcoal">h-[3px] bg-accent-green</code>), and split layout from Member Portal Entry.</p>
-        </SubSection>
-
-        {/* ============================================================ */}
-        {/*  23. MEMBERSHIP PURCHASE                                        */}
-        {/* ============================================================ */}
-        <SectionTitle id="membership-purchase">Membership Purchase</SectionTitle>
-        <p className="text-sm text-muted-text mb-8">
-          Two-step flow plus payment placeholder and confirmation. Header: logo, &quot;Return to main site&quot;, &quot;Account Portal&quot; dropdown. <strong className="text-charcoal">Step 1:</strong> &quot;Membership Type&quot; — categories (Individual, Family, Other) with membership types, price, quantity +/-; right sidebar Order Summary, &quot;Check Out as a Guest&quot;, &quot;Login&quot;. <strong className="text-charcoal">Step 2:</strong> &quot;Checkout&quot; — personal info form (First Name, Last Name, Email, Phone, City, State, ZIP, Street Address), optional &quot;Create an account for managing my membership and ticketing&quot; with password fields; sidebar Order Summary, &quot;Pay&quot;, &quot;Login&quot;. Pay opens the same placeholder checkout modal as ticketing; &quot;Complete&quot; navigates to confirmation. <strong className="text-charcoal">Confirmation:</strong> thank-you message, membership card (name, QR placeholder, logo), Print, Email, Add to wallet. See <Link to="/membership-purchase" className="font-semibold text-charcoal underline hover:text-accent-green">Membership Purchase</Link> for live usage.
-        </p>
-        <SubSection title="Patterns">
-          <p className="text-sm text-muted-text">Reuses <a href="#guest-checkout" className="font-semibold text-charcoal underline hover:text-accent-green">TicketFlowStepIndicator</a> and <a href="#guest-checkout" className="font-semibold text-charcoal underline hover:text-accent-green">TicketFlowFooter</a>, same checkout modal overlay as guest ticketing, and order summary style (green accent, line items, total). Membership types from <code className="font-mono text-charcoal">mockData.initialMembershipTypes</code>.</p>
-        </SubSection>
-
-        {/* ============================================================ */}
-        {/*  24. EVENT TICKET PURCHASE                                     */}
-        {/* ============================================================ */}
-        <SectionTitle id="event-ticket-purchase">Event Ticket Purchase</SectionTitle>
-        <p className="text-sm text-muted-text mb-8">
-          Recurring event flow (e.g. Workshop Wellness — Tai Chi). User comes from an event detail page. <strong className="text-charcoal">Step 1:</strong> Event title, steps 1–3. Calendar is always visible (not in an accordion); only certain weekdays are available (e.g. Wednesdays). Default date = next available (e.g. next Wednesday). Time is fixed per event (e.g. 10:30–11:30 AM), shown in Order Summary. &quot;Sign in to see member pricing and saved checkout details,&quot; Sign In (opens login modal from member flow), Continue as Guest. After login, single Continue. <strong className="text-charcoal">Step 2:</strong> &quot;Timed Admission&quot;, reminder banner, single ticket option (e.g. Adult, Member, FREE) with quantity; Order Summary, Continue. <strong className="text-charcoal">Step 3:</strong> Guest information, Order Summary, Complete order → placeholder checkout modal → <Link to="/ticket-flow-guest/confirmation" className="font-semibold text-charcoal underline hover:text-accent-green">Ticket Confirmation</Link>. See <Link to="/event-ticket" className="font-semibold text-charcoal underline hover:text-accent-green">Event Ticket Purchase</Link> for live usage.
-        </p>
-        <SubSection title="Patterns">
-          <p className="text-sm text-muted-text">Reuses <a href="#guest-checkout" className="font-semibold text-charcoal underline hover:text-accent-green">TicketFlowStepIndicator</a>, <a href="#guest-checkout" className="font-semibold text-charcoal underline hover:text-accent-green">TicketFlowOrderSummary</a>, <a href="#guest-checkout" className="font-semibold text-charcoal underline hover:text-accent-green">TicketFlowFooter</a>, same login modal pattern as member ticket flow (loader, 2s delay), and same payment overlay + confirmation route. Event title from <code className="font-mono text-charcoal">location.state.eventTitle</code> (default &quot;Workshop Wellness - Tai Chi&quot;).</p>
+          <p className="text-base text-muted-text mb-4">Guest flow uses <code className="font-mono text-charcoal">grid-cols-1 lg:grid-cols-12</code> with main content in <code className="font-mono text-charcoal">lg:col-span-8</code> and sidebar (order summary, upsell, CTA) in <code className="font-mono text-charcoal">lg:col-span-4</code>. Sidebar is <code className="font-mono text-charcoal">lg:sticky lg:top-8</code> on ticket/checkout steps.</p>
         </SubSection>
 
         {/* ============================================================ */}
         {/*  FOOTER                                                        */}
         {/* ============================================================ */}
         <div className="mt-20 pt-8 border-t border-border-light text-center">
-          <p className="text-sm text-muted-text">
+          <p className="text-base text-muted-text">
             MP Style Guide &mdash; Last updated {new Date().toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}
           </p>
         </div>

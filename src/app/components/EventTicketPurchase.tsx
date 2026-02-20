@@ -8,6 +8,7 @@ import { Dialog, DialogOverlay, DialogPortal, DialogTitle, DialogContent } from 
 import type { TicketType, TicketFlowStep } from '../types';
 import { TicketFlowStepIndicator, TicketFlowOrderSummary, TicketFlowFooter } from './TicketFlow1';
 import { primaryProfile } from '../mockData';
+import { FIELD_LABEL } from '../typography';
 
 const EVENT_TITLE_DEFAULT = 'Workshop Wellness - Tai Chi';
 const FIXED_TIME = '10:30 - 11:30 AM';
@@ -120,26 +121,26 @@ const EventDateCalendar: React.FC<{
         <button
           type="button"
           onClick={handleNextAvailable}
-          className="text-sm font-bold uppercase tracking-wider text-charcoal hover:underline font-arquitecta"
+          className="text-base font-bold uppercase tracking-wider text-charcoal hover:underline font-arquitecta"
         >
           Next available date
         </button>
         <button
           type="button"
           onClick={() => setViewMonth(addMonths(viewMonth, 1))}
-          className="text-sm font-bold uppercase tracking-wider text-charcoal hover:underline font-arquitecta"
+          className="text-base font-bold uppercase tracking-wider text-charcoal hover:underline font-arquitecta"
         >
           Next month
         </button>
       </div>
       <div className="grid grid-cols-7 mb-4 border-t border-l border-border-light">
         {['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'].map((d) => (
-          <div key={d} className="border-r border-b border-border-light bg-muted-bg text-sm font-bold uppercase tracking-wider text-muted-text font-arquitecta text-center py-3">
+          <div key={d} className="border-r border-b border-border-light bg-muted-bg text-base font-bold uppercase tracking-wider text-muted-text font-arquitecta text-center py-2 md:py-3">
             {d}
           </div>
         ))}
         {leadingEmpty.map((_, i) => (
-          <div key={`empty-${i}`} className="border-r border-b border-border-light bg-white min-h-[5.5rem]" />
+          <div key={`empty-${i}`} className="border-r border-b border-border-light bg-white min-h-[4.125rem] md:min-h-[5.5rem]" />
         ))}
         {days.map((d) => {
           const available = isAvailable(d);
@@ -151,7 +152,7 @@ const EventDateCalendar: React.FC<{
               onClick={() => handleSelect(d)}
               disabled={!available}
               className={clsx(
-                'min-h-[5.5rem] flex items-center justify-center text-base transition-colors',
+                'min-h-[4.125rem] md:min-h-[5.5rem] flex items-center justify-center text-base transition-colors',
                 selected && 'bg-lime border border-near-black font-bold text-charcoal',
                 !selected && 'border-r border-b border-border-light font-normal',
                 !selected && !available && 'bg-mist text-muted-text cursor-not-allowed',
@@ -163,7 +164,7 @@ const EventDateCalendar: React.FC<{
           );
         })}
       </div>
-      <div className="flex flex-wrap gap-4 text-xs text-muted-text">
+      <div className="flex flex-wrap gap-4 text-base text-muted-text">
         <div className="flex items-center gap-2">
           <div className="w-4 h-4 bg-lime border border-border-light" />
           <span>Selected</span>
@@ -220,12 +221,14 @@ const LoginModal: React.FC<{
           </div>
         ) : (
           <>
-            <div className="p-6 pb-4 flex flex-col items-center">
-              <Logo className="h-10 w-auto text-charcoal" />
+            <div className="p-6 pb-4">
+              <DialogTitle className="text-xl font-black uppercase tracking-wide text-charcoal font-arquitecta">
+                Log in to GFS
+              </DialogTitle>
             </div>
             <form onSubmit={handleLogin} className="px-6 pb-6 space-y-4">
               <div className="flex flex-col gap-1">
-                <label htmlFor="event-login-username" className="text-base font-bold uppercase tracking-wider text-muted-text font-arquitecta">Username</label>
+                <label htmlFor="event-login-username" className={FIELD_LABEL}>Username</label>
                 <input
                   id="event-login-username"
                   type="text"
@@ -237,7 +240,7 @@ const LoginModal: React.FC<{
                 />
               </div>
               <div className="flex flex-col gap-1">
-                <label htmlFor="event-login-password" className="text-base font-bold uppercase tracking-wider text-muted-text font-arquitecta">Password</label>
+                <label htmlFor="event-login-password" className={FIELD_LABEL}>Password</label>
                 <input
                   id="event-login-password"
                   type="password"
@@ -247,20 +250,20 @@ const LoginModal: React.FC<{
                   className="text-base text-charcoal border border-border-light px-3 py-2 bg-white focus:outline-none focus:border-accent-green transition-colors w-full"
                 />
               </div>
-              <a href="#" className="text-sm text-accent-pink hover:underline block text-right" onClick={(e) => e.preventDefault()}>
+              <a href="#" className="text-base text-accent-pink hover:underline block text-right" onClick={(e) => e.preventDefault()}>
                 Need help logging in?
               </a>
               <button
                 type="submit"
                 disabled={!username.trim() || !password.trim()}
-                className="w-full px-6 py-3 text-base font-bold uppercase tracking-wider font-arquitecta bg-charcoal text-white hover:bg-near-black disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                className="w-full px-6 py-4 text-base font-bold uppercase tracking-wider font-arquitecta bg-charcoal text-white hover:bg-near-black disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
               >
                 Login
               </button>
               <button
                 type="button"
                 onClick={() => onOpenChange(false)}
-                className="w-full px-6 py-3 text-base font-bold uppercase tracking-wider font-arquitecta border-[1.5px] border-charcoal hover:bg-hover transition-colors"
+                className="w-full px-6 py-4 text-base font-bold uppercase tracking-wider font-arquitecta border-[1.5px] border-charcoal hover:bg-hover transition-colors"
               >
                 Register
               </button>
@@ -283,7 +286,7 @@ const TextInputField: React.FC<{
   type?: string;
 }> = ({ label, value, onChange, required, type = 'text' }) => (
   <label className="flex flex-col gap-1">
-    <span className="text-base font-normal text-charcoal font-opensans">{label} {required && <span className="text-accent-pink">*</span>}</span>
+    <span className={FIELD_LABEL}>{label} {required && <span className="text-accent-pink">*</span>}</span>
     <input
       type={type}
       value={value}
@@ -329,6 +332,11 @@ export const EventTicketPurchase: React.FC = () => {
     street: primaryProfile.street,
   });
 
+  // Scroll to top when step changes (e.g. after tapping Continue)
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [currentStep]);
+
   const steps = buildSteps(currentStep);
   const total = tickets.reduce((sum, t) => sum + t.price * t.quantity, 0);
   const canSubmitCheckout =
@@ -356,11 +364,11 @@ export const EventTicketPurchase: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-white font-opensans text-near-black pb-14">
+    <div className="min-h-screen flex flex-col bg-white font-opensans text-near-black pb-24 md:pb-14">
       <header className="border-b border-border-light">
         <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
           <Logo className="h-10 w-auto text-accent-green" />
-          <button className="flex items-center gap-2 text-sm font-bold tracking-wider text-charcoal uppercase font-arquitecta hover:text-muted-text transition-colors">
+          <button className="flex items-center gap-2 text-base font-bold tracking-wider text-charcoal uppercase font-arquitecta hover:text-muted-text transition-colors">
             Account Portal
             <ChevronDown className="w-4 h-4" />
           </button>
@@ -399,7 +407,7 @@ export const EventTicketPurchase: React.FC = () => {
               />
               <div className="flex flex-col gap-3">
                 {!isLoggedIn && (
-                  <p className="text-sm text-muted-text">
+                  <p className="text-base text-muted-text">
                     Sign in to see member pricing and saved checkout details.
                   </p>
                 )}
@@ -407,14 +415,14 @@ export const EventTicketPurchase: React.FC = () => {
                   <button
                     type="button"
                     onClick={() => setCurrentStep(2)}
-                    className="w-full px-6 py-3 text-base font-bold uppercase tracking-wider font-arquitecta bg-charcoal text-white hover:bg-near-black transition-colors text-center"
+                    className="w-full px-6 py-4 text-base font-bold uppercase tracking-wider font-arquitecta bg-charcoal text-white hover:bg-near-black transition-colors text-center"
                   >
                     Continue
                   </button>
                 ) : (
                   <a
                     href="#"
-                    className="w-full px-6 py-3 text-base font-bold uppercase tracking-wider font-arquitecta bg-charcoal text-white hover:bg-near-black transition-colors text-center inline-block"
+                    className="w-full px-6 py-4 text-base font-bold uppercase tracking-wider font-arquitecta bg-charcoal text-white hover:bg-near-black transition-colors text-center inline-block"
                   >
                     Continue as Guest
                   </a>
@@ -423,7 +431,7 @@ export const EventTicketPurchase: React.FC = () => {
                   <button
                     type="button"
                     onClick={() => setLoginModalOpen(true)}
-                    className="w-full px-6 py-3 text-base font-bold uppercase tracking-wider font-arquitecta border-[1.5px] border-charcoal hover:bg-hover transition-colors text-center"
+                    className="w-full px-6 py-4 text-base font-bold uppercase tracking-wider font-arquitecta border-[1.5px] border-charcoal hover:bg-hover transition-colors text-center"
                   >
                     Sign In
                   </button>
@@ -440,7 +448,7 @@ export const EventTicketPurchase: React.FC = () => {
               <h2 className="text-2xl font-bold uppercase tracking-wider mb-6 font-arquitecta">
                 Timed Admission
               </h2>
-              <div className="bg-canvas p-3 text-sm text-muted-text leading-relaxed flex gap-2 mb-6">
+              <div className="bg-canvas p-3 text-base text-muted-text leading-relaxed flex gap-2 mb-6">
                 <Info className="w-4 h-4 mt-0.5 shrink-0 text-muted-text" />
                 <span>Reminder: Prices are listed per ticket. The total cost will be shown in your order summary.</span>
               </div>
@@ -450,12 +458,12 @@ export const EventTicketPurchase: React.FC = () => {
               <div className="flex flex-col md:flex-row justify-between items-start md:items-center p-6 border border-border-light border-l-4 border-l-border-light bg-white">
                 <div className="flex-1 max-w-xl pr-4">
                   <h3 className="font-bold text-charcoal text-base mb-1">{tickets[0].title}</h3>
-                  <p className="text-muted-text text-sm md:text-base leading-relaxed">
+                  <p className="text-muted-text text-base leading-relaxed">
                     {tickets[0].description}
                   </p>
                   <div className="flex gap-2 mt-2">
-                    <span className="px-2 py-1 text-xs font-bold uppercase tracking-wider bg-mist text-charcoal">Member</span>
-                    <span className="px-2 py-1 text-xs font-bold uppercase tracking-wider border border-charcoal text-charcoal">FREE</span>
+                    <span className="px-2 py-1 text-base font-bold uppercase tracking-wider bg-mist text-charcoal">Member</span>
+                    <span className="px-2 py-1 text-base font-bold uppercase tracking-wider border border-charcoal text-charcoal">FREE</span>
                   </div>
                 </div>
                 <div className="flex items-center gap-4 mt-4 md:mt-0">
@@ -501,7 +509,7 @@ export const EventTicketPurchase: React.FC = () => {
                 onClick={() => setCurrentStep(3)}
                 disabled={tickets[0].quantity < 1}
                 className={clsx(
-                  'w-full mt-6 px-6 py-3 text-base font-bold uppercase tracking-wider font-arquitecta transition-colors text-center',
+                  'w-full mt-6 px-6 py-4 text-base font-bold uppercase tracking-wider font-arquitecta transition-colors text-center',
                   tickets[0].quantity >= 1 ? 'bg-charcoal text-white hover:bg-near-black' : 'bg-border-light text-white cursor-not-allowed',
                 )}
               >
@@ -528,7 +536,7 @@ export const EventTicketPurchase: React.FC = () => {
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:grid-cols-[1fr_auto_8rem]">
                 <TextInputField label="City" required value={guestInfo.city} onChange={(v) => setGuestInfo((p) => ({ ...p, city: v }))} />
                 <label className="flex flex-col gap-1 md:w-24">
-                  <span className="text-base font-normal text-charcoal font-opensans">State <span className="text-accent-pink">*</span></span>
+                  <span className={FIELD_LABEL}>State <span className="text-accent-pink">*</span></span>
                   <select
                     value={guestInfo.state}
                     onChange={(e) => setGuestInfo((p) => ({ ...p, state: e.target.value }))}
@@ -539,7 +547,7 @@ export const EventTicketPurchase: React.FC = () => {
                   </select>
                 </label>
                 <label className="flex flex-col gap-1">
-                  <span className="text-base font-normal text-charcoal font-opensans">ZIP <span className="text-accent-pink">*</span></span>
+                  <span className={FIELD_LABEL}>ZIP <span className="text-accent-pink">*</span></span>
                   <input
                     type="text"
                     value={guestInfo.zip}
@@ -556,7 +564,7 @@ export const EventTicketPurchase: React.FC = () => {
                 onClick={handleCompleteOrder}
                 disabled={!canSubmitCheckout}
                 className={clsx(
-                  'w-full px-6 py-3 text-base font-bold uppercase tracking-wider font-arquitecta text-center transition-colors',
+                  'w-full px-6 py-4 text-base font-bold uppercase tracking-wider font-arquitecta text-center transition-colors',
                   canSubmitCheckout ? 'bg-charcoal text-white hover:bg-near-black' : 'bg-border-light text-white cursor-not-allowed',
                 )}
               >
@@ -575,17 +583,18 @@ export const EventTicketPurchase: React.FC = () => {
           <DialogOverlay className="bg-black/60" onClick={() => setCheckoutModalOpen(false)} />
           <div
             data-state={checkoutModalOpen ? 'open' : 'closed'}
-            className="fixed inset-0 z-50 flex items-center justify-center data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 pointer-events-none"
+            className="fixed inset-0 z-50 flex items-center justify-center data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 duration-200 ease-out pointer-events-none"
           >
             <div
-              className="pointer-events-auto bg-white border border-border-light p-8 max-w-sm w-[calc(100%-2rem)]"
+              className="pointer-events-auto bg-white border border-border-light p-8 max-w-sm w-[calc(100%-2rem)] data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 duration-200 ease-out"
+              data-state={checkoutModalOpen ? 'open' : 'closed'}
               onClick={(e) => e.stopPropagation()}
             >
               <DialogTitle className="text-xl font-black uppercase tracking-wide text-charcoal font-arquitecta mb-6">Checkout</DialogTitle>
               <button
                 type="button"
                 onClick={handleGoToConfirmation}
-                className="w-full py-3 text-base font-bold uppercase tracking-wider bg-charcoal text-white hover:bg-near-black transition-colors font-arquitecta"
+                className="w-full py-4 text-base font-bold uppercase tracking-wider bg-charcoal text-white hover:bg-near-black transition-colors duration-150 ease-out font-arquitecta"
               >
                 View tickets
               </button>

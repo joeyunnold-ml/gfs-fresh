@@ -42,22 +42,22 @@ export const TicketConfirmation: React.FC = () => {
         <div className="border-2 border-near-black p-6 mb-8">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             <div>
-              <p className="text-sm font-bold text-charcoal mb-2">Order # 16376973</p>
+              <p className="text-base font-bold text-charcoal mb-2">Order # 16376973</p>
               <div className="h-14 bg-white border border-border-light flex items-center justify-center mb-2" aria-hidden>
-                <span className="text-xs text-muted-text">Barcode</span>
+                <span className="text-base text-muted-text">Barcode</span>
               </div>
-              <p className="text-sm font-bold text-charcoal">Ticket # 11739669</p>
+              <p className="text-base font-bold text-charcoal">Ticket # 11739669</p>
             </div>
             <div>
               <h2 className="text-lg font-bold text-charcoal mb-1">
                 <span className="font-normal">Grounds </span>For Sculpture
               </h2>
               <p className="text-xl font-bold text-charcoal mb-2">Timed Admission Tickets</p>
-              <p className="text-sm text-charcoal mb-2">Arrive up to 30 minutes after entry time</p>
+              <p className="text-base text-charcoal mb-2">Arrive up to 30 minutes after entry time</p>
               <p className="text-base font-bold text-charcoal">{selectedDate}</p>
               <p className="text-base font-bold text-charcoal mb-4">{selectedTime}</p>
               {lineItems.map((item, i) => (
-                <p key={i} className="text-sm text-charcoal">
+                <p key={i} className="text-base text-charcoal">
                   {item.title} — {item.price === 0 ? '$0.00' : `$${item.price.toFixed(2)}`}
                 </p>
               ))}
@@ -66,30 +66,30 @@ export const TicketConfirmation: React.FC = () => {
         </div>
 
         <section className="mb-8">
-          <h3 className="text-sm font-bold uppercase tracking-wider text-charcoal mb-2 font-arquitecta">
+          <h3 className="text-base font-bold uppercase tracking-wider text-charcoal mb-2 font-arquitecta">
             Cancellation policy
           </h3>
-          <p className="text-sm text-charcoal leading-relaxed">
+          <p className="text-base text-charcoal leading-relaxed">
             All sales are final. Tickets are non-refundable and may not be exchanged for another date and time. In the
             event you are feeling unwell, please contact us for a refund of your tickets.
           </p>
         </section>
 
         <section className="mb-8">
-          <h3 className="text-sm font-bold uppercase tracking-wider text-charcoal mb-2 font-arquitecta">
+          <h3 className="text-base font-bold uppercase tracking-wider text-charcoal mb-2 font-arquitecta">
             Membership
           </h3>
-          <p className="text-sm text-charcoal leading-relaxed">
+          <p className="text-base text-charcoal leading-relaxed">
             Apply the cost of your general admission tickets toward a membership by calling (609) 586-0616. Valid only
             for general admission — workshop or program tickets not applicable.
           </p>
         </section>
 
         <section className="mb-8">
-          <h3 className="text-sm font-bold uppercase tracking-wider text-charcoal mb-2 font-arquitecta">
+          <h3 className="text-base font-bold uppercase tracking-wider text-charcoal mb-2 font-arquitecta">
             Public notice of photography
           </h3>
-          <p className="text-sm text-charcoal leading-relaxed">
+          <p className="text-base text-charcoal leading-relaxed">
             Please be aware that authorized photographers, commissioned by Grounds For Sculpture, Inc., may be taking
             photos or filming on the day of your visit. These images are intended to be used for promotional purposes
             i.e. distribution on the internet, media and corporate publications, as well as for archival purposes. If

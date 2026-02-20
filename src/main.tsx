@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { createRoot } from "react-dom/client";
-import { BrowserRouter, Routes, Route } from "react-router";
+import { BrowserRouter, Routes, Route, useLocation } from "react-router";
 import App from "./app/App.tsx";
 import { HomePage } from "./app/components/HomePage.tsx";
 import { StyleGuide } from "./app/components/StyleGuide.tsx";
@@ -44,8 +44,17 @@ class GuestFlowErrorBoundary extends React.Component<
   }
 }
 
+function ScrollToTop() {
+  const { pathname } = useLocation();
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+  return null;
+}
+
 createRoot(document.getElementById("root")!).render(
   <BrowserRouter>
+    <ScrollToTop />
     <Routes>
       <Route path="/" element={<HomePage />} />
       <Route path="/current-member" element={<App />} />

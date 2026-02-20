@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router';
 import { ArrowLeft, ChevronDown, Minus, Plus, Check } from 'lucide-react';
 import clsx from 'clsx';
+import { FIELD_LABEL } from '../typography';
 import { Logo } from './Logo';
 import { Dialog, DialogOverlay, DialogPortal, DialogTitle } from './ui/dialog';
 import { TicketFlowStepIndicator, TicketFlowFooter } from './TicketFlow1';
@@ -50,7 +51,7 @@ const TextInputField: React.FC<{
   type?: string;
 }> = ({ label, value, onChange, required, type = 'text' }) => (
   <label className="flex flex-col gap-1">
-    <span className="text-base font-normal text-charcoal font-opensans">
+    <span className={FIELD_LABEL}>
       {label} {required && <span className="text-accent-pink">*</span>}
     </span>
     <input
@@ -80,7 +81,7 @@ const CheckboxField: React.FC<{
     >
       {checked && <Check className="w-3.5 h-3.5 text-white" strokeWidth={3} />}
     </div>
-    <span className="text-sm text-charcoal">{label}</span>
+    <span className="text-base text-charcoal">{label}</span>
   </button>
 );
 
@@ -97,7 +98,7 @@ const MembershipItem: React.FC<{
     <div className="flex flex-col md:flex-row justify-between items-start md:items-center p-6 border border-border-light border-l-4 border-l-border-light bg-white">
       <div className="flex-1 max-w-xl pr-4">
         <h3 className="font-bold text-charcoal text-base mb-1">{membership.title}</h3>
-        <p className="text-muted-text text-sm md:text-base leading-relaxed">
+        <p className="text-muted-text text-base leading-relaxed">
           {membership.description}
         </p>
       </div>
@@ -168,7 +169,7 @@ const MembershipOrderSummary: React.FC<{ memberships: MembershipType[]; total: n
               </div>
             ))
           ) : (
-            <div className="text-muted-text italic text-sm py-2">No membership selected</div>
+            <div className="text-muted-text italic text-base py-2">No membership selected</div>
           )}
         </div>
         <div className="flex justify-between items-center">
@@ -198,6 +199,11 @@ export const MembershipPurchase: React.FC = () => {
   const [createAccount, setCreateAccount] = useState(true);
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+
+  // Scroll to top when step changes (e.g. after tapping Continue)
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [currentStep]);
 
   const steps = buildSteps(currentStep);
   const total = memberships.reduce((sum, m) => sum + m.price * m.quantity, 0);
@@ -242,11 +248,11 @@ export const MembershipPurchase: React.FC = () => {
   const other = memberships.filter((m) => m.category === 'other');
 
   return (
-    <div className="min-h-screen flex flex-col bg-white font-opensans text-near-black pb-14">
+    <div className="min-h-screen flex flex-col bg-white font-opensans text-near-black pb-24 md:pb-14">
       <header className="border-b border-border-light">
         <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
           <Logo className="h-10 w-auto text-accent-green" />
-          <button className="flex items-center gap-2 text-sm font-bold tracking-wider text-charcoal uppercase font-arquitecta hover:text-muted-text transition-colors">
+          <button className="flex items-center gap-2 text-base font-bold tracking-wider text-charcoal uppercase font-arquitecta hover:text-muted-text transition-colors">
             Account Portal
             <ChevronDown className="w-4 h-4" />
           </button>
@@ -332,14 +338,14 @@ export const MembershipPurchase: React.FC = () => {
                 <button
                   disabled={!hasSelection}
                   onClick={() => setCurrentStep(2)}
-                  className="w-full px-6 py-3 text-base font-bold uppercase tracking-wider font-arquitecta bg-charcoal text-white hover:bg-near-black disabled:opacity-50 disabled:cursor-not-allowed transition-colors text-center"
+                  className="w-full px-6 py-4 text-base font-bold uppercase tracking-wider font-arquitecta bg-charcoal text-white hover:bg-near-black disabled:opacity-50 disabled:cursor-not-allowed transition-colors text-center"
                 >
                   Check Out as a Guest
                 </button>
                 <a
                   href="#"
                   onClick={(e) => e.preventDefault()}
-                  className="block w-full px-6 py-3 text-base font-bold uppercase tracking-wider font-arquitecta border-[1.5px] border-charcoal hover:bg-hover transition-colors text-center"
+                  className="block w-full px-6 py-4 text-base font-bold uppercase tracking-wider font-arquitecta border-[1.5px] border-charcoal hover:bg-hover transition-colors text-center"
                 >
                   Sign In
                 </a>
@@ -399,7 +405,7 @@ export const MembershipPurchase: React.FC = () => {
                     onChange={(v) => setGuestInfo((prev) => ({ ...prev, city: v }))}
                   />
                   <label className="flex flex-col gap-1 md:w-24">
-                    <span className="text-base font-normal text-charcoal font-opensans">
+                    <span className={FIELD_LABEL}>
                       State <span className="text-accent-pink">*</span>
                     </span>
                     <select
@@ -414,7 +420,7 @@ export const MembershipPurchase: React.FC = () => {
                     </select>
                   </label>
                   <label className="flex flex-col gap-1">
-                    <span className="text-base font-normal text-charcoal font-opensans">
+                    <span className={FIELD_LABEL}>
                       ZIP <span className="text-accent-pink">*</span>
                     </span>
                     <input
@@ -454,14 +460,14 @@ export const MembershipPurchase: React.FC = () => {
                 <button
                   disabled={!canSubmitCheckout}
                   onClick={handlePay}
-                  className="w-full px-6 py-3 text-base font-bold uppercase tracking-wider font-arquitecta bg-charcoal text-white hover:bg-near-black disabled:opacity-50 disabled:cursor-not-allowed transition-colors text-center"
+                  className="w-full px-6 py-4 text-base font-bold uppercase tracking-wider font-arquitecta bg-charcoal text-white hover:bg-near-black disabled:opacity-50 disabled:cursor-not-allowed transition-colors text-center"
                 >
                   Complete order
                 </button>
                 <a
                   href="#"
                   onClick={(e) => e.preventDefault()}
-                  className="block w-full px-6 py-3 text-base font-bold uppercase tracking-wider font-arquitecta border-[1.5px] border-charcoal hover:bg-hover transition-colors text-center"
+                  className="block w-full px-6 py-4 text-base font-bold uppercase tracking-wider font-arquitecta border-[1.5px] border-charcoal hover:bg-hover transition-colors text-center"
                 >
                   Sign In
                 </a>
@@ -481,10 +487,11 @@ export const MembershipPurchase: React.FC = () => {
           />
           <div
             data-state={checkoutModalOpen ? 'open' : 'closed'}
-            className="fixed inset-0 z-50 flex items-center justify-center data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 pointer-events-none"
+            className="fixed inset-0 z-50 flex items-center justify-center data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 duration-200 ease-out pointer-events-none"
           >
             <div
-              className="pointer-events-auto bg-white border border-border-light p-8 max-w-sm w-[calc(100%-2rem)]"
+              className="pointer-events-auto bg-white border border-border-light p-8 max-w-sm w-[calc(100%-2rem)] data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 duration-200 ease-out"
+              data-state={checkoutModalOpen ? 'open' : 'closed'}
               onClick={(e) => e.stopPropagation()}
             >
               <DialogTitle className="text-xl font-black uppercase tracking-wide text-charcoal font-arquitecta mb-6">
@@ -493,7 +500,7 @@ export const MembershipPurchase: React.FC = () => {
               <button
                 type="button"
                 onClick={handleCompletePayment}
-                className="w-full py-3 text-base font-bold uppercase tracking-wider bg-charcoal text-white hover:bg-near-black transition-colors font-arquitecta"
+                className="w-full py-3 text-base font-bold uppercase tracking-wider bg-charcoal text-white hover:bg-near-black transition-colors duration-150 ease-out font-arquitecta"
               >
                 Complete
               </button>

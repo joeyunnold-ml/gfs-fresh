@@ -4,6 +4,7 @@ import { Logo } from './Logo';
 import { ticketFlowSteps, initialTickets, ticketFlowOrderDefaults } from '../mockData';
 import { TicketType, TicketFlowStep } from '../types';
 import clsx from 'clsx';
+import { CARD_LABEL } from '../typography';
 
 /* ------------------------------------------------------------------ */
 /*  Step Indicator                                                      */
@@ -74,7 +75,7 @@ const StepIndicator: React.FC<{
 
         {/* Dropdown panel */}
         {mobileOpen && (
-          <div className="border-b border-border-light bg-mist">
+          <div className="border-b border-border-light bg-mist animate-in fade-in-0 slide-in-from-top-1 duration-150 ease-out">
             {steps.map((step) => (
               <button
                 key={step.number}
@@ -82,7 +83,7 @@ const StepIndicator: React.FC<{
                 onClick={() => { handleClick(step); setMobileOpen(false); }}
                 disabled={step.status !== 'completed'}
                 className={clsx(
-                  'flex items-center px-4 py-3 text-sm w-full text-left',
+                  'flex items-center px-4 py-3 text-base w-full text-left border-x border-border-light',
                   step.status === 'active' &&
                     'text-charcoal font-bold bg-white border-l-2 border-l-accent-green',
                   step.status === 'completed' &&
@@ -120,7 +121,7 @@ const TicketItem: React.FC<{
     <div className="flex flex-col md:flex-row justify-between items-start md:items-center p-6 border border-border-light border-l-4 border-l-border-light bg-white">
       <div className="flex-1 max-w-xl pr-4">
         <h3 className="font-bold text-charcoal text-base mb-1">{ticket.title}</h3>
-        <p className="text-muted-text text-sm md:text-base leading-relaxed">
+        <p className="text-muted-text text-base md:text-base leading-relaxed">
           {ticket.description}
         </p>
       </div>
@@ -184,7 +185,7 @@ const TicketList: React.FC<{
   return (
     <div className="space-y-8">
       {/* Info banner — uses tooltip/info banner pattern from style guide */}
-      <div className="bg-canvas p-3 text-sm text-muted-text leading-relaxed flex gap-2">
+      <div className="bg-canvas p-3 text-base text-muted-text leading-relaxed flex gap-2">
         <Info className="w-4 h-4 mt-0.5 shrink-0 text-muted-text" />
         Reminder: Prices are listed per ticket.
       </div>
@@ -258,13 +259,13 @@ const OrderSummary: React.FC<{
         {/* Date / Time */}
         <div className={dateTimeOnly ? 'grid grid-cols-2 gap-4 border-b-0 mb-0 pb-0' : 'grid grid-cols-2 gap-4 pb-4 mb-5 border-b border-border-light'}>
           <div className="min-w-0">
-            <div className="text-base font-bold text-muted-text uppercase tracking-wider font-arquitecta mb-2">
+            <div className={`${CARD_LABEL} mb-2`}>
               Date
             </div>
             <div className="text-charcoal text-base break-words">{selectedDate}</div>
           </div>
           <div className="min-w-0">
-            <div className="text-base font-bold text-muted-text uppercase tracking-wider font-arquitecta mb-2">
+            <div className={`${CARD_LABEL} mb-2`}>
               Time
             </div>
             <div className="text-charcoal text-base break-words">{selectedTime}</div>
@@ -285,7 +286,7 @@ const OrderSummary: React.FC<{
                   </div>
                 ))
               ) : (
-                <div className="text-muted-text italic text-sm py-2">
+                <div className="text-muted-text italic text-base leading-relaxed py-2">
                   No tickets selected
                 </div>
               )}
@@ -308,15 +309,18 @@ const OrderSummary: React.FC<{
 /* ------------------------------------------------------------------ */
 const TicketFooter: React.FC = () => (
   <footer className="fixed bottom-0 left-0 right-0 z-40 bg-[#171717] text-white py-4 px-6 md:px-12">
-    <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4 text-sm">
+    <div className="max-w-7xl mx-auto flex flex-row justify-between items-center gap-4 text-base">
       <div className="flex items-center gap-2">
         <div className="w-2.5 h-2.5 rounded-full bg-lime" />
-        <span className="font-arquitecta">Open Today</span>
-        <span className="text-disabled-icon font-arquitecta">10:00 AM – 5:00 PM</span>
+        <span className="font-arquitecta text-lg">Open today</span>
+        <span className="text-disabled-icon font-arquitecta hidden md:inline">10:00 AM – 5:00 PM</span>
       </div>
       <div className="text-center md:text-right">
-        <span className="text-card-stroke">Need help? Call us at 609.586.0616 or </span>
-        <a href="#" className="text-accent-pink underline hover:opacity-80 transition-opacity">
+        <a href="#" className="text-accent-pink underline hover:opacity-80 transition-opacity md:hidden">
+          Need help?
+        </a>
+        <span className="text-card-stroke hidden md:inline">Need help? Call us at 609.586.0616 or </span>
+        <a href="#" className="text-accent-pink underline hover:opacity-80 transition-opacity hidden md:inline">
           learn more.
         </a>
       </div>
@@ -339,12 +343,12 @@ export const TicketFlow1: React.FC = () => {
   const total = tickets.reduce((sum, t) => sum + t.price * t.quantity, 0);
 
   return (
-    <div className="min-h-screen flex flex-col bg-white font-opensans text-near-black pb-14">
+    <div className="min-h-screen flex flex-col bg-white font-opensans text-near-black pb-24 md:pb-14">
       {/* ── Header ── */}
       <header className="border-b border-border-light">
         <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
           <Logo className="h-10 w-auto text-accent-green" />
-          <button className="flex items-center gap-2 text-sm font-bold tracking-wider text-charcoal uppercase font-arquitecta hover:text-muted-text transition-colors">
+          <button className="flex items-center gap-2 text-base font-bold tracking-wider text-charcoal uppercase font-arquitecta hover:text-muted-text transition-colors">
             Account Portal
             <ChevronDown className="w-4 h-4" />
           </button>
@@ -390,7 +394,7 @@ export const TicketFlow1: React.FC = () => {
             <button
               disabled={total === 0}
               className={clsx(
-                'w-full py-3 px-6 mt-6 uppercase tracking-wider font-bold text-sm font-arquitecta transition-colors text-center',
+                'w-full py-4 px-6 mt-6 uppercase tracking-wider font-bold text-base font-arquitecta transition-colors text-center',
                 total > 0
                   ? 'bg-near-black text-white hover:bg-charcoal'
                   : 'bg-border-light text-white cursor-not-allowed'
@@ -399,7 +403,7 @@ export const TicketFlow1: React.FC = () => {
               Continue
             </button>
             {total === 0 && (
-              <p className="text-sm text-muted-text mt-2 text-center">
+              <p className="text-base text-muted-text mt-2 text-center">
                 Select ticket quantity to continue.
               </p>
             )}

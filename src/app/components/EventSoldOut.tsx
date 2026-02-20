@@ -57,12 +57,12 @@ const SoldOutDateCalendar: React.FC<{ value: string }> = ({ value }) => {
       </div>
       <div className="grid grid-cols-7 mb-4 border-t border-l border-border-light">
         {['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'].map((d) => (
-          <div key={d} className="border-r border-b border-border-light bg-muted-bg text-sm font-bold uppercase tracking-wider text-muted-text font-arquitecta text-center py-3">
+          <div key={d} className="border-r border-b border-border-light bg-muted-bg text-base font-bold uppercase tracking-wider text-muted-text font-arquitecta text-center py-2 md:py-3">
             {d}
           </div>
         ))}
         {leadingEmpty.map((_, i) => (
-          <div key={`empty-${i}`} className="border-r border-b border-border-light bg-white min-h-[5.5rem]" />
+          <div key={`empty-${i}`} className="border-r border-b border-border-light bg-white min-h-[4.125rem] md:min-h-[5.5rem]" />
         ))}
         {days.map((d) => {
           const soldOut = isSoldOut(d);
@@ -74,7 +74,7 @@ const SoldOutDateCalendar: React.FC<{ value: string }> = ({ value }) => {
               role="button"
               aria-disabled="true"
               className={clsx(
-                'min-h-[5.5rem] flex items-center justify-center text-base transition-colors',
+                'min-h-[4.125rem] md:min-h-[5.5rem] flex items-center justify-center text-base transition-colors',
                 isSelectedSoldOut && 'bg-mist border-2 border-accent-pink font-bold text-muted-text cursor-not-allowed',
                 !isSelectedSoldOut && 'border-r border-b border-border-light font-normal bg-white text-charcoal',
               )}
@@ -84,7 +84,7 @@ const SoldOutDateCalendar: React.FC<{ value: string }> = ({ value }) => {
           );
         })}
       </div>
-      <div className="flex flex-wrap gap-4 text-xs text-muted-text">
+      <div className="flex flex-wrap gap-4 text-base text-muted-text">
         <div className="flex items-center gap-2">
           <div className="w-4 h-4 bg-mist border-2 border-accent-pink" />
           <span>Sold out</span>
@@ -102,11 +102,11 @@ export function EventSoldOut() {
   const selectedDate = format(SOLD_OUT_DATE, 'MMM. d, yyyy');
 
   return (
-    <div className="min-h-screen flex flex-col bg-white font-opensans text-near-black pb-14">
+    <div className="min-h-screen flex flex-col bg-white font-opensans text-near-black pb-24 md:pb-14">
       <header className="border-b border-border-light">
         <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
           <Logo className="h-10 w-auto text-accent-green" />
-          <button className="flex items-center gap-2 text-sm font-bold tracking-wider text-charcoal uppercase font-arquitecta hover:text-muted-text transition-colors">
+          <button className="flex items-center gap-2 text-base font-bold tracking-wider text-charcoal uppercase font-arquitecta hover:text-muted-text transition-colors">
             Account Portal
             <ChevronDown className="w-4 h-4" />
           </button>
@@ -125,7 +125,7 @@ export function EventSoldOut() {
           </a>
           <h1 className="text-4xl md:text-5xl font-bold uppercase tracking-wider mb-6 font-arquitecta flex items-center gap-3 flex-wrap">
             {EVENT_TITLE}
-            <span className="inline-block px-2.5 py-1.5 text-[12px] font-bold text-accent-pink uppercase tracking-wider border border-accent-pink rounded-none leading-none bg-accent-pink text-white">
+            <span className="inline-block px-2.5 py-1.5 text-base font-bold text-accent-pink uppercase tracking-wider border border-accent-pink rounded-none leading-none bg-accent-pink text-white">
               SOLD OUT
             </span>
           </h1>

@@ -238,9 +238,11 @@
     line-height: 1.5;
   }
 
-  input {
+  input,
+  select {
     font-size: var(--text-base);
     font-weight: var(--font-weight-normal);
     line-height: 1.5;
+    min-height: 3.25rem; /* ~h-13 = 52px, consistent field height app-wide */
   }
 }

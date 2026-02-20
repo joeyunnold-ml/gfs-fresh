@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router';
 import { ArrowLeft, ChevronDown, ChevronLeft, ChevronRight, Pencil, Check, X, Loader2 } from 'lucide-react';
 import clsx from 'clsx';
+import { FIELD_LABEL, CARD_LABEL } from '../typography';
 import { format, addMonths, subMonths, startOfMonth, endOfMonth, eachDayOfInterval, isSameDay, parse } from 'date-fns';
 import { Logo } from './Logo';
 import { Dialog, DialogOverlay, DialogPortal, DialogTitle, DialogContent } from './ui/dialog';
@@ -63,12 +64,12 @@ const CardField: React.FC<{
     type="button"
     onClick={onClick}
     className={clsx(
-      'w-full text-left border border-border-light px-6 py-4 flex items-center justify-between hover:bg-hover transition-colors',
+      'w-full text-left border border-border-light px-6 py-4 flex items-center justify-between hover:bg-hover transition-colors duration-150 ease-out',
       expanded ? 'bg-hover' : 'bg-white',
     )}
   >
     <div>
-      <div className="text-base font-normal text-charcoal font-opensans mb-1">
+      <div className={`${CARD_LABEL} mb-1`}>
         {label}
       </div>
       <div className="text-base text-charcoal">{value}</div>
@@ -104,7 +105,7 @@ const MembershipUpsellCard: React.FC<{ layout?: 'stacked' | 'inline' }> = ({ lay
       </a>
     ) : (
       <button
-        className="px-6 py-3 text-base font-bold uppercase tracking-wider font-arquitecta border-[1.5px] border-charcoal hover:bg-hover transition-colors shrink-0"
+        className="px-6 py-4 text-base font-bold uppercase tracking-wider font-arquitecta border-[1.5px] border-charcoal hover:bg-hover transition-colors shrink-0"
       >
         Add Membership
       </button>
@@ -118,7 +119,7 @@ const PrimaryCtaButton: React.FC<
   <button
     {...props}
     className={clsx(
-      'w-full px-6 py-3 text-base font-bold uppercase tracking-wider font-arquitecta bg-charcoal text-white hover:bg-near-black disabled:opacity-50 disabled:cursor-not-allowed transition-colors text-center',
+      'w-full px-6 py-4 text-base font-bold uppercase tracking-wider font-arquitecta bg-charcoal text-white hover:bg-near-black disabled:opacity-50 disabled:cursor-not-allowed transition-colors text-center',
       className,
     )}
   >
@@ -134,7 +135,7 @@ const TextInputField: React.FC<{
   type?: string;
 }> = ({ label, value, onChange, required, type = 'text' }) => (
   <label className="flex flex-col gap-1">
-    <span className="text-base font-normal text-charcoal font-opensans">
+    <span className={FIELD_LABEL}>
       {label} {required && <span className="text-accent-pink">*</span>}
     </span>
     <input
@@ -164,7 +165,7 @@ const CheckboxField: React.FC<{
     >
       {checked && <Check className="w-3.5 h-3.5 text-white" strokeWidth={3} />}
     </div>
-    <span className="text-sm text-charcoal">{label}</span>
+    <span className={FIELD_LABEL}>{label}</span>
   </button>
 );
 
@@ -206,7 +207,7 @@ const DateCalendarDrawer: React.FC<{
   };
 
   return (
-    <div className="border border-t-0 border-border-light bg-white p-6">
+    <div className="border border-t-0 border-border-light bg-white p-6 animate-in fade-in-0 slide-in-from-top-2 duration-200 ease-out">
       <div className="flex items-center justify-between mb-4">
         <h3 className="text-base font-bold uppercase tracking-wider font-arquitecta text-charcoal">
           {format(viewMonth, 'MMMM yyyy').toUpperCase()}
@@ -215,7 +216,7 @@ const DateCalendarDrawer: React.FC<{
           <button
             type="button"
             onClick={() => setViewMonth((m) => subMonths(m, 1))}
-            className="p-1 hover:bg-hover transition-colors"
+            className="p-1 hover:bg-hover transition-colors duration-150 ease-out"
             aria-label="Previous month"
           >
             <ChevronLeft className="w-4 h-4" />
@@ -223,7 +224,7 @@ const DateCalendarDrawer: React.FC<{
           <button
             type="button"
             onClick={() => setViewMonth((m) => addMonths(m, 1))}
-            className="p-1 hover:bg-hover transition-colors"
+            className="p-1 hover:bg-hover transition-colors duration-150 ease-out"
             aria-label="Next month"
           >
             <ChevronRight className="w-4 h-4" />
@@ -234,21 +235,21 @@ const DateCalendarDrawer: React.FC<{
         <button
           type="button"
           onClick={handleToday}
-          className="text-sm font-bold uppercase tracking-wider text-charcoal hover:underline font-arquitecta"
+          className="text-base font-bold uppercase tracking-wider text-charcoal hover:underline font-arquitecta"
         >
           Today
         </button>
         <button
           type="button"
           onClick={handleNextAvailable}
-          className="text-sm font-bold uppercase tracking-wider text-charcoal hover:underline font-arquitecta"
+          className="text-base font-bold uppercase tracking-wider text-charcoal hover:underline font-arquitecta"
         >
           Next available date
         </button>
       </div>
       <div className="grid grid-cols-7 mb-4 border-t border-l border-border-light">
         {['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'].map((d) => (
-          <div key={d} className="border-r border-b border-border-light bg-muted-bg text-sm font-bold uppercase tracking-wider text-muted-text font-arquitecta text-center py-2">
+          <div key={d} className="border-r border-b border-border-light bg-muted-bg text-base font-bold uppercase tracking-wider text-muted-text font-arquitecta text-center py-2">
             {d}
           </div>
         ))}
@@ -278,7 +279,7 @@ const DateCalendarDrawer: React.FC<{
           );
         })}
       </div>
-      <div className="flex flex-wrap gap-4 text-xs text-muted-text">
+      <div className="flex flex-wrap gap-4 text-base text-muted-text">
         <div className="flex items-center gap-2">
           <div className="w-4 h-4 bg-lime border border-border-light" />
           <span>Selected</span>
@@ -332,7 +333,7 @@ const TimeSlotDrawer: React.FC<{
   };
 
   return (
-    <div className="border border-t-0 border-border-light bg-white max-h-[320px] overflow-y-auto">
+    <div className="border border-t-0 border-border-light bg-white max-h-[320px] overflow-y-auto animate-in fade-in-0 slide-in-from-top-2 duration-200 ease-out">
       {TIME_SLOTS.map((time, index) => {
         const selected = value === time;
         const isMembersOnly = !isMember && index < 2;
@@ -343,7 +344,7 @@ const TimeSlotDrawer: React.FC<{
             onClick={() => !isMembersOnly && handleSelect(time)}
             disabled={isMembersOnly}
             className={clsx(
-              'w-full flex items-center justify-between px-4 py-3 text-left border-b border-border-light last:border-b-0 transition-colors',
+              'w-full flex items-center justify-between px-4 py-3 text-left border-b border-border-light last:border-b-0 transition-colors duration-150 ease-out',
               selected
                 ? 'bg-lime border-l-4 border-l-accent-green'
                 : isMembersOnly
@@ -352,7 +353,7 @@ const TimeSlotDrawer: React.FC<{
             )}
           >
             <span className="font-bold text-charcoal">{time}</span>
-            <div className="flex items-center gap-4 text-sm text-muted-text">
+            <div className="flex items-center gap-4 text-base text-muted-text">
               {isMembersOnly ? <span>Members Only</span> : <span>Available</span>}
             </div>
           </button>
@@ -403,7 +404,7 @@ const Step1VisitDateTime: React.FC<Step1Props> = ({
           </h2>
         </div>
 
-        <div className="space-y-8">
+        <div className="space-y-4">
           <div className="space-y-3">
             <div>
               <CardField
@@ -445,7 +446,7 @@ const Step1VisitDateTime: React.FC<Step1Props> = ({
                 />
               )}
             </div>
-            <div className="text-xs text-muted-text">
+            <div className="text-base text-muted-text">
               This is your entry time — your visit has no time limit.
             </div>
           </div>
@@ -463,14 +464,14 @@ const Step1VisitDateTime: React.FC<Step1Props> = ({
         {!isMember && <MembershipUpsellCard />}
         <div className="flex flex-col gap-3">
           {showSignInOption && (
-            <p className="text-sm text-muted-text">
+            <p className="text-base text-muted-text">
               Sign in for member pricing and saved checkout details.
             </p>
           )}
           {showSignInOption && memberFlowLabels ? (
             <a
               href="#"
-              className="w-full px-6 py-3 text-base font-bold uppercase tracking-wider font-arquitecta bg-charcoal text-white hover:bg-near-black transition-colors text-center inline-block"
+              className="w-full px-6 py-4 text-base font-bold uppercase tracking-wider font-arquitecta bg-charcoal text-white hover:bg-near-black transition-colors text-center inline-block"
             >
               Continue as Guest
             </a>
@@ -484,14 +485,14 @@ const Step1VisitDateTime: React.FC<Step1Props> = ({
               <button
                 type="button"
                 onClick={onSignIn}
-                className="w-full px-6 py-3 text-base font-bold uppercase tracking-wider font-arquitecta border-[1.5px] border-charcoal hover:bg-hover transition-colors text-center"
+                className="w-full px-6 py-4 text-base font-bold uppercase tracking-wider font-arquitecta border-[1.5px] border-charcoal hover:bg-hover transition-colors text-center"
               >
                 Sign In
               </button>
             ) : (
               <a
                 href="#"
-                className="w-full px-6 py-3 text-base font-bold uppercase tracking-wider font-arquitecta border-[1.5px] border-charcoal hover:bg-hover transition-colors text-center inline-block"
+                className="w-full px-6 py-4 text-base font-bold uppercase tracking-wider font-arquitecta border-[1.5px] border-charcoal hover:bg-hover transition-colors text-center inline-block"
               >
                 Sign In
               </a>
@@ -499,7 +500,7 @@ const Step1VisitDateTime: React.FC<Step1Props> = ({
           )}
         </div>
         {!canContinue && (
-          <p className="text-sm text-muted-text text-center">
+          <p className="text-base text-muted-text text-center">
             Select a date and time to continue.
           </p>
         )}
@@ -550,7 +551,7 @@ const Step2Tickets: React.FC<Step2Props> = ({
           Continue
         </PrimaryCtaButton>
         {!hasTickets && (
-          <p className="text-sm text-muted-text mt-2 text-center">
+          <p className="text-base text-muted-text mt-2 text-center">
             Select ticket quantity to continue.
           </p>
         )}
@@ -672,7 +673,7 @@ const Step3Checkout: React.FC<Step3Props> = ({
               onChange={(v) => handleFieldChange('city', v)}
             />
             <label className="flex flex-col gap-1 md:w-24">
-              <span className="text-base font-normal text-charcoal font-opensans">
+              <span className={FIELD_LABEL}>
                 State <span className="text-accent-pink">*</span>
               </span>
               <select
@@ -687,7 +688,7 @@ const Step3Checkout: React.FC<Step3Props> = ({
               </select>
             </label>
             <label className="flex flex-col gap-1">
-              <span className="text-base font-normal text-charcoal font-opensans">
+              <span className={FIELD_LABEL}>
                 ZIP <span className="text-accent-pink">*</span>
               </span>
               <input
@@ -718,7 +719,7 @@ const Step3Checkout: React.FC<Step3Props> = ({
         />
 
         <section className="border border-card-stroke p-5 bg-white">
-          <h3 className="text-base font-normal text-charcoal mb-4 font-opensans">
+          <h3 className={`${CARD_LABEL} mb-4`}>
             Support GFS With a Donation
           </h3>
           <div className="flex items-stretch gap-3 mb-2 min-w-0">
@@ -736,7 +737,7 @@ const Step3Checkout: React.FC<Step3Props> = ({
                 className="flex-1 min-w-0 w-full text-base text-charcoal border-0 px-3 py-2 bg-transparent focus:outline-none focus:ring-0"
               />
             </div>
-            <button type="button" className="shrink-0 px-4 text-sm font-bold uppercase tracking-wider font-arquitecta border-[1.5px] border-charcoal hover:bg-hover transition-colors">
+            <button type="button" className="shrink-0 px-4 text-base font-bold uppercase tracking-wider font-arquitecta border-[1.5px] border-charcoal hover:bg-hover transition-colors">
               Add
             </button>
           </div>
@@ -744,7 +745,7 @@ const Step3Checkout: React.FC<Step3Props> = ({
 
         <section className="border border-card-stroke p-5 bg-white space-y-3">
           <div className="flex items-center gap-3">
-            <label className="text-base font-normal text-charcoal font-opensans">
+            <label className={FIELD_LABEL}>
               Discount Code
             </label>
           </div>
@@ -755,7 +756,7 @@ const Step3Checkout: React.FC<Step3Props> = ({
               onChange={(e) => onDiscountCodeChange(e.target.value)}
               className="flex-1 text-base text-charcoal border border-border-light px-3 py-2 bg-white focus:outline-none focus:border-accent-green transition-colors"
             />
-            <button className="text-sm font-semibold text-charcoal hover:underline">
+            <button className="text-base font-semibold text-charcoal hover:underline">
               Apply
             </button>
           </div>
@@ -765,7 +766,7 @@ const Step3Checkout: React.FC<Step3Props> = ({
           Complete order
         </PrimaryCtaButton>
         {!canSubmit && (
-          <p className="text-sm text-muted-text text-center">
+          <p className="text-base text-muted-text text-center">
             Fill in required fields and select at least one ticket to complete your order.
           </p>
         )}
@@ -815,12 +816,14 @@ const LoginModal: React.FC<{
           </div>
         ) : (
           <>
-          <div className="p-6 pb-4 flex flex-col items-center">
-            <Logo className="h-10 w-auto text-charcoal" />
+          <div className="p-6 pb-4">
+            <DialogTitle className="text-xl font-black uppercase tracking-wide text-charcoal font-arquitecta">
+              Log in to GFS
+            </DialogTitle>
           </div>
           <form onSubmit={handleLogin} className="px-6 pb-6 space-y-4">
             <div className="flex flex-col gap-1">
-              <label htmlFor="login-username" className="text-base font-bold uppercase tracking-wider text-muted-text font-arquitecta">
+              <label htmlFor="login-username" className={FIELD_LABEL}>
                 Username
               </label>
               <input
@@ -834,7 +837,7 @@ const LoginModal: React.FC<{
               />
             </div>
             <div className="flex flex-col gap-1">
-              <label htmlFor="login-password" className="text-base font-bold uppercase tracking-wider text-muted-text font-arquitecta">
+              <label htmlFor="login-password" className={FIELD_LABEL}>
                 Password
               </label>
               <input
@@ -848,7 +851,7 @@ const LoginModal: React.FC<{
             </div>
             <a
               href="#"
-              className="text-sm text-accent-pink hover:underline block text-right"
+              className="text-base text-accent-pink hover:underline block text-right"
               onClick={(e) => { e.preventDefault(); }}
             >
               Need help logging in?
@@ -857,7 +860,7 @@ const LoginModal: React.FC<{
               <button
                 type="submit"
                 disabled={!username.trim() || !password.trim()}
-                className="w-full px-6 py-3 text-base font-bold uppercase tracking-wider font-arquitecta bg-charcoal text-white hover:bg-near-black disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                className="w-full px-6 py-4 text-base font-bold uppercase tracking-wider font-arquitecta bg-charcoal text-white hover:bg-near-black disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
               >
                 Login
               </button>
@@ -867,7 +870,7 @@ const LoginModal: React.FC<{
                   onOpenChange(false);
                   navigate('/account-registration');
                 }}
-                className="w-full px-6 py-3 text-base font-bold uppercase tracking-wider font-arquitecta border-[1.5px] border-charcoal hover:bg-hover transition-colors"
+                className="w-full px-6 py-4 text-base font-bold uppercase tracking-wider font-arquitecta border-[1.5px] border-charcoal hover:bg-hover transition-colors"
               >
                 Register
               </button>
@@ -916,6 +919,11 @@ export const TicketFlowGuest: React.FC<{ memberFlow?: boolean }> = ({ memberFlow
     }
   }, [memberFlow, location.state, location.pathname, navigate]);
 
+  // Scroll to top when step changes (e.g. after tapping Continue)
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [currentStep]);
+
   const steps = buildSteps(currentStep);
 
   const handleQuantityChange = (id: string, qty: number) => {
@@ -937,12 +945,12 @@ export const TicketFlowGuest: React.FC<{ memberFlow?: boolean }> = ({ memberFlow
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-white font-opensans text-near-black pb-14">
+    <div className="min-h-screen flex flex-col bg-white font-opensans text-near-black pb-24 md:pb-14">
       {/* Header */}
       <header className="border-b border-border-light">
         <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
           <Logo className="h-10 w-auto text-accent-green" />
-          <button className="flex items-center gap-2 text-sm font-bold tracking-wider text-charcoal uppercase font-arquitecta hover:text-muted-text transition-colors">
+          <button className="flex items-center gap-2 text-base font-bold tracking-wider text-charcoal uppercase font-arquitecta hover:text-muted-text transition-colors">
             Account Portal
             <ChevronDown className="w-4 h-4" />
           </button>
@@ -1031,10 +1039,11 @@ export const TicketFlowGuest: React.FC<{ memberFlow?: boolean }> = ({ memberFlow
           />
           <div
             data-state={checkoutModalOpen ? 'open' : 'closed'}
-            className="fixed inset-0 z-50 flex items-center justify-center data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 pointer-events-none"
+            className="fixed inset-0 z-50 flex items-center justify-center data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 duration-200 ease-out pointer-events-none"
           >
             <div
-              className="pointer-events-auto bg-white border border-border-light p-8 max-w-sm w-[calc(100%-2rem)]"
+              className="pointer-events-auto bg-white border border-border-light p-8 max-w-sm w-[calc(100%-2rem)] data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 duration-200 ease-out"
+              data-state={checkoutModalOpen ? 'open' : 'closed'}
               onClick={(e) => e.stopPropagation()}
             >
               <DialogTitle className="text-xl font-black uppercase tracking-wide text-charcoal font-arquitecta mb-6">
@@ -1043,7 +1052,7 @@ export const TicketFlowGuest: React.FC<{ memberFlow?: boolean }> = ({ memberFlow
               <button
                 type="button"
                 onClick={handleGoToConfirmation}
-                className="w-full py-3 text-base font-bold uppercase tracking-wider bg-charcoal text-white hover:bg-near-black transition-colors font-arquitecta"
+                className="w-full py-4 text-base font-bold uppercase tracking-wider bg-charcoal text-white hover:bg-near-black transition-colors duration-150 ease-out font-arquitecta"
               >
                 View tickets
               </button>
