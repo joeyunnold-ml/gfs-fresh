@@ -934,7 +934,7 @@ export const StyleGuide: React.FC = () => {
         <SectionTitle id="tags-badges">Tags / Badges / Chips</SectionTitle>
 
         <div className="flex flex-wrap gap-4 items-center p-6 border border-border-light">
-          <span className="px-2.5 py-1.5 text-base font-bold uppercase tracking-wider border border-accent-green text-accent-green leading-none">
+          <span className="px-2.5 py-1.5 text-base font-bold uppercase tracking-wider border border-accent-green text-charcoal leading-none">
             Your Membership
           </span>
           <span className="px-2.5 py-1.5 text-base font-bold text-black uppercase tracking-wider border border-lime leading-none">

@@ -54,14 +54,6 @@ export const HomePage: React.FC = () => {
             <ul className="space-y-2">
               <li>
                 <Link
-                  to="/ticket-flow-guest"
-                  className="text-lg font-bold text-charcoal hover:text-accent-green transition-colors underline"
-                >
-                  Timed Tickets: Guest
-                </Link>
-              </li>
-              <li>
-                <Link
                   to="/ticket-flow-guest-calendar-exposed"
                   className="text-lg font-bold text-charcoal hover:text-accent-green transition-colors underline"
                 >

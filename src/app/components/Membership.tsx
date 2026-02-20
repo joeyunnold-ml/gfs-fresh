@@ -176,7 +176,7 @@ const TierCard: React.FC<{ tier: MembershipTier }> = ({ tier }) => {
       className={clsx(
         "relative flex flex-col p-6",
         isCurrent
-          ? "bg-charcoal text-white"
+          ? "bg-mist text-near-black border-x border-b border-border-light"
           : "bg-white border border-card-stroke"
       )}
     >
@@ -186,27 +186,27 @@ const TierCard: React.FC<{ tier: MembershipTier }> = ({ tier }) => {
 
       <div className="mb-6">
         {isCurrent && (
-          <span className="inline-block px-2.5 py-1.5 text-base font-bold uppercase tracking-wider border border-accent-green text-accent-green mb-3 leading-none">
+          <span className="inline-block px-2.5 py-1.5 text-base font-bold uppercase tracking-wider border border-accent-green text-charcoal mb-3 leading-none">
             Your Membership
           </span>
         )}
-        <h3 className="text-lg font-black uppercase tracking-wide font-arquitecta">
+        <h3 className="text-lg font-black uppercase tracking-wide font-arquitecta text-charcoal">
           {tier.name}
         </h3>
         <div className="mt-2">
-          <span className="text-2xl font-bold font-arquitecta">{tier.price}</span>
-          <span className={clsx("text-base ml-1", isCurrent ? "text-disabled-icon" : "text-muted-text")}>
+          <span className="text-2xl font-bold font-arquitecta text-charcoal">{tier.price}</span>
+          <span className={clsx("text-base ml-1", "text-muted-text")}>
             {tier.priceInterval}
           </span>
         </div>
       </div>
 
-      <div className={clsx("border-t pt-4 mb-6", isCurrent ? "border-muted-text" : "border-card-stroke")}>
+      <div className={clsx("border-t pt-4 mb-6", isCurrent ? "border-border-light" : "border-card-stroke")}>
         <ul className="space-y-3">
           {tier.benefits.map((benefit, i) => (
             <li key={i} className="flex items-start gap-2 text-base">
               <Check className={clsx("w-4 h-4 mt-0.5 shrink-0", isCurrent ? "text-accent-green" : "text-muted-text")} />
-              <span className={isCurrent ? "text-border-light" : "text-muted-text"}>{benefit}</span>
+              <span className="text-muted-text">{benefit}</span>
             </li>
           ))}
         </ul>
@@ -214,17 +214,17 @@ const TierCard: React.FC<{ tier: MembershipTier }> = ({ tier }) => {
 
       <div className="mt-auto">
         {isCurrent && tier.expires && (
-          <p className="text-base text-disabled-icon mb-3">Expires {tier.expires}</p>
+          <p className="text-base text-muted-text mb-3">Expires {tier.expires}</p>
         )}
         {isCurrent ? (
           <button
-            className="w-full min-h-[44px] py-3 text-base font-bold uppercase tracking-wider font-arquitecta transition-colors border-[1.5px] border-accent-green hover:bg-near-black"
+            className="w-full min-h-[44px] py-4 text-base font-bold uppercase tracking-wider font-arquitecta bg-accent-green text-charcoal border-2 border-accent-green hover:bg-white hover:border-accent-green transition-colors"
           >
             Renew Membership
           </button>
         ) : (
           <button
-            className="w-full min-h-[44px] py-3 text-base font-bold uppercase tracking-wider font-arquitecta border-[1.5px] border-charcoal hover:bg-hover transition-colors"
+            className="w-full min-h-[44px] py-4 text-base font-bold uppercase tracking-wider font-arquitecta bg-white border-[1.5px] border-charcoal hover:bg-hover transition-colors"
           >
             Upgrade
           </button>
