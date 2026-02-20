@@ -13,6 +13,9 @@ import { MemberPortalPassword } from "./app/components/MemberPortalPassword.tsx"
 import { AccountRegistration } from "./app/components/AccountRegistration.tsx";
 import { AltruRegistration } from "./app/components/AltruRegistration.tsx";
 import { LoginNoAltruAccount } from "./app/components/LoginNoAltruAccount.tsx";
+import { LoginToRegNoAlt } from "./app/components/LoginToRegNoAlt.tsx";
+import { LoginAsUser } from "./app/components/LoginAsUser.tsx";
+import { CreatePortalWithAltru } from "./app/components/CreatePortalWithAltru.tsx";
 import { MembershipPurchase } from "./app/components/MembershipPurchase.tsx";
 import { MembershipConfirmation } from "./app/components/MembershipConfirmation.tsx";
 import { EventTicketPurchase } from "./app/components/EventTicketPurchase.tsx";
@@ -78,6 +81,9 @@ createRoot(document.getElementById("root")!).render(
       <Route path="/ticket-flow-guest/confirmation" element={<TicketConfirmation />} />
       <Route path="/member-portal-entry" element={<MemberPortalEntry />} />
       <Route path="/member-portal-entry/password" element={<MemberPortalPassword />} />
+      <Route path="/login-to-reg-no-alt" element={<LoginToRegNoAlt />} />
+      <Route path="/login-as-user" element={<LoginAsUser />} />
+      <Route path="/create-portal-with-altru" element={<CreatePortalWithAltru />} />
       <Route path="/account-registration" element={<AccountRegistration />} />
       <Route path="/altru-registration" element={<AltruRegistration />} />
       <Route path="/login-no-altru-account" element={<LoginNoAltruAccount />} />

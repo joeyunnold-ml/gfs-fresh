@@ -110,26 +110,26 @@ export const HomePage: React.FC = () => {
             <ul className="space-y-2">
               <li>
                 <Link
-                  to="/member-portal-entry"
+                  to="/login-to-reg-no-alt"
                   className="text-lg font-bold text-charcoal hover:text-accent-green transition-colors underline"
                 >
-                  Login: Password Error / Incorrect
+                  Create Portal Account (No Altru)
                 </Link>
               </li>
               <li>
                 <Link
-                  to="/account-registration"
+                  to="/login-as-user"
                   className="text-lg font-bold text-charcoal hover:text-accent-green transition-colors underline"
                 >
-                  Account Registration
+                  Login as User
                 </Link>
               </li>
               <li>
                 <Link
-                  to="/login-no-altru-account"
+                  to="/create-portal-with-altru"
                   className="text-lg font-bold text-charcoal hover:text-accent-green transition-colors underline"
                 >
-                  Login: No Altru Acct.
+                  Create Portal Account (Existing Altru)
                 </Link>
               </li>
             </ul>

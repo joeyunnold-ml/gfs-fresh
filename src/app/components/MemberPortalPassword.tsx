@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useNavigate, useLocation, Link } from 'react-router';
-import { ArrowLeft } from 'lucide-react';
+import { ArrowLeft, Loader2 } from 'lucide-react';
 import { Logo } from './Logo';
 import { FIELD_LABEL } from '../typography';
 
@@ -17,6 +17,7 @@ export const MemberPortalPassword: React.FC = () => {
   const email = (location.state as { email?: string } | undefined)?.email ?? '';
   const [password, setPassword] = useState('');
   const [showError, setShowError] = useState(false);
+  const [isRedirecting, setIsRedirecting] = useState(false);
   const errorRef = useRef<HTMLParagraphElement>(null);
 
   // Redirect if no email (e.g. direct URL)
@@ -36,9 +37,21 @@ export const MemberPortalPassword: React.FC = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!password.trim()) return;
-    // Simulated: any non-empty password is wrong to trigger error
-    setShowError(true);
+    if (password.trim() === '1234') {
+      setIsRedirecting(true);
+    } else {
+      setShowError(true);
+    }
   };
+
+  // After correct password (1234): show loader 2s then redirect to /current-member
+  useEffect(() => {
+    if (!isRedirecting) return;
+    const timer = setTimeout(() => {
+      navigate('/current-member');
+    }, 2000);
+    return () => clearTimeout(timer);
+  }, [isRedirecting, navigate]);
 
   const canContinue = password.trim().length > 0;
   const hasError = showError;
@@ -65,21 +78,30 @@ export const MemberPortalPassword: React.FC = () => {
         <div className="flex flex-col flex-1 pt-8 md:pt-16 lg:pt-20 px-6 md:px-12 lg:px-16 pb-6 max-w-lg mx-auto w-full md:max-w-none justify-start items-center">
           {/* Single max-w-md block so Back aligns with form; Back absolutely above on desktop so it doesn't push heading down */}
           <div className="w-full max-w-md relative">
-            <div className="mb-4 md:mb-0 md:absolute md:top-[-3rem] md:left-0">
-              <Link
-                to="/member-portal-entry"
-                state={{ email }}
-                className="inline-flex items-center text-charcoal hover:text-near-black transition-colors group"
-              >
-                <ArrowLeft className="w-4 h-4 mr-2 group-hover:-translate-x-1 transition-transform" />
-                <span className="text-base">Back</span>
-              </Link>
-            </div>
+            {!isRedirecting && (
+              <div className="mb-4 md:mb-0 md:absolute md:top-[-3rem] md:left-0">
+                <Link
+                  to="/member-portal-entry"
+                  state={{ email }}
+                  className="inline-flex items-center text-charcoal hover:text-near-black transition-colors group"
+                >
+                  <ArrowLeft className="w-4 h-4 mr-2 group-hover:-translate-x-1 transition-transform" />
+                  <span className="text-base">Back</span>
+                </Link>
+              </div>
+            )}
 
-            <h1 className="w-full text-2xl md:text-3xl font-black uppercase tracking-wide font-arquitecta text-charcoal text-center mb-8">
-              Enter your password
-            </h1>
+            {!isRedirecting && (
+              <h1 className="w-full text-2xl md:text-3xl font-black uppercase tracking-wide font-arquitecta text-charcoal text-center mb-8">
+                Enter your password
+              </h1>
+            )}
 
+            {isRedirecting ? (
+              <div className="flex flex-col items-center justify-center py-16" aria-live="polite" aria-busy="true">
+                <Loader2 className="w-10 h-10 animate-spin text-charcoal" />
+              </div>
+            ) : (
             <div className="w-full">
             <div className="border border-border-light bg-white">
               <div className="h-[3px] bg-accent-green" aria-hidden />
@@ -151,17 +173,20 @@ export const MemberPortalPassword: React.FC = () => {
               </a>
             </div>
           </div>
+            )}
         </div>
 
-        <div className="px-6 md:px-12 lg:px-16 py-6 flex justify-center">
-          <a
-            href="#"
-            className="text-base text-charcoal hover:text-muted-text transition-colors underline font-opensans"
-            onClick={(e) => e.preventDefault()}
-          >
-            Privacy Policy
-          </a>
-        </div>
+        {!isRedirecting && (
+          <div className="px-6 md:px-12 lg:px-16 py-6 flex justify-center">
+            <a
+              href="#"
+              className="text-base text-charcoal hover:text-muted-text transition-colors underline font-opensans"
+              onClick={(e) => e.preventDefault()}
+            >
+              Privacy Policy
+            </a>
+          </div>
+        )}
       </div>
       </div>
 

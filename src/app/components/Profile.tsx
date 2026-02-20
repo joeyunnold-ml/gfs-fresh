@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { members, primaryProfile } from '../mockData';
 import { Member } from '../types';
-import { Pencil, Plus } from 'lucide-react';
+import { ChevronDown, Info, Pencil, Plus } from 'lucide-react';
 import { FIELD_LABEL } from '../typography';
 
 const ProfileField: React.FC<{ label: string; value: string }> = ({ label, value }) => (
@@ -50,24 +50,36 @@ const PhoneInput: React.FC<{ label: string; value: string; onChange: (v: string)
   </div>
 );
 
-const AdditionalMemberCard: React.FC<{ member: Member; isEditing: boolean; onEdit: () => void; onSave: () => void; onCancel: () => void }> = ({ member, isEditing, onEdit, onSave, onCancel }) => {
-  const nameParts = member.name.split(' ');
-  const [firstName, setFirstName] = useState(nameParts[0] || '');
-  const [lastName, setLastName] = useState(nameParts.slice(1).join(' ') || '');
-  const [email, setEmail] = useState(`${nameParts[0]?.toLowerCase()}.${nameParts.slice(1).join('').toLowerCase()}@email.com`);
+const DisabledProfileField: React.FC<{ label: string; value: string }> = ({ label, value }) => (
+  <div className="flex flex-col gap-1">
+    <label className={FIELD_LABEL}>{label}</label>
+    <input
+      type="text"
+      value={value}
+      readOnly
+      disabled
+      className="text-base text-muted-text border border-border-light px-3 py-2 bg-canvas cursor-not-allowed"
+    />
+  </div>
+);
 
-  const handleCancel = () => {
-    setFirstName(nameParts[0] || '');
-    setLastName(nameParts.slice(1).join(' ') || '');
-    setEmail(`${nameParts[0]?.toLowerCase()}.${nameParts.slice(1).join('').toLowerCase()}@email.com`);
-    onCancel();
+const AdditionalMemberCard: React.FC<{ member: Member; isEditing: boolean; onEdit: () => void; onSave: () => void; onCancel: () => void }> = ({ member, isEditing, onEdit, onCancel }) => {
+  const nameParts = member.name.split(' ');
+  const firstName = nameParts[0] || '';
+  const lastName = nameParts.slice(1).join(' ') || '';
+  const email = `${nameParts[0]?.toLowerCase()}.${nameParts.slice(1).join('').toLowerCase()}@email.com`;
+  const phone = '(555) 555-5555';
+
+  const handleToggle = () => {
+    if (isEditing) onCancel();
+    else onEdit();
   };
 
   return (
     <div>
       <div
-        onClick={() => !isEditing && onEdit()}
-        className={`relative bg-white p-6 flex items-center justify-between group transition-colors duration-200 ${isEditing ? 'bg-hover' : 'cursor-pointer hover:bg-hover'}`}
+        onClick={handleToggle}
+        className={`relative bg-white p-6 flex items-center justify-between group transition-colors duration-200 cursor-pointer hover:bg-hover ${isEditing ? 'bg-hover' : ''}`}
       >
         <div
           aria-hidden="true"
@@ -75,31 +87,22 @@ const AdditionalMemberCard: React.FC<{ member: Member; isEditing: boolean; onEdi
         />
         <h3 className="text-[18px] font-bold text-charcoal relative">{member.name}</h3>
         {/* Min 44px tap target for mobile (WCAG 2.5.5) */}
-        <div className={`relative min-w-[44px] min-h-[44px] w-10 h-10 flex items-center justify-center transition-colors duration-200 ${isEditing ? 'bg-shell' : 'bg-transparent group-hover:bg-shell'}`}>
-          <Pencil className="w-4 h-4 text-muted-text" />
+        <div className={`relative min-w-[44px] min-h-[44px] w-10 h-10 flex items-center justify-center transition-transform duration-200 ${isEditing ? 'bg-shell rotate-180' : 'bg-transparent group-hover:bg-shell'}`}>
+          <ChevronDown className="w-4 h-4 text-muted-text" />
         </div>
       </div>
 
       {isEditing && (
         <div className="border border-t-0 border-border-light bg-white p-6">
-          <div className="grid grid-cols-1 gap-4">
-            <ProfileInput label="First Name" value={firstName} onChange={setFirstName} />
-            <ProfileInput label="Last Name" value={lastName} onChange={setLastName} />
-            <ProfileInput label="Email" value={email} onChange={setEmail} />
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <DisabledProfileField label="First Name" value={firstName} />
+            <DisabledProfileField label="Last Name" value={lastName} />
+            <DisabledProfileField label="Email" value={email} />
+            <DisabledProfileField label="Phone" value={phone} />
           </div>
-          <div className="flex gap-3 mt-6">
-            <button
-              onClick={onSave}
-              className="px-6 py-4 text-base font-bold uppercase tracking-wider font-arquitecta bg-charcoal text-white hover:bg-near-black transition-colors"
-            >
-              Save
-            </button>
-            <button
-              onClick={handleCancel}
-              className="px-6 py-4 text-base font-bold uppercase tracking-wider font-arquitecta border-[1.5px] border-charcoal hover:bg-hover transition-colors"
-            >
-              Cancel
-            </button>
+          <div className="bg-canvas p-3 text-base text-muted-text leading-relaxed flex items-center gap-2 mt-4" role="status">
+            <Info className="w-4 h-4 shrink-0 text-muted-text" aria-hidden />
+            To make changes to your additional members, call us.
           </div>
         </div>
       )}

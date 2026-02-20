@@ -4,11 +4,10 @@ import { Logo } from './Logo';
 import { FIELD_LABEL } from '../typography';
 
 /**
- * GFS Member Portal entry screen (Figma node 15-1946).
- * Split layout: left = form (email, continue), right = hero image.
- * Responsive: stacks on mobile; image below or full-width.
+ * Login as user variant: same as login-to-reg-no-alt
+ * but "Create portal account" links to #.
  */
-export const MemberPortalEntry: React.FC = () => {
+export const LoginAsUser: React.FC = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
 
@@ -51,7 +50,7 @@ export const MemberPortalEntry: React.FC = () => {
               <div className="h-[3px] bg-accent-green" aria-hidden />
               <div className="p-6 md:p-8">
                 <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-                  <p className="text-lg font-black uppercase tracking-wide text-charcoal font-arquitecta mb-4">
+                  <p className="text-lg font-black uppercase tracking-wide text-charcoal font-arquitecta mb-2">
                     Login
                   </p>
                   <div className="flex flex-col gap-1">
@@ -75,14 +74,14 @@ export const MemberPortalEntry: React.FC = () => {
                   >
                     Continue
                   </button>
-                  <p className="text-lg font-black uppercase tracking-wide text-charcoal font-arquitecta mb-4 pt-4 border-t border-border-light">
+                  <p className="text-lg font-black uppercase tracking-wide text-charcoal font-arquitecta mb-2 pt-4 border-t border-border-light">
                     Create an account
                   </p>
                   <Link
-                    to="/account-registration"
+                    to="#"
                     className="w-full inline-flex items-center justify-center min-h-[44px] px-6 py-4 text-base font-bold uppercase tracking-wider font-arquitecta border-[1.5px] border-charcoal hover:bg-hover transition-colors text-center"
                   >
-                    Register for Portal
+                    Create portal account
                   </Link>
                 </form>
               </div>
