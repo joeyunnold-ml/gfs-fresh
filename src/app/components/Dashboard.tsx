@@ -175,7 +175,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ onNavigate }) => {
             </div>
           </div>
           <div className="mt-4 flex justify-end">
-            <a className="text-base font-semibold flex items-center gap-1 cursor-pointer hover:underline font-arquitecta">
+            <a className="inline-flex items-center min-h-[44px] py-2 gap-1 text-base font-semibold cursor-pointer hover:underline font-arquitecta">
               See All Visits <ArrowUpRight className="w-3.5 h-3.5" />
             </a>
           </div>

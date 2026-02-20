@@ -131,12 +131,12 @@ const TicketItem: React.FC<{
           {ticket.isFree ? 'Free' : `$${ticket.price}`}
         </span>
 
-        <div className="flex items-stretch h-10">
+        <div className="flex items-stretch min-h-[44px]">
           <button
             onClick={handleDecrement}
             disabled={ticket.quantity === 0}
             className={clsx(
-              'w-10 flex items-center justify-center border bg-white hover:bg-hover active:bg-mist disabled:cursor-not-allowed transition-colors text-muted-text',
+              'min-w-[44px] min-h-[44px] flex items-center justify-center border bg-white hover:bg-hover active:bg-mist disabled:cursor-not-allowed transition-colors text-muted-text',
               ticket.quantity > 0
                 ? 'border-border-light border-r-charcoal'
                 : 'border-border-light'
@@ -146,7 +146,7 @@ const TicketItem: React.FC<{
             <Minus className="w-4 h-4" />
           </button>
           <div className={clsx(
-            'w-10 flex items-center justify-center font-bold text-base border-y transition-colors',
+            'min-w-[44px] min-h-[44px] w-10 flex items-center justify-center font-bold text-base border-y transition-colors',
             ticket.quantity > 0
               ? 'bg-accent-green border-charcoal text-near-black'
               : 'bg-mist border-border-light text-muted-fg'
@@ -156,7 +156,7 @@ const TicketItem: React.FC<{
           <button
             onClick={handleIncrement}
             className={clsx(
-              'w-10 flex items-center justify-center border bg-white hover:bg-hover active:bg-mist transition-colors text-muted-text',
+              'min-w-[44px] min-h-[44px] flex items-center justify-center border bg-white hover:bg-hover active:bg-mist transition-colors text-muted-text',
               ticket.quantity > 0
                 ? 'border-border-light border-l-charcoal'
                 : 'border-border-light'
@@ -244,10 +244,7 @@ const OrderSummary: React.FC<{
   const hasTickets = selected.length > 0;
 
   return (
-    <div className="border border-card-stroke">
-      {/* Green top accent */}
-      <div className="h-1 bg-lime w-full" />
-
+    <div className="border border-card-stroke border-t-[3px] border-t-accent-green">
       <div className="p-8">
         {/* Heading */}
         <div className="pb-4 mb-5 border-b border-border-light">
@@ -315,12 +312,13 @@ const TicketFooter: React.FC = () => (
         <span className="font-arquitecta text-lg">Open today</span>
         <span className="text-disabled-icon font-arquitecta hidden md:inline">10:00 AM – 5:00 PM</span>
       </div>
-      <div className="text-center md:text-right">
-        <a href="#" className="text-accent-pink underline hover:opacity-80 transition-opacity md:hidden">
+      <div className="text-center md:text-right flex items-center gap-2">
+        {/* Min 44px tap target for mobile (WCAG 2.5.5) */}
+        <a href="#" className="inline-flex items-center min-h-[44px] min-w-[44px] justify-center py-2 text-base text-accent-pink underline hover:opacity-80 transition-opacity md:hidden">
           Need help?
         </a>
-        <span className="text-card-stroke hidden md:inline">Need help? Call us at 609.586.0616 or </span>
-        <a href="#" className="text-accent-pink underline hover:opacity-80 transition-opacity hidden md:inline">
+        <span className="text-base text-card-stroke hidden md:inline">Need help? Call us at 609.586.0616 or </span>
+        <a href="#" className="hidden md:inline-flex items-center min-h-[44px] justify-center py-2 text-base text-accent-pink underline hover:opacity-80 transition-opacity">
           learn more.
         </a>
       </div>

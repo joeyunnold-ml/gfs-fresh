@@ -415,7 +415,7 @@ export const AccountRegistration: React.FC = () => {
                   </p>
                   <Link
                     to="/member-portal-entry"
-                    className="inline-block w-full md:w-auto px-8 py-3 text-base font-bold uppercase tracking-wider font-arquitecta bg-charcoal text-white hover:bg-near-black transition-colors text-center"
+                    className="inline-block w-full md:w-auto min-h-[44px] px-8 py-3 text-base font-bold uppercase tracking-wider font-arquitecta bg-charcoal text-white hover:bg-near-black transition-colors text-center"
                   >
                     Sign in
                   </Link>

@@ -74,7 +74,8 @@ const AdditionalMemberCard: React.FC<{ member: Member; isEditing: boolean; onEdi
           className={`absolute inset-0 border border-border-light pointer-events-none transition-shadow duration-200 ${isEditing ? 'shadow-[4px_4px_0px_0px_rgba(139,129,120,0.24)]' : 'shadow-none group-hover:shadow-[4px_4px_0px_0px_rgba(139,129,120,0.24)]'}`}
         />
         <h3 className="text-[18px] font-bold text-charcoal relative">{member.name}</h3>
-        <div className={`relative w-8 h-8 flex items-center justify-center transition-colors duration-200 ${isEditing ? 'bg-shell' : 'bg-transparent group-hover:bg-shell'}`}>
+        {/* Min 44px tap target for mobile (WCAG 2.5.5) */}
+        <div className={`relative min-w-[44px] min-h-[44px] w-10 h-10 flex items-center justify-center transition-colors duration-200 ${isEditing ? 'bg-shell' : 'bg-transparent group-hover:bg-shell'}`}>
           <Pencil className="w-4 h-4 text-muted-text" />
         </div>
       </div>

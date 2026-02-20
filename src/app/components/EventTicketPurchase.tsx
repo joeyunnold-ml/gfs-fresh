@@ -102,18 +102,18 @@ const EventDateCalendar: React.FC<{
           <button
             type="button"
             onClick={() => setViewMonth((m) => subMonths(m, 1))}
-            className="p-1 hover:bg-hover transition-colors"
+            className="min-w-[44px] min-h-[44px] flex items-center justify-center hover:bg-hover transition-colors"
             aria-label="Previous month"
           >
-            <ChevronLeft className="w-4 h-4" />
+            <ChevronLeft className="w-6 h-6 text-charcoal" />
           </button>
           <button
             type="button"
             onClick={() => setViewMonth((m) => addMonths(m, 1))}
-            className="p-1 hover:bg-hover transition-colors"
+            className="min-w-[44px] min-h-[44px] flex items-center justify-center hover:bg-hover transition-colors"
             aria-label="Next month"
           >
-            <ChevronRight className="w-4 h-4" />
+            <ChevronRight className="w-6 h-6 text-charcoal" />
           </button>
         </div>
       </div>
@@ -468,12 +468,12 @@ export const EventTicketPurchase: React.FC = () => {
                 </div>
                 <div className="flex items-center gap-4 mt-4 md:mt-0">
                   <span className="font-bold text-charcoal text-base">Free</span>
-                  <div className="flex flex-stretch h-10">
+                  <div className="flex flex-stretch min-h-[44px]">
                     <button
                       onClick={() => handleQuantityChange(tickets[0].id, tickets[0].quantity - 1)}
                       disabled={tickets[0].quantity === 0}
                       className={clsx(
-                        'w-10 flex items-center justify-center border bg-white hover:bg-hover disabled:cursor-not-allowed transition-colors text-muted-text',
+                        'min-w-[44px] min-h-[44px] flex items-center justify-center border bg-white hover:bg-hover disabled:cursor-not-allowed transition-colors text-muted-text',
                         tickets[0].quantity > 0 ? 'border-border-light border-r-charcoal' : 'border-border-light',
                       )}
                       aria-label="Decrease quantity"
@@ -481,14 +481,14 @@ export const EventTicketPurchase: React.FC = () => {
                       <Minus className="w-4 h-4" />
                     </button>
                     <div className={clsx(
-                      'w-10 flex items-center justify-center font-bold text-base border-y transition-colors',
+                      'min-w-[44px] min-h-[44px] w-10 flex items-center justify-center font-bold text-base border-y transition-colors',
                       tickets[0].quantity > 0 ? 'bg-accent-green border-charcoal text-near-black' : 'bg-mist border-border-light text-muted-fg',
                     )}>
                       {tickets[0].quantity}
                     </div>
                     <button
                       onClick={() => handleQuantityChange(tickets[0].id, tickets[0].quantity + 1)}
-                      className="w-10 flex items-center justify-center border bg-white hover:bg-hover transition-colors text-muted-text border-border-light border-l-charcoal"
+                      className="min-w-[44px] min-h-[44px] flex items-center justify-center border bg-white hover:bg-hover transition-colors text-muted-text border-border-light border-l-charcoal"
                       aria-label="Increase quantity"
                     >
                       <Plus className="w-4 h-4" />

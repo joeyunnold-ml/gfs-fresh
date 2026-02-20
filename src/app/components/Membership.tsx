@@ -105,13 +105,13 @@ const SharePassModal: React.FC<{ open: boolean; onOpenChange: (open: boolean) =>
             <div className="flex flex-col w-full gap-3">
               <button
                 onClick={handleSend}
-                className="w-full py-3 text-base font-bold uppercase tracking-wider font-arquitecta bg-charcoal text-white hover:bg-near-black transition-colors"
+                className="w-full min-h-[44px] py-3 text-base font-bold uppercase tracking-wider font-arquitecta bg-charcoal text-white hover:bg-near-black transition-colors"
               >
                 Send
               </button>
               <button
                 onClick={handleClose}
-                className="w-full py-3 text-base font-bold uppercase tracking-wider font-arquitecta border-[1.5px] border-charcoal hover:bg-hover transition-colors"
+                className="w-full min-h-[44px] py-3 text-base font-bold uppercase tracking-wider font-arquitecta border-[1.5px] border-charcoal hover:bg-hover transition-colors"
               >
                 Cancel
               </button>
@@ -218,13 +218,13 @@ const TierCard: React.FC<{ tier: MembershipTier }> = ({ tier }) => {
         )}
         {isCurrent ? (
           <button
-            className="w-full py-3 text-base font-bold uppercase tracking-wider font-arquitecta transition-colors border-[1.5px] border-accent-green hover:bg-near-black"
+            className="w-full min-h-[44px] py-3 text-base font-bold uppercase tracking-wider font-arquitecta transition-colors border-[1.5px] border-accent-green hover:bg-near-black"
           >
             Renew Membership
           </button>
         ) : (
           <button
-            className="w-full py-3 text-base font-bold uppercase tracking-wider font-arquitecta border-[1.5px] border-charcoal hover:bg-hover transition-colors"
+            className="w-full min-h-[44px] py-3 text-base font-bold uppercase tracking-wider font-arquitecta border-[1.5px] border-charcoal hover:bg-hover transition-colors"
           >
             Upgrade
           </button>

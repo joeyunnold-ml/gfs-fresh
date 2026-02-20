@@ -3,6 +3,7 @@ import { createRoot } from "react-dom/client";
 import { BrowserRouter, Routes, Route, useLocation } from "react-router";
 import App from "./app/App.tsx";
 import { HomePage } from "./app/components/HomePage.tsx";
+import { GfsOrg } from "./app/components/GfsOrg.tsx";
 import { StyleGuide } from "./app/components/StyleGuide.tsx";
 import { TicketFlow1 } from "./app/components/TicketFlow1.tsx";
 import { TicketFlowGuest } from "./app/components/TicketFlowGuest.tsx";
@@ -29,12 +30,12 @@ class GuestFlowErrorBoundary extends React.Component<
   render() {
     if (this.state.error) {
       return (
-        <div style={{ padding: 24, fontFamily: "sans-serif", maxWidth: 640 }}>
-          <h2 style={{ color: "#b91c1c" }}>Guest flow error</h2>
-          <pre style={{ overflow: "auto", background: "#fef2f2", padding: 16, borderRadius: 8 }}>
+        <div style={{ padding: 24, fontFamily: "sans-serif", maxWidth: 640, fontSize: 16 }}>
+          <h2 style={{ color: "#b91c1c", fontSize: "1.25rem", fontWeight: 700 }}>Guest flow error</h2>
+          <pre style={{ overflow: "auto", background: "#fef2f2", padding: 16, borderRadius: 8, fontSize: 16 }}>
             {this.state.error.message}
           </pre>
-          <pre style={{ fontSize: 12, color: "#666", marginTop: 8 }}>
+          <pre style={{ fontSize: 16, color: "#666", marginTop: 8 }}>
             {this.state.error.stack}
           </pre>
         </div>
@@ -59,6 +60,7 @@ createRoot(document.getElementById("root")!).render(
       <Route path="/" element={<HomePage />} />
       <Route path="/current-member" element={<App />} />
       <Route path="/never-member" element={<App />} />
+      <Route path="/gfs-org" element={<GfsOrg />} />
       <Route path="/mp-style" element={<StyleGuide />} />
       <Route path="/ticket-flow-1" element={<TicketFlow1 />} />
       <Route path="/ticket-flow-guest" element={

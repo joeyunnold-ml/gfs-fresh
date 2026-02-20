@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router';
-import { ArrowLeft, ChevronDown, Minus, Plus, Check } from 'lucide-react';
+import { ArrowLeft, ChevronDown, Check } from 'lucide-react';
 import clsx from 'clsx';
 import { FIELD_LABEL } from '../typography';
 import { Logo } from './Logo';
@@ -87,15 +87,17 @@ const CheckboxField: React.FC<{
 
 const MembershipItem: React.FC<{
   membership: MembershipType;
-  onQuantityChange: (qty: number) => void;
-}> = ({ membership, onQuantityChange }) => {
-  const handleDecrement = () => {
-    if (membership.quantity > 0) onQuantityChange(membership.quantity - 1);
-  };
-  const handleIncrement = () => onQuantityChange(membership.quantity + 1);
-
+  isSelected: boolean;
+  onSelect: () => void;
+}> = ({ membership, isSelected, onSelect }) => {
   return (
-    <div className="flex flex-col md:flex-row justify-between items-start md:items-center p-6 border border-border-light border-l-4 border-l-border-light bg-white">
+    <button
+      onClick={onSelect}
+      className={clsx(
+        'flex flex-col md:flex-row justify-between items-start md:items-center p-6 border border-border-light border-l-4 bg-white w-full text-left transition-colors',
+        isSelected ? 'border-l-accent-green' : 'border-l-border-light hover:bg-hover'
+      )}
+    >
       <div className="flex-1 max-w-xl pr-4">
         <h3 className="font-bold text-charcoal text-base mb-1">{membership.title}</h3>
         <p className="text-muted-text text-base leading-relaxed">
@@ -104,54 +106,27 @@ const MembershipItem: React.FC<{
       </div>
       <div className="flex items-center gap-4 mt-4 md:mt-0 w-full md:w-auto justify-between md:justify-end">
         <span className="font-bold text-charcoal text-base">${membership.price}</span>
-        <div className="flex flex-stretch h-10">
-          <button
-            onClick={handleDecrement}
-            disabled={membership.quantity === 0}
-            className={clsx(
-              'w-10 flex items-center justify-center border bg-white hover:bg-hover active:bg-mist disabled:cursor-not-allowed transition-colors text-muted-text',
-              membership.quantity > 0 ? 'border-border-light border-r-charcoal' : 'border-border-light',
-            )}
-            aria-label="Decrease quantity"
-          >
-            <Minus className="w-4 h-4" />
-          </button>
-          <div
-            className={clsx(
-              'w-10 flex items-center justify-center font-bold text-base border-y transition-colors',
-              membership.quantity > 0
-                ? 'bg-accent-green border-charcoal text-near-black'
-                : 'bg-mist border-border-light text-muted-fg',
-            )}
-          >
-            {membership.quantity}
-          </div>
-          <button
-            onClick={handleIncrement}
-            className={clsx(
-              'w-10 flex items-center justify-center border bg-white hover:bg-hover active:bg-mist transition-colors text-muted-text',
-              membership.quantity > 0 ? 'border-border-light border-l-charcoal' : 'border-border-light',
-            )}
-            aria-label="Increase quantity"
-          >
-            <Plus className="w-4 h-4" />
-          </button>
+        <div
+          className={clsx(
+            'min-w-[44px] min-h-[44px] w-[44px] flex items-center justify-center border-2 transition-colors',
+            isSelected
+              ? 'bg-accent-green border-charcoal'
+              : 'bg-white border-border-light hover:border-charcoal'
+          )}
+        >
+          {isSelected && <Check className="w-5 h-5 text-charcoal" strokeWidth={3} />}
         </div>
       </div>
-    </div>
+    </button>
   );
 };
 
-const MembershipOrderSummary: React.FC<{ memberships: MembershipType[]; total: number }> = ({
-  memberships,
+const MembershipOrderSummary: React.FC<{ membership: MembershipType | null; total: number }> = ({
+  membership,
   total,
 }) => {
-  const selected = memberships.filter((m) => m.quantity > 0);
-  const hasItems = selected.length > 0;
-
   return (
-    <div className="border border-card-stroke">
-      <div className="h-1 bg-lime w-full" />
+    <div className="border border-card-stroke border-t-[3px] border-t-accent-green">
       <div className="p-8">
         <div className="pb-4 mb-5 border-b border-border-light">
           <h2 className="text-base font-bold tracking-widest text-charcoal uppercase font-arquitecta">
@@ -159,15 +134,11 @@ const MembershipOrderSummary: React.FC<{ memberships: MembershipType[]; total: n
           </h2>
         </div>
         <div className="space-y-3 mb-5 pb-5 border-b border-border-light min-h-16">
-          {hasItems ? (
-            selected.map((m) => (
-              <div key={m.id} className="flex justify-between items-start text-base">
-                <span className="text-charcoal">{m.title}</span>
-                <span className="text-charcoal whitespace-nowrap">
-                  {m.quantity} &times; ${m.price}
-                </span>
-              </div>
-            ))
+          {membership ? (
+            <div className="flex justify-between items-start text-base">
+              <span className="text-charcoal">{membership.title}</span>
+              <span className="text-charcoal whitespace-nowrap">${membership.price}</span>
+            </div>
           ) : (
             <div className="text-muted-text italic text-base py-2">No membership selected</div>
           )}
@@ -186,6 +157,7 @@ export const MembershipPurchase: React.FC = () => {
   const [currentStep, setCurrentStep] = useState<StepId>(1);
   const [checkoutModalOpen, setCheckoutModalOpen] = useState(false);
   const [memberships, setMemberships] = useState<MembershipType[]>(initialMembershipTypes);
+  const [selectedMembershipId, setSelectedMembershipId] = useState<string | null>(null);
   const [guestInfo, setGuestInfo] = useState<GuestInfo>({
     firstName: '',
     lastName: '',
@@ -206,13 +178,12 @@ export const MembershipPurchase: React.FC = () => {
   }, [currentStep]);
 
   const steps = buildSteps(currentStep);
-  const total = memberships.reduce((sum, m) => sum + m.price * m.quantity, 0);
-  const hasSelection = total > 0;
+  const selectedMembership = memberships.find((m) => m.id === selectedMembershipId);
+  const total = selectedMembership ? selectedMembership.price : 0;
+  const hasSelection = selectedMembershipId !== null;
 
-  const handleQuantityChange = (id: string, qty: number) => {
-    setMemberships((prev) =>
-      prev.map((m) => (m.id === id ? { ...m, quantity: qty } : m)),
-    );
+  const handleSelectMembership = (id: string) => {
+    setSelectedMembershipId((prev) => (prev === id ? null : id));
   };
 
   const canSubmitCheckout =
@@ -230,14 +201,12 @@ export const MembershipPurchase: React.FC = () => {
 
   const handleCompletePayment = () => {
     setCheckoutModalOpen(false);
-    const selected = memberships
-      .filter((m) => m.quantity > 0)
-      .map((m) => ({ title: m.title, quantity: m.quantity, price: m.price }));
+    if (!selectedMembership) return;
     navigate('/membership-purchase/confirmation', {
       state: {
         firstName: guestInfo.firstName,
         lastName: guestInfo.lastName,
-        memberships: selected,
+        memberships: [{ title: selectedMembership.title, quantity: 1, price: selectedMembership.price }],
         total,
       },
     });
@@ -298,7 +267,8 @@ export const MembershipPurchase: React.FC = () => {
                     <MembershipItem
                       key={m.id}
                       membership={m}
-                      onQuantityChange={(qty) => handleQuantityChange(m.id, qty)}
+                      isSelected={selectedMembershipId === m.id}
+                      onSelect={() => handleSelectMembership(m.id)}
                     />
                   ))}
                 </div>
@@ -312,7 +282,8 @@ export const MembershipPurchase: React.FC = () => {
                     <MembershipItem
                       key={m.id}
                       membership={m}
-                      onQuantityChange={(qty) => handleQuantityChange(m.id, qty)}
+                      isSelected={selectedMembershipId === m.id}
+                      onSelect={() => handleSelectMembership(m.id)}
                     />
                   ))}
                 </div>
@@ -326,14 +297,15 @@ export const MembershipPurchase: React.FC = () => {
                     <MembershipItem
                       key={m.id}
                       membership={m}
-                      onQuantityChange={(qty) => handleQuantityChange(m.id, qty)}
+                      isSelected={selectedMembershipId === m.id}
+                      onSelect={() => handleSelectMembership(m.id)}
                     />
                   ))}
                 </div>
               </section>
             </div>
             <div className="lg:col-span-4 lg:sticky lg:top-8 space-y-8">
-              <MembershipOrderSummary memberships={memberships} total={total} />
+              <MembershipOrderSummary membership={selectedMembership || null} total={total} />
               <div className="space-y-4">
                 <button
                   disabled={!hasSelection}
@@ -455,7 +427,7 @@ export const MembershipPurchase: React.FC = () => {
               )}
             </section>
             <aside className="lg:col-span-4 space-y-8">
-              <MembershipOrderSummary memberships={memberships} total={total} />
+              <MembershipOrderSummary membership={selectedMembership || null} total={total} />
               <div className="space-y-4">
                 <button
                   disabled={!canSubmitCheckout}
@@ -500,7 +472,7 @@ export const MembershipPurchase: React.FC = () => {
               <button
                 type="button"
                 onClick={handleCompletePayment}
-                className="w-full py-3 text-base font-bold uppercase tracking-wider bg-charcoal text-white hover:bg-near-black transition-colors duration-150 ease-out font-arquitecta"
+                className="w-full min-h-[44px] py-3 text-base font-bold uppercase tracking-wider bg-charcoal text-white hover:bg-near-black transition-colors duration-150 ease-out font-arquitecta"
               >
                 Complete
               </button>

@@ -100,7 +100,7 @@ const MembershipUpsellCard: React.FC<{ layout?: 'stacked' | 'inline' }> = ({ lay
       </p>
     </div>
     {layout === 'stacked' ? (
-      <a href="#" className="text-base font-semibold text-charcoal underline hover:text-muted-text transition-colors">
+      <a href="#" className="inline-flex items-center min-h-[44px] py-2 text-base font-semibold text-charcoal underline hover:text-muted-text transition-colors">
         Add a Membership
       </a>
     ) : (
@@ -216,18 +216,18 @@ const DateCalendarDrawer: React.FC<{
           <button
             type="button"
             onClick={() => setViewMonth((m) => subMonths(m, 1))}
-            className="p-1 hover:bg-hover transition-colors duration-150 ease-out"
+            className="min-w-[44px] min-h-[44px] flex items-center justify-center hover:bg-hover transition-colors duration-150 ease-out"
             aria-label="Previous month"
           >
-            <ChevronLeft className="w-4 h-4" />
+            <ChevronLeft className="w-6 h-6 text-charcoal" />
           </button>
           <button
             type="button"
             onClick={() => setViewMonth((m) => addMonths(m, 1))}
-            className="p-1 hover:bg-hover transition-colors duration-150 ease-out"
+            className="min-w-[44px] min-h-[44px] flex items-center justify-center hover:bg-hover transition-colors duration-150 ease-out"
             aria-label="Next month"
           >
-            <ChevronRight className="w-4 h-4" />
+            <ChevronRight className="w-6 h-6 text-charcoal" />
           </button>
         </div>
       </div>

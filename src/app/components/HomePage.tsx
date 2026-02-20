@@ -14,6 +14,15 @@ export const HomePage: React.FC = () => {
         <div className="space-y-10">
           <section>
             <Link
+              to="/gfs-org"
+              className="text-lg font-bold text-charcoal hover:text-accent-green transition-colors underline inline-flex items-center gap-2"
+            >
+              GFS Org
+            </Link>
+          </section>
+
+          <section>
+            <Link
               to="/mp-style"
               className="text-lg font-bold text-charcoal hover:text-accent-green transition-colors underline inline-flex items-center gap-2"
             >

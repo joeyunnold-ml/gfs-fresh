@@ -40,18 +40,18 @@ const SoldOutDateCalendar: React.FC<{ value: string }> = ({ value }) => {
           <button
             type="button"
             onClick={() => setViewMonth((m) => subMonths(m, 1))}
-            className="p-1 hover:bg-hover transition-colors"
+            className="min-w-[44px] min-h-[44px] flex items-center justify-center hover:bg-hover transition-colors"
             aria-label="Previous month"
           >
-            <ChevronLeft className="w-4 h-4" />
+            <ChevronLeft className="w-6 h-6 text-charcoal" />
           </button>
           <button
             type="button"
             onClick={() => setViewMonth((m) => addMonths(m, 1))}
-            className="p-1 hover:bg-hover transition-colors"
+            className="min-w-[44px] min-h-[44px] flex items-center justify-center hover:bg-hover transition-colors"
             aria-label="Next month"
           >
-            <ChevronRight className="w-4 h-4" />
+            <ChevronRight className="w-6 h-6 text-charcoal" />
           </button>
         </div>
       </div>

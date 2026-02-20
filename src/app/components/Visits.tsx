@@ -118,7 +118,7 @@ export const Visits: React.FC = () => {
                       <div className="col-span-3" />
                       <div className="col-span-7">
                         <p className="text-base text-muted-text leading-relaxed">{visit.description}</p>
-                        <a href="#" className="text-base font-semibold text-charcoal flex items-center gap-1 mt-4 hover:underline font-arquitecta">
+                        <a href="#" className="inline-flex items-center min-h-[44px] py-2 gap-1 mt-4 text-base font-semibold text-charcoal hover:underline font-arquitecta">
                           More Info <ArrowUpRight className="w-3.5 h-3.5" />
                         </a>
                       </div>
@@ -154,12 +154,12 @@ export const Visits: React.FC = () => {
                    </div>
 
                    <div className="pt-2 flex items-center gap-2">
-                      <button className="flex-1 py-3 text-base font-bold uppercase tracking-wider border-[1.5px] border-charcoal hover:bg-hover transition-colors text-center font-arquitecta">
+                      <button className="flex-1 min-h-[44px] py-3 text-base font-bold uppercase tracking-wider border-[1.5px] border-charcoal hover:bg-hover transition-colors text-center font-arquitecta">
                         MODIFY
                       </button>
                       <button
                         onClick={() => toggleExpanded(visit.id)}
-                        className="py-3 px-3 border-[1.5px] border-charcoal hover:bg-hover transition-colors self-stretch"
+                        className="min-w-[44px] min-h-[44px] py-3 px-3 border-[1.5px] border-charcoal hover:bg-hover transition-colors self-stretch"
                       >
                         <ChevronDown className={clsx("w-5 h-5 text-muted-text transition-transform duration-200", isExpanded && "rotate-180")} />
                       </button>

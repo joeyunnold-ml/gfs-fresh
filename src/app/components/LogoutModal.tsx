@@ -29,13 +29,13 @@ export const LogoutModal: React.FC<LogoutModalProps> = ({ open, onOpenChange }) 
                 onClick={() => {
                   onOpenChange(false);
                 }}
-                className="w-full py-3 text-base font-bold uppercase tracking-wider bg-charcoal text-white hover:bg-near-black transition-colors font-arquitecta"
+                className="w-full min-h-[44px] py-3 text-base font-bold uppercase tracking-wider bg-charcoal text-white hover:bg-near-black transition-colors font-arquitecta"
               >
                 Yes, Log Out
               </button>
               <button
                 onClick={() => onOpenChange(false)}
-                className="w-full py-3 text-base font-bold uppercase tracking-wider border-[1.5px] border-charcoal hover:bg-hover transition-colors font-arquitecta"
+                className="w-full min-h-[44px] py-3 text-base font-bold uppercase tracking-wider border-[1.5px] border-charcoal hover:bg-hover transition-colors font-arquitecta"
               >
                 Cancel
               </button>

@@ -107,7 +107,7 @@ export const MemberDetailModal: React.FC<MemberDetailModalProps> = ({
             {/* Done Button */}
             <div className="p-6">
               <DialogClose asChild>
-                <button className="w-full py-3 text-base font-bold uppercase tracking-wider font-arquitecta bg-charcoal text-white hover:bg-near-black transition-colors">
+                <button className="w-full min-h-[44px] py-3 text-base font-bold uppercase tracking-wider font-arquitecta bg-charcoal text-white hover:bg-near-black transition-colors">
                   Done
                 </button>
               </DialogClose>
