@@ -90,8 +90,8 @@ export const MembershipConfirmation: React.FC = () => {
             <div className="relative flex flex-1 flex-col justify-between p-4 md:p-6 min-w-0">
               <div className="flex flex-col gap-1.5">
                 <div className="flex items-center justify-between gap-3 flex-wrap">
-                  <span className="text-base font-normal text-black">{primaryLevel} Member</span>
-                  <span className="px-2.5 py-1.5 text-base font-bold text-black uppercase tracking-wider border border-lime leading-none shrink-0">
+                  <span className="text-base font-normal text-near-black">{primaryLevel} Member</span>
+                  <span className="px-2.5 py-1.5 text-base font-bold text-near-black uppercase tracking-wider border border-lime leading-none shrink-0">
                     Active
                   </span>
                 </div>

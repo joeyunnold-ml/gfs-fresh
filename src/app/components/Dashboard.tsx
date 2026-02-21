@@ -143,7 +143,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ onNavigate }) => {
               {bookedVisits.map((visit, i) => (
                 <div key={i} className="pb-6 border-b border-card-stroke last:border-0 last:pb-0">
                   <div className="flex justify-between items-start">
-                    <a href="#" className="text-[20px] font-bold text-charcoal font-arquitecta hover:underline cursor-pointer">{visit.title}</a>
+                    <a href="#" className="text-xl font-bold text-charcoal font-arquitecta hover:underline cursor-pointer">{visit.title}</a>
                     <div className="text-right">
                       <div className="text-base text-charcoal">{visit.date}</div>
                       <div className="text-base text-muted-text">{visit.time}</div>
@@ -163,7 +163,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ onNavigate }) => {
               {memberMornings.map((event, i) => (
                 <div key={i} className="pb-4 border-b border-card-stroke last:border-0 last:pb-0 flex justify-between items-start">
                   <div>
-                     <a href="#" className="text-[20px] font-bold text-charcoal font-arquitecta hover:underline cursor-pointer">{event.title}</a>
+                     <a href="#" className="text-xl font-bold text-charcoal font-arquitecta hover:underline cursor-pointer">{event.title}</a>
                      <p className="text-base text-warm-muted italic mt-1">{event.tag}</p>
                   </div>
                   <div className="text-right">

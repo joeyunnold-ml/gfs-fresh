@@ -44,7 +44,7 @@ export default function App() {
   }, [updateIndicator]);
 
   return (
-    <div className="min-h-screen font-opensans text-gray-900" style={{ background: 'linear-gradient(to right, #F3F2F0 50%, #ffffff 50%)' }}>
+    <div className="min-h-screen font-opensans text-charcoal" style={{ background: 'linear-gradient(to right, #F3F2F0 50%, #ffffff 50%)' }}>
       <Header currentView={currentView} onNavigate={handleNavigate} />
 
       <div className="max-w-[1400px] mx-auto md:flex min-h-screen bg-white">
@@ -63,20 +63,20 @@ export default function App() {
                 className={clsx(
                   "text-base font-bold uppercase tracking-wider transition-colors duration-200 pb-3 font-arquitecta",
                   (hoveredView === view || (!hoveredView && currentView === view))
-                    ? "text-[#343433]"
-                    : "text-[#6B6B6B]"
+                    ? "text-charcoal"
+                    : "text-muted-text"
                 )}
               >
                 {view === 'dashboard' ? 'Dashboard' : view === 'membership' ? 'Membership' : view === 'visits' ? 'Visits' : 'Profile'}
               </button>
             ))}
             <div
-              className="absolute bottom-0 h-[2px] bg-[#B6D840] transition-all duration-300 ease-in-out"
+              className="absolute bottom-0 h-[2px] bg-accent-green transition-all duration-300 ease-in-out"
               style={{ left: indicator.left, width: indicator.width }}
             />
           </nav>
 
-          <button onClick={() => setLogoutOpen(true)} className="text-base font-bold uppercase tracking-wider text-[#6B6B6B] hover:text-[#343433] font-arquitecta pb-3">
+          <button onClick={() => setLogoutOpen(true)} className="text-base font-bold uppercase tracking-wider text-muted-text hover:text-charcoal font-arquitecta pb-3">
             Log Out
           </button>
         </div>

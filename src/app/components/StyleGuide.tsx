@@ -135,6 +135,18 @@ export const StyleGuide: React.FC = () => {
         <SubSection title="Type Scale">
           <div className="space-y-6">
             <div className="border-b border-border-light pb-4">
+              <p className="text-base font-bold uppercase tracking-wider text-muted-text font-arquitecta mb-1">Hero / 5xl &mdash; 48px</p>
+              <p className="text-5xl font-black uppercase tracking-wide font-arquitecta">Hero Title</p>
+            </div>
+            <div className="border-b border-border-light pb-4">
+              <p className="text-base font-bold uppercase tracking-wider text-muted-text font-arquitecta mb-1">Hero Mobile / 4xl &mdash; 36px</p>
+              <p className="text-4xl font-black uppercase tracking-wide font-arquitecta">Page Title</p>
+            </div>
+            <div className="border-b border-border-light pb-4">
+              <p className="text-base font-bold uppercase tracking-wider text-muted-text font-arquitecta mb-1">Page Title / 3xl &mdash; 30px</p>
+              <p className="text-3xl font-black uppercase tracking-wide font-arquitecta">Step Heading</p>
+            </div>
+            <div className="border-b border-border-light pb-4">
               <p className="text-base font-bold uppercase tracking-wider text-muted-text font-arquitecta mb-1">Display / 2xl &mdash; 24px</p>
               <p className="text-2xl font-black uppercase tracking-wide font-arquitecta">Welcome, Tom!</p>
             </div>
@@ -256,6 +268,14 @@ export const StyleGuide: React.FC = () => {
                 <span className="text-base text-muted-text">45&deg; gradient overlay on hero images</span>
               </div>
             </div>
+            <div className="flex items-center gap-4">
+              <div className="w-16 h-16 border border-border-light" style={{ backgroundColor: 'rgba(0,0,0,0.60)' }} />
+              <div>
+                <span className="text-base font-bold uppercase tracking-wider font-arquitecta text-charcoal">Dialog Overlay</span>
+                <code className="block text-base text-muted-text font-mono">bg-black/60</code>
+                <span className="text-base text-muted-text">Modal and dialog backdrop overlay</span>
+              </div>
+            </div>
           </div>
         </SubSection>
 
@@ -312,6 +332,7 @@ export const StyleGuide: React.FC = () => {
             <TokenRow token="rgba(139,129,120,0.24)" value="Shadow L1" desc="Flat offset shadow — card hover" />
             <TokenRow token="rgba(139,129,120,0.32)" value="Shadow L2" desc="Flat offset shadow — active hover" />
             <TokenRow token="rgba(26,26,26,0.75)" value="Overlay Dark" desc="Hero image gradient overlay (45deg)" />
+            <TokenRow token="bg-black/60" value="Dialog Overlay" desc="Modal and dialog backdrop overlay" />
           </div>
         </SubSection>
 
@@ -439,8 +460,22 @@ export const StyleGuide: React.FC = () => {
             <code className="text-base text-muted-text font-mono text-center">shadow-[6px_6px_0px_0px _rgba(139,129,120,0.32)]</code>
           </div>
         </div>
+        <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="p-6 border border-border-light flex flex-col items-center gap-4">
+            <div className="w-full h-24 bg-white border border-border-light shadow-lg" />
+            <p className="text-base font-bold uppercase tracking-wider text-muted-text font-arquitecta">Level 3 &mdash; Modal</p>
+            <code className="text-base text-muted-text font-mono text-center">shadow-lg</code>
+            <p className="text-base text-muted-text text-center">Modals, dialogs, and elevated overlays</p>
+          </div>
+          <div className="p-6 border border-border-light flex flex-col items-center gap-4">
+            <div className="w-full h-24 bg-black/60 border border-border-light" />
+            <p className="text-base font-bold uppercase tracking-wider text-muted-text font-arquitecta">Dialog Overlay</p>
+            <code className="text-base text-muted-text font-mono text-center">bg-black/60</code>
+            <p className="text-base text-muted-text text-center">Backdrop behind modals and dialogs</p>
+          </div>
+        </div>
         <div className="mt-4 p-4 bg-canvas text-base text-muted-text">
-          <strong className="text-charcoal">Note:</strong> Shadows are flat, offset-style (no blur). This gives a tactile, print-inspired feel. Modal overlays use standard <code className="font-mono">shadow-lg</code>.
+          <strong className="text-charcoal">Note:</strong> Card shadows are flat, offset-style (no blur) for a tactile, print-inspired feel. Modal overlays use standard <code className="font-mono">shadow-lg</code> with a <code className="font-mono">bg-black/60</code> backdrop.
         </div>
 
         {/* ============================================================ */}
@@ -733,7 +768,7 @@ export const StyleGuide: React.FC = () => {
           <div className="space-y-6 p-6 border border-border-light max-w-md">
             <div className="flex flex-col gap-1">
               <label className="text-base font-bold uppercase tracking-wider text-muted-text font-arquitecta">
-                First Name <span className="text-red-500">*</span>
+                First Name <span className="text-accent-pink">*</span>
               </label>
               <input
                 type="text"
@@ -745,7 +780,7 @@ export const StyleGuide: React.FC = () => {
             </div>
             <div className="flex flex-col gap-1">
               <label className="text-base font-bold uppercase tracking-wider text-muted-text font-arquitecta">
-                Email <span className="text-red-500">*</span>
+                Email <span className="text-accent-pink">*</span>
               </label>
               <input
                 type="email"

@@ -306,7 +306,7 @@ const OrderSummary: React.FC<{
 /*  Footer                                                              */
 /* ------------------------------------------------------------------ */
 const TicketFooter: React.FC = () => (
-  <footer className="fixed bottom-0 left-0 right-0 z-40 bg-[#171717] text-white py-4 px-6 md:px-12">
+  <footer className="fixed bottom-0 left-0 right-0 z-40 bg-near-black text-white py-4 px-6 md:px-12">
     <div className="max-w-7xl mx-auto flex flex-row justify-between items-center gap-4 text-base">
       <div className="flex items-center gap-2">
         <div className="w-2.5 h-2.5 rounded-full bg-lime" />

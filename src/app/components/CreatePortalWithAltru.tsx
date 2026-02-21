@@ -89,7 +89,7 @@ export const CreatePortalWithAltru: React.FC = () => {
   if (step === 'entry') {
     return (
       <div className="min-h-screen flex flex-col md:flex-row md:h-screen font-opensans text-charcoal">
-        <div className="flex-1 md:w-1/2 flex flex-col min-h-screen md:min-h-0 md:overflow-y-auto" style={{ backgroundColor: '#f7f5f2' }}>
+        <div className="flex-1 md:w-1/2 flex flex-col min-h-screen md:min-h-0 md:overflow-y-auto bg-mist">
           <div className="w-full flex justify-center pt-4 pb-4 md:pt-12 md:pb-12 lg:pt-16 border-b border-border-light">
             <Logo className="h-12 w-12 md:h-14 md:w-14 text-charcoal" />
           </div>
@@ -178,7 +178,7 @@ export const CreatePortalWithAltru: React.FC = () => {
   // Flow steps
   return (
     <div className="min-h-screen flex flex-col md:flex-row md:h-screen font-opensans text-charcoal">
-      <div className="flex-1 md:w-1/2 flex flex-col min-h-screen md:min-h-0 md:overflow-y-auto" style={{ backgroundColor: '#f7f5f2' }}>
+      <div className="flex-1 md:w-1/2 flex flex-col min-h-screen md:min-h-0 md:overflow-y-auto bg-mist">
         <div className="w-full flex justify-center pt-4 pb-4 md:pt-12 md:pb-12 lg:pt-16 border-b border-border-light">
           <Logo className="h-12 w-12 md:h-14 md:w-14 text-charcoal" />
         </div>
