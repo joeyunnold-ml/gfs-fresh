@@ -1,0 +1,314 @@
+import React, { useState, useEffect } from 'react';
+import { guestPasses, membershipTiers } from '../mockData';
+import { GuestPass, MembershipTier } from '../types';
+import { Check, ArrowUpRight } from 'lucide-react';
+import clsx from 'clsx';
+import { FIELD_LABEL } from '../typography';
+import {
+  Dialog,
+  DialogOverlay,
+  DialogPortal,
+  DialogTitle,
+} from './ui/dialog';
+
+type SubTab = 'overview' | 'guest-passes';
+
+const TicketIcon: React.FC<{ className?: string; muted?: boolean }> = ({ className, muted }) => (
+  <svg className={className} viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <rect x="4" y="8" width="32" height="24" rx="2" stroke={muted ? "var(--disabled-icon)" : "var(--accent-green)"} strokeWidth="2" />
+    <path d="M14 8V32" stroke={muted ? "var(--disabled-icon)" : "var(--accent-green)"} strokeWidth="2" strokeDasharray="3 3" />
+    <circle cx="26" cy="18" r="3" stroke={muted ? "var(--disabled-icon)" : "var(--accent-green)"} strokeWidth="1.5" />
+    <path d="M23 24h6" stroke={muted ? "var(--disabled-icon)" : "var(--accent-green)"} strokeWidth="1.5" strokeLinecap="round" />
+  </svg>
+);
+
+const SharePassModal: React.FC<{ open: boolean; onOpenChange: (open: boolean) => void; onSend: () => void }> = ({ open, onOpenChange, onSend }) => {
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [email, setEmail] = useState('');
+  const [phone, setPhone] = useState('');
+
+  const handleClose = () => {
+    setFirstName('');
+    setLastName('');
+    setEmail('');
+    setPhone('');
+    onOpenChange(false);
+  };
+
+  const handleSend = () => {
+    onSend();
+    handleClose();
+  };
+
+  return (
+    <Dialog open={open} onOpenChange={onOpenChange}>
+      <DialogPortal>
+        <DialogOverlay />
+        <div
+          data-state={open ? 'open' : 'closed'}
+          className="fixed inset-0 z-50 flex items-center justify-center data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0"
+        >
+          <div className="bg-white w-[calc(100%-2rem)] max-w-sm md:max-w-md border shadow-lg p-8 flex flex-col gap-6">
+            <DialogTitle className="text-xl font-black uppercase tracking-wide text-charcoal font-arquitecta">
+              Share Guest Pass
+            </DialogTitle>
+
+            <div className="flex flex-col gap-5">
+              <div className="flex flex-col gap-1">
+                <label className={FIELD_LABEL}>
+                  First Name <span className="text-accent-pink">*</span>
+                </label>
+                <input
+                  type="text"
+                  value={firstName}
+                  onChange={(e) => setFirstName(e.target.value)}
+                  className="text-base text-charcoal border border-border-light px-3 py-2 bg-white focus:outline-none focus:border-accent-green transition-colors"
+                />
+              </div>
+              <div className="flex flex-col gap-1">
+                <label className={FIELD_LABEL}>
+                  Last Name <span className="text-accent-pink">*</span>
+                </label>
+                <input
+                  type="text"
+                  value={lastName}
+                  onChange={(e) => setLastName(e.target.value)}
+                  className="text-base text-charcoal border border-border-light px-3 py-2 bg-white focus:outline-none focus:border-accent-green transition-colors"
+                />
+              </div>
+              <div className="flex flex-col gap-1">
+                <label className={FIELD_LABEL}>
+                  Email <span className="text-accent-pink">*</span>
+                </label>
+                <input
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  className="text-base text-charcoal border border-border-light px-3 py-2 bg-white focus:outline-none focus:border-accent-green transition-colors"
+                />
+              </div>
+              <div className="flex flex-col gap-1">
+                <label className={FIELD_LABEL}>
+                  Phone <span className="text-muted-text text-base normal-case tracking-normal font-normal">(optional)</span>
+                </label>
+                <input
+                  type="tel"
+                  value={phone}
+                  onChange={(e) => setPhone(e.target.value)}
+                  placeholder="(555) 123-4567"
+                  className="text-base text-charcoal border border-border-light px-3 py-2 bg-white focus:outline-none focus:border-accent-green transition-colors"
+                />
+              </div>
+            </div>
+
+            <div className="flex flex-col w-full gap-3">
+              <button
+                onClick={handleSend}
+                className="w-full min-h-[44px] py-3 text-base font-bold uppercase tracking-wider font-arquitecta bg-charcoal text-white hover:bg-near-black transition-colors"
+              >
+                Send
+              </button>
+              <button
+                onClick={handleClose}
+                className="w-full min-h-[44px] py-3 text-base font-bold uppercase tracking-wider font-arquitecta border-[1.5px] border-charcoal hover:bg-hover transition-colors"
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
+        </div>
+      </DialogPortal>
+    </Dialog>
+  );
+};
+
+const GuestPassCard: React.FC<{ pass: GuestPass; onShareSend: () => void }> = ({ pass, onShareSend }) => {
+  const isUsed = pass.status === 'used';
+  const [shareOpen, setShareOpen] = useState(false);
+
+  return (
+    <div
+      className={clsx(
+        "relative p-6 flex flex-col items-start min-h-[220px] transition-colors duration-200",
+        isUsed
+          ? "bg-mist border border-card-stroke"
+          : "bg-white hover:bg-hover cursor-pointer group"
+      )}
+    >
+      {/* Border + flat shadow (available cards only) */}
+      {!isUsed && (
+        <div aria-hidden="true" className="absolute inset-0 border border-border-light pointer-events-none shadow-[4px_4px_0px_0px_rgba(139,129,120,0.24)] group-hover:shadow-[6px_6px_0px_0px_rgba(139,129,120,0.32)] transition-shadow duration-200" />
+      )}
+      <TicketIcon className="w-10 h-10 mb-6" muted={isUsed} />
+
+      <h4 className="text-base font-black uppercase tracking-wider font-arquitecta mb-1">
+        Guest Pass
+      </h4>
+
+      {isUsed ? (
+        <div className="mt-auto px-4 py-2 bg-used-badge text-muted-text text-base font-bold uppercase tracking-wider font-arquitecta">
+          Sent {pass.dateUsed}
+        </div>
+      ) : (
+        <>
+          <p className="text-base text-muted-text mb-auto">
+            Expires {pass.expires}
+          </p>
+          <button
+            onClick={() => setShareOpen(true)}
+            className="relative mt-4 px-6 py-4 text-base font-bold uppercase tracking-wider font-arquitecta border-[1.5px] border-charcoal hover:bg-hover transition-colors z-10"
+          >
+            Share Pass
+          </button>
+          <SharePassModal open={shareOpen} onOpenChange={setShareOpen} onSend={onShareSend} />
+        </>
+      )}
+    </div>
+  );
+};
+
+const TierCard: React.FC<{ tier: MembershipTier }> = ({ tier }) => {
+  const isCurrent = tier.isCurrent;
+
+  return (
+    <div
+      className={clsx(
+        "relative flex flex-col p-6",
+        isCurrent
+          ? "bg-mist text-near-black border-x border-b border-border-light"
+          : "bg-white border border-card-stroke"
+      )}
+    >
+      {isCurrent && (
+        <div className="absolute top-0 left-0 right-0 h-[3px] bg-accent-green" />
+      )}
+
+      <div className="mb-6">
+        {isCurrent && (
+          <span className="inline-block px-2.5 py-1.5 text-base font-bold uppercase tracking-wider border border-accent-green text-charcoal mb-3 leading-none">
+            Your Membership
+          </span>
+        )}
+        <h3 className="text-lg font-black uppercase tracking-wide font-arquitecta text-charcoal">
+          {tier.name}
+        </h3>
+        <div className="mt-2">
+          <span className="text-2xl font-bold font-arquitecta text-charcoal">{tier.price}</span>
+          <span className={clsx("text-base ml-1", "text-muted-text")}>
+            {tier.priceInterval}
+          </span>
+        </div>
+      </div>
+
+      <div className={clsx("border-t pt-4 mb-6", isCurrent ? "border-border-light" : "border-card-stroke")}>
+        <ul className="space-y-3">
+          {tier.benefits.map((benefit, i) => (
+            <li key={i} className="flex items-start gap-2 text-base">
+              <Check className={clsx("w-4 h-4 mt-0.5 shrink-0", isCurrent ? "text-accent-green" : "text-muted-text")} />
+              <span className="text-muted-text">{benefit}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <div className="mt-auto">
+        {isCurrent && tier.expires && (
+          <p className="text-base text-muted-text mb-3">Expires {tier.expires}</p>
+        )}
+        {isCurrent ? (
+          <button
+            className="w-full min-h-[44px] py-4 text-base font-bold uppercase tracking-wider font-arquitecta bg-accent-green text-charcoal border-2 border-accent-green hover:bg-white hover:border-accent-green transition-colors"
+          >
+            Renew Membership
+          </button>
+        ) : (
+          <button
+            className="w-full min-h-[44px] py-4 text-base font-bold uppercase tracking-wider font-arquitecta bg-white border-[1.5px] border-charcoal hover:bg-hover transition-colors"
+          >
+            Upgrade
+          </button>
+        )}
+      </div>
+    </div>
+  );
+};
+
+interface MembershipProps {
+  initialSubTab?: SubTab;
+}
+
+export const Membership: React.FC<MembershipProps> = ({ initialSubTab = 'overview' }) => {
+  const [activeSubTab, setActiveSubTab] = useState<SubTab>(initialSubTab);
+  const [passes, setPasses] = useState<GuestPass[]>(guestPasses);
+
+  useEffect(() => {
+    setActiveSubTab(initialSubTab);
+  }, [initialSubTab]);
+
+  const handleSharePass = (passId: string) => {
+    setPasses(prev => prev.map(p =>
+      p.id === passId
+        ? { ...p, status: 'used' as const, dateUsed: new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }) }
+        : p
+    ));
+  };
+
+  return (
+    <>
+      {/* Mobile Header — grey background extending from header */}
+      <div className="md:hidden bg-shell px-4 pb-0 pt-2">
+        <h1 className="text-2xl font-black uppercase tracking-wide mb-4 font-arquitecta">WELCOME, TOM!</h1>
+        <div className="border-b-2 border-accent-green inline-block pb-1">
+          <span className="font-bold text-charcoal uppercase tracking-wider font-arquitecta">MEMBERSHIP</span>
+        </div>
+      </div>
+
+      <div className="p-4 md:p-8">
+        {/* Sub-tabs */}
+        <div className="flex space-x-2 mb-8">
+          {([
+            { key: 'overview' as SubTab, label: 'Overview' },
+            { key: 'guest-passes' as SubTab, label: 'Guest Passes' },
+          ]).map((tab) => (
+            <button
+              key={tab.key}
+              onClick={() => setActiveSubTab(tab.key)}
+              className={clsx(
+                "px-4 py-2 text-base font-semibold transition-colors",
+                activeSubTab === tab.key
+                  ? "bg-mist text-charcoal"
+                  : "text-stone hover:text-charcoal"
+              )}
+            >
+              {tab.label}
+            </button>
+          ))}
+        </div>
+
+        {/* Guest Passes Tab */}
+        {activeSubTab === 'guest-passes' && (
+          <div>
+            {/* Pass Cards */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {passes.map((pass) => (
+                <GuestPassCard key={pass.id} pass={pass} onShareSend={() => handleSharePass(pass.id)} />
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Overview Tab */}
+        {activeSubTab === 'overview' && (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {membershipTiers.map((tier) => (
+              <TierCard key={tier.id} tier={tier} />
+            ))}
+          </div>
+        )}
+
+
+      </div>
+    </>
+  );
+};
