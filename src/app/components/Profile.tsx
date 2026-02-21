@@ -85,7 +85,7 @@ const AdditionalMemberCard: React.FC<{ member: Member; isEditing: boolean; onEdi
           aria-hidden="true"
           className={`absolute inset-0 border border-border-light pointer-events-none transition-shadow duration-200 ${isEditing ? 'shadow-[4px_4px_0px_0px_rgba(139,129,120,0.24)]' : 'shadow-none group-hover:shadow-[4px_4px_0px_0px_rgba(139,129,120,0.24)]'}`}
         />
-        <h3 className="text-[18px] font-bold text-charcoal relative">{member.name}</h3>
+        <h3 className="text-lg font-bold text-charcoal relative">{member.name}</h3>
         {/* Min 44px tap target for mobile (WCAG 2.5.5) */}
         <div className={`relative min-w-[44px] min-h-[44px] w-10 h-10 flex items-center justify-center transition-transform duration-200 ${isEditing ? 'bg-shell rotate-180' : 'bg-transparent group-hover:bg-shell'}`}>
           <ChevronDown className="w-4 h-4 text-muted-text" />
@@ -161,7 +161,7 @@ export const Profile: React.FC = () => {
         {/* Primary Member Section */}
         <div className="mb-10">
           <div className="flex items-center justify-between mb-6">
-            <h3 className="text-[18px] font-bold text-charcoal">{primaryMember.name}</h3>
+            <h3 className="text-lg font-bold text-charcoal">{primaryMember.name}</h3>
             {!isEditing && (
               <button
                 onClick={() => setIsEditing(true)}

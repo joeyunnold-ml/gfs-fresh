@@ -20,7 +20,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ className }) => {
       </h2>
 
       <div className="mb-6 relative">
-        <button className="w-full min-h-[44px] flex justify-between items-center bg-mist px-4 py-3 border border-border-light text-[16px] font-normal text-black font-arquitecta">
+        <button className="w-full min-h-[44px] flex justify-between items-center bg-mist px-4 py-3 border border-border-light text-base font-normal text-charcoal font-arquitecta">
           General Membership
           <ChevronDown className="w-4 h-4 text-muted-text" />
         </button>

@@ -57,7 +57,7 @@ const SharePassModal: React.FC<{ open: boolean; onOpenChange: (open: boolean) =>
             <div className="flex flex-col gap-5">
               <div className="flex flex-col gap-1">
                 <label className={FIELD_LABEL}>
-                  First Name <span className="text-red-500">*</span>
+                  First Name <span className="text-accent-pink">*</span>
                 </label>
                 <input
                   type="text"
@@ -68,7 +68,7 @@ const SharePassModal: React.FC<{ open: boolean; onOpenChange: (open: boolean) =>
               </div>
               <div className="flex flex-col gap-1">
                 <label className={FIELD_LABEL}>
-                  Last Name <span className="text-red-500">*</span>
+                  Last Name <span className="text-accent-pink">*</span>
                 </label>
                 <input
                   type="text"
@@ -79,7 +79,7 @@ const SharePassModal: React.FC<{ open: boolean; onOpenChange: (open: boolean) =>
               </div>
               <div className="flex flex-col gap-1">
                 <label className={FIELD_LABEL}>
-                  Email <span className="text-red-500">*</span>
+                  Email <span className="text-accent-pink">*</span>
                 </label>
                 <input
                   type="email"
