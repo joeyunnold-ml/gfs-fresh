@@ -135,15 +135,15 @@ export const StyleGuide: React.FC = () => {
         <SubSection title="Type Scale">
           <div className="space-y-6">
             <div className="border-b border-border-light pb-4">
-              <p className="text-base font-bold uppercase tracking-wider text-muted-text font-arquitecta mb-1">Display / 2xl &mdash; 28px</p>
+              <p className="text-base font-bold uppercase tracking-wider text-muted-text font-arquitecta mb-1">Display / 2xl &mdash; 24px</p>
               <p className="text-2xl font-black uppercase tracking-wide font-arquitecta">Welcome, Tom!</p>
             </div>
             <div className="border-b border-border-light pb-4">
-              <p className="text-base font-bold uppercase tracking-wider text-muted-text font-arquitecta mb-1">Heading / xl &mdash; 24px</p>
+              <p className="text-base font-bold uppercase tracking-wider text-muted-text font-arquitecta mb-1">Heading / xl &mdash; 20px</p>
               <p className="text-xl font-black uppercase tracking-wide font-arquitecta">Section Heading</p>
             </div>
             <div className="border-b border-border-light pb-4">
-              <p className="text-base font-bold uppercase tracking-wider text-muted-text font-arquitecta mb-1">Title / lg &mdash; 20px</p>
+              <p className="text-base font-bold uppercase tracking-wider text-muted-text font-arquitecta mb-1">Title / lg &mdash; 18px</p>
               <p className="text-lg font-black uppercase tracking-wide font-arquitecta">Card Title</p>
             </div>
             <div className="border-b border-border-light pb-4">
@@ -298,15 +298,15 @@ export const StyleGuide: React.FC = () => {
 
             <div className="py-2 text-base font-bold uppercase tracking-wider font-arquitecta text-muted-text mt-2">CSS Theme Variables</div>
             <TokenRow token="--background" value="#FFFFFF" desc="Page background" />
-            <TokenRow token="--foreground" value="oklch(0.145 0 0)" desc="Default text color" />
-            <TokenRow token="--primary" value="#030213" desc="shadcn/ui primary (buttons, links)" />
+            <TokenRow token="--foreground" value="#343433 (var(--charcoal))" desc="Default text color" />
+            <TokenRow token="--primary" value="#343433 (var(--charcoal))" desc="shadcn/ui primary (buttons, links)" />
             <TokenRow token="--card-stroke" value="#CCCCCC" desc="Card borders, dividers" />
             <TokenRow token="--destructive" value="#D4567A" desc="Error states, destructive actions, accent" />
             <TokenRow token="--muted" value="#ECEAE7" desc="Muted backgrounds" />
             <TokenRow token="--muted-foreground" value="#736E69" desc="Placeholder text, disabled text" />
-            <TokenRow token="--ring" value="oklch(0.708 0 0)" desc="Focus ring color" />
+            <TokenRow token="--ring" value="#8B8178 (var(--stone))" desc="Focus ring color" />
             <TokenRow token="--input-background" value="#F2F1EF" desc="Default input background" />
-            <TokenRow token="--border" value="rgba(0,0,0,0.1)" desc="Default border color" />
+            <TokenRow token="--border" value="#DDDBD8 (var(--border-light))" desc="Default border color" />
 
             <div className="py-2 text-base font-bold uppercase tracking-wider font-arquitecta text-muted-text mt-2">Shadow / Overlay</div>
             <TokenRow token="rgba(139,129,120,0.24)" value="Shadow L1" desc="Flat offset shadow — card hover" />
@@ -617,7 +617,7 @@ export const StyleGuide: React.FC = () => {
               </li>
               <li className="flex items-center gap-3">
                 <span className="inline-block w-6 h-6 bg-muted-text border border-border-light" />
-                <span><code className="font-mono text-charcoal">#6B6B6B</code> on white &mdash; <strong className="text-charcoal">5.36:1</strong> (AA)</span>
+                <span><code className="font-mono text-charcoal">#6B6862</code> on white &mdash; <strong className="text-charcoal">5.56:1</strong> (AA)</span>
               </li>
               <li className="flex items-center gap-3">
                 <span className="inline-block w-6 h-6 bg-accent-green border border-border-light" />
