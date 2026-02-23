@@ -5,6 +5,7 @@ import App from "./app/App.tsx";
 import { HomePage } from "./app/components/HomePage.tsx";
 import { GfsOrg } from "./app/components/GfsOrg.tsx";
 import { StyleGuide } from "./app/components/StyleGuide.tsx";
+import { TypePage } from "./app/components/TypePage.tsx";
 import { TicketFlow1 } from "./app/components/TicketFlow1.tsx";
 import { TicketFlowGuest } from "./app/components/TicketFlowGuest.tsx";
 import { TicketConfirmation } from "./app/components/TicketConfirmation.tsx";
@@ -67,6 +68,7 @@ createRoot(document.getElementById("root")!).render(
       <Route path="/never-member" element={<App />} />
       <Route path="/gfs-org" element={<GfsOrg />} />
       <Route path="/mp-style" element={<StyleGuide />} />
+      <Route path="/type" element={<TypePage />} />
       <Route path="/ticket-flow-1" element={<TicketFlow1 />} />
       <Route path="/ticket-flow-guest" element={
         <GuestFlowErrorBoundary>

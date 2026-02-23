@@ -74,6 +74,7 @@ export const StyleGuide: React.FC = () => {
           <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
             {[
               ['#typography', 'Typography'],
+              ['/type', 'Type (token reference)'],
               ['#colors', 'Colors'],
               ['#spacing', 'Spacing'],
               ['#grid-layout', 'Grid & Layout'],
@@ -105,6 +106,10 @@ export const StyleGuide: React.FC = () => {
         {/*  1. TYPOGRAPHY                                                */}
         {/* ============================================================ */}
         <SectionTitle id="typography">Typography</SectionTitle>
+
+        <p className="text-base text-muted-text mb-4">
+          For token-level details (typeface, size, color, letter-spacing, line-height) and stylesheet definitions, see the <Link to="/type" className="text-accent-green font-semibold hover:underline">Type reference page</Link>.
+        </p>
 
         <SubSection title="Typefaces">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
