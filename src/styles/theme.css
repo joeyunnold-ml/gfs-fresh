@@ -43,7 +43,7 @@
   --muted-foreground: var(--muted-fg);
   --accent: var(--shell);
   --accent-foreground: var(--charcoal);
-  --destructive: var(--accent-pink);
+  --destructive: #CE4069;
   --destructive-foreground: #ffffff;
   --border: var(--border-light);
   --input: transparent;

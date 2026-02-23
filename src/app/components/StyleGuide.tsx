@@ -237,9 +237,9 @@ export const StyleGuide: React.FC = () => {
         <SubSection title="Semantic Colors">
           <div className="flex flex-wrap gap-6">
             <Swatch color="#B6D840" label="Success" hex="#B6D840" />
-            <Swatch color="#D4567A" label="Error / Accent" hex="#D4567A" />
+            <Swatch color="#CE4069" label="Error / Accent" hex="#CE4069" />
           </div>
-          <p className="text-base text-muted-text mt-3"><code className="font-mono text-charcoal">#D4567A</code> serves double duty as the error/destructive color and as a secondary brand accent.</p>
+          <p className="text-base text-muted-text mt-3"><code className="font-mono text-charcoal">#CE4069</code> serves double duty as the error/destructive color and as a secondary brand accent.</p>
         </SubSection>
 
         <SubSection title="Overlay & Shadow Colors">
@@ -290,7 +290,7 @@ export const StyleGuide: React.FC = () => {
             <div className="py-2 text-base font-bold uppercase tracking-wider font-arquitecta text-accent-green mt-2">Brand</div>
             <TokenRow token="#B6D840" value="Accent Green" desc="Logo, active indicators, accent borders, links hover" />
             <TokenRow token="#C5D63D" value="Lime" desc="Active member badge border (lighter green variant)" />
-            <TokenRow token="#D4567A" value="Accent Pink" desc="Error/destructive states, secondary brand accent" />
+            <TokenRow token="#D4567A" value="Accent Pink" desc="Secondary brand accent (error/destructive uses --destructive #CE4069)" />
             <TokenRow token="#343433" value="Charcoal" desc="Primary text, button fills, heading text" />
             <TokenRow token="#1A1A1A" value="Near Black" desc="Hover state for primary buttons, deep text" />
 
@@ -314,14 +314,14 @@ export const StyleGuide: React.FC = () => {
             <TokenRow token="#6B6862" value="Muted Text" desc="Secondary text, labels, inactive nav, descriptions" />
 
             <div className="py-2 text-base font-bold uppercase tracking-wider font-arquitecta text-muted-text mt-2">Semantic</div>
-            <TokenRow token="#D4567A" value="Error / Accent" desc="Error borders, validation messages, secondary brand accent" />
+            <TokenRow token="#CE4069" value="Error / Accent" desc="Error borders, validation messages, secondary brand accent" />
 
             <div className="py-2 text-base font-bold uppercase tracking-wider font-arquitecta text-muted-text mt-2">CSS Theme Variables</div>
             <TokenRow token="--background" value="#FFFFFF" desc="Page background" />
             <TokenRow token="--foreground" value="#343433 (var(--charcoal))" desc="Default text color" />
             <TokenRow token="--primary" value="#343433 (var(--charcoal))" desc="shadcn/ui primary (buttons, links)" />
             <TokenRow token="--card-stroke" value="#CCCCCC" desc="Card borders, dividers" />
-            <TokenRow token="--destructive" value="#D4567A" desc="Error states, destructive actions, accent" />
+            <TokenRow token="--destructive" value="#CE4069" desc="Error states, destructive actions, accent" />
             <TokenRow token="--muted" value="#ECEAE7" desc="Muted backgrounds" />
             <TokenRow token="--muted-foreground" value="#736E69" desc="Placeholder text, disabled text" />
             <TokenRow token="--ring" value="#8B8178 (var(--stone))" desc="Focus ring color" />
