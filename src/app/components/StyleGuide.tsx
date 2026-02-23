@@ -74,6 +74,7 @@ export const StyleGuide: React.FC = () => {
           <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
             {[
               ['#typography', 'Typography'],
+              ['/type', 'Type (token reference)'],
               ['#colors', 'Colors'],
               ['#spacing', 'Spacing'],
               ['#grid-layout', 'Grid & Layout'],
@@ -93,11 +94,17 @@ export const StyleGuide: React.FC = () => {
               ['#dividers', 'Dividers'],
               ['#loaders', 'Loaders'],
               ['#guest-checkout', 'Guest Checkout Components'],
-            ].map(([href, label]) => (
-              <a key={href} href={href} className="text-base text-charcoal hover:text-accent-green transition-colors font-semibold">
-                {label}
-              </a>
-            ))}
+            ].map(([href, label]) =>
+              href.startsWith('/') ? (
+                <Link key={href} to={href} className="text-base text-charcoal hover:text-accent-green transition-colors font-semibold">
+                  {label}
+                </Link>
+              ) : (
+                <a key={href} href={href} className="text-base text-charcoal hover:text-accent-green transition-colors font-semibold">
+                  {label}
+                </a>
+              )
+            )}
           </div>
         </div>
 
@@ -105,6 +112,9 @@ export const StyleGuide: React.FC = () => {
         {/*  1. TYPOGRAPHY                                                */}
         {/* ============================================================ */}
         <SectionTitle id="typography">Typography</SectionTitle>
+        <p className="text-base text-muted-text mb-6">
+          For token-level details (typeface, size, color, letter-spacing, line-height) and stylesheet definitions, see the <Link to="/type" className="text-accent-green font-semibold hover:underline">Type reference page</Link>.
+        </p>
 
         <SubSection title="Typefaces">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -237,9 +247,10 @@ export const StyleGuide: React.FC = () => {
         <SubSection title="Semantic Colors">
           <div className="flex flex-wrap gap-6">
             <Swatch color="#B6D840" label="Success" hex="#B6D840" />
-            <Swatch color="#D4567A" label="Error / Accent" hex="#D4567A" />
+            <Swatch color="#CE4069" label="Error" hex="#CE4069" />
+            <Swatch color="#D4567A" label="Accent Pink" hex="#D4567A" />
           </div>
-          <p className="text-base text-muted-text mt-3"><code className="font-mono text-charcoal">#D4567A</code> serves double duty as the error/destructive color and as a secondary brand accent.</p>
+          <p className="text-base text-muted-text mt-3"><code className="font-mono text-charcoal">#CE4069</code> is used for error/destructive states. <code className="font-mono text-charcoal">#D4567A</code> is the secondary brand accent (required asterisks, links, badges).</p>
         </SubSection>
 
         <SubSection title="Overlay & Shadow Colors">
@@ -290,7 +301,7 @@ export const StyleGuide: React.FC = () => {
             <div className="py-2 text-base font-bold uppercase tracking-wider font-arquitecta text-accent-green mt-2">Brand</div>
             <TokenRow token="#B6D840" value="Accent Green" desc="Logo, active indicators, accent borders, links hover" />
             <TokenRow token="#C5D63D" value="Lime" desc="Active member badge border (lighter green variant)" />
-            <TokenRow token="#D4567A" value="Accent Pink" desc="Error/destructive states, secondary brand accent" />
+            <TokenRow token="#D4567A" value="Accent Pink" desc="Secondary brand accent (required asterisks, links, badges)" />
             <TokenRow token="#343433" value="Charcoal" desc="Primary text, button fills, heading text" />
             <TokenRow token="#1A1A1A" value="Near Black" desc="Hover state for primary buttons, deep text" />
 
@@ -314,14 +325,14 @@ export const StyleGuide: React.FC = () => {
             <TokenRow token="#6B6862" value="Muted Text" desc="Secondary text, labels, inactive nav, descriptions" />
 
             <div className="py-2 text-base font-bold uppercase tracking-wider font-arquitecta text-muted-text mt-2">Semantic</div>
-            <TokenRow token="#D4567A" value="Error / Accent" desc="Error borders, validation messages, secondary brand accent" />
+            <TokenRow token="#CE4069" value="Error" desc="Error borders, validation messages, destructive actions" />
 
             <div className="py-2 text-base font-bold uppercase tracking-wider font-arquitecta text-muted-text mt-2">CSS Theme Variables</div>
             <TokenRow token="--background" value="#FFFFFF" desc="Page background" />
             <TokenRow token="--foreground" value="#343433 (var(--charcoal))" desc="Default text color" />
             <TokenRow token="--primary" value="#343433 (var(--charcoal))" desc="shadcn/ui primary (buttons, links)" />
             <TokenRow token="--card-stroke" value="#CCCCCC" desc="Card borders, dividers" />
-            <TokenRow token="--destructive" value="#D4567A" desc="Error states, destructive actions, accent" />
+            <TokenRow token="--destructive" value="#CE4069" desc="Error states, destructive actions" />
             <TokenRow token="--muted" value="#ECEAE7" desc="Muted backgrounds" />
             <TokenRow token="--muted-foreground" value="#736E69" desc="Placeholder text, disabled text" />
             <TokenRow token="--ring" value="#8B8178 (var(--stone))" desc="Focus ring color" />
