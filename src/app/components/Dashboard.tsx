@@ -5,6 +5,8 @@ import { MemberCard } from './MemberCard';
 import { ExpiringSoonCard } from './ExpiringSoonCard';
 import { isExpiringWithinDays } from '../utils/expiringSoon';
 import { NonMemberPromoCard } from './NonMemberPromoCard';
+import { RecentlyExpiredAlertCard } from './RecentlyExpiredAlertCard';
+import { RecentlyExpiredMemberCard } from './RecentlyExpiredMemberCard';
 import { ArrowUpRight, CloudSun, Info } from 'lucide-react';
 
 interface DashboardProps {
@@ -29,7 +31,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ onNavigate, sidebarVariant
     <>
     {/* Mobile: Grey background extending from header through to mid-hero */}
     <div className="md:hidden bg-shell px-4 pb-4 pt-2">
-      <h1 className="text-2xl font-black uppercase tracking-wide mb-4 font-arquitecta">WELCOME, {isNonMemberView ? 'SUSAN' : currentUser.name}!</h1>
+      <h1 className="text-2xl font-black uppercase tracking-wide mb-4 font-arquitecta">WELCOME, {isNonMemberView ? 'SUSAN' : sidebarVariant === 'recently-expired' ? 'LISA' : currentUser.name}!</h1>
 
       {showExpiringSoon && sidebarVariant === 'expiring-soon' && (
         <ExpiringSoonCard
@@ -39,16 +41,31 @@ export const Dashboard: React.FC<DashboardProps> = ({ onNavigate, sidebarVariant
         />
       )}
 
-      {/* Mobile Member Slider (Native Scroll) — non-member shows promo card below hero instead */}
-      {!isNonMemberView && (
+      {/* Mobile: recently-expired shows the two expired cards; expiring-soon/default show member slider; non-member shows nothing here */}
+      {sidebarVariant === 'recently-expired' ? (
+        <div className="space-y-4 mb-4">
+          <RecentlyExpiredAlertCard onRenew={() => onNavigate?.('membership', 'overview')} />
+          <RecentlyExpiredMemberCard
+            memberName="Lisa Bloomfield"
+            memberType="Individual Plus Member"
+            memberSince="2002"
+            expiredDate="June 1, 2026"
+            displayId="29834928_1"
+            onRenew={() => onNavigate?.('membership', 'overview')}
+          />
+        </div>
+      ) : !isNonMemberView ? (
       <div className="-mx-4 px-4 overflow-x-auto pb-4 snap-x snap-mandatory flex gap-4 no-scrollbar">
         {membersForSlider.map((member, i) => (
-          <div key={member.id} className="min-w-[90%] snap-center shrink-0">
+          <div
+            key={member.id}
+            className={sidebarVariant === 'expiring-soon' ? 'min-w-full snap-center shrink-0' : 'min-w-[90%] snap-center shrink-0'}
+          >
             <MemberCard member={member} isPrimary={i === 0} className="h-full" />
           </div>
         ))}
       </div>
-      )}
+      ) : null}
     </div>
 
     {/* Mobile Hero — straddles grey/white boundary using pseudo-element for top half background */}
