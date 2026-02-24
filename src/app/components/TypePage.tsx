@@ -1,92 +1,130 @@
 import React from "react";
 import { Link } from "react-router";
 
-/** Mapping from type scale item to existing CSS (for comparison with recommended). From Tailwind theme + component classes. */
-const EXISTING_CSS_BY_SCALE: Record<string, string> = {
-  hero: `/* No named class; theme defines size only */
-font-family: var(--font-display);   /* "Arquitecta", sans-serif */
+/** Mapping from type scale item to existing CSS and optional recommendation note (note shown above code block). */
+const EXISTING_CSS_BY_SCALE: Record<string, { css: string; note?: string }> = {
+  hero: {
+    note: "No named class; theme defines size only. Recommended adds: color: var(--charcoal); line-height not set in theme for 5xl.",
+    css: `font-family: var(--font-display);   /* "Arquitecta", sans-serif */
 font-size: var(--text-5xl);         /* 3rem / 48px */
 font-weight: var(--font-weight-black);  /* 900 */
 letter-spacing: var(--tracking-wide);   /* .025em */
-text-transform: uppercase;
-/* Recommended adds: color: var(--charcoal); line-height not set in theme for 5xl */`,
-  heroMobile: `/* No --text-4xl in theme; no named class. Add to theme if needed: */
-/* --text-4xl: 2.25rem;  (36px) */
-font-family: var(--font-display);
+text-transform: uppercase;`,
+  },
+  heroMobile: {
+    note: "No --text-4xl in theme; no named class. Add to theme if needed: --text-4xl: 2.25rem (36px).",
+    css: `font-family: var(--font-display);
 font-size: 2.25rem;   /* 36px - not in current theme */
 font-weight: var(--font-weight-black);
 letter-spacing: var(--tracking-wide);
 text-transform: uppercase;
 color: var(--color-charcoal);`,
-  pageTitle: `/* No --text-3xl in theme; no named class. Add to theme if needed: */
-/* --text-3xl: 1.875rem;  (30px) */
-font-family: var(--font-display);
+  },
+  pageTitle: {
+    note: "No --text-3xl in theme; no named class. Add to theme if needed: --text-3xl: 1.875rem (30px).",
+    css: `font-family: var(--font-display);
 font-size: 1.875rem;  /* 30px - not in current theme */
 font-weight: var(--font-weight-black);
 letter-spacing: var(--tracking-wide);
 text-transform: uppercase;
 color: var(--color-charcoal);`,
-  display: `.text-display {
+  },
+  display: {
+    note: "Recommended adds: color: var(--charcoal).",
+    css: `.text-display {
   font-family: var(--font-display);
   font-size: var(--text-2xl);       /* 24px */
   font-weight: var(--font-weight-black);
   letter-spacing: var(--tracking-wide);
   line-height: var(--leading-tight);  /* 1.25 - recommended uses 1.5 */
   text-transform: uppercase;
-}
-/* Recommended adds: color: var(--charcoal) */`,
-  heading: `.text-heading {
+}`,
+  },
+  heading: {
+    note: "Recommended adds: color: var(--charcoal).",
+    css: `.text-heading {
   font-family: var(--font-display);
   font-size: var(--text-xl);        /* 20px */
   font-weight: var(--font-black);
   letter-spacing: var(--tracking-wide);
   line-height: var(--leading-tight);
   text-transform: uppercase;
-}
-/* Recommended adds: color: var(--charcoal) */`,
-  title: `.text-title {
+}`,
+  },
+  title: {
+    note: "Recommended adds: color: var(--charcoal).",
+    css: `.text-title {
   font-family: var(--font-display);
   font-size: var(--text-lg);        /* 18px */
   font-weight: var(--font-black);
   letter-spacing: var(--tracking-wide);
   line-height: var(--leading-tight);
   text-transform: uppercase;
-}
-/* Recommended adds: color: var(--charcoal) */`,
-  body: `.text-body-base {
+}`,
+  },
+  body: {
+    note: "Recommended adds: color: var(--charcoal).",
+    css: `.text-body-base {
   font-family: var(--font-body);
   font-size: var(--text-base);
   font-weight: var(--font-normal);
   line-height: var(--leading-relaxed);
-}
-/* Recommended adds: color: var(--charcoal) */`,
-  secondary: `.text-secondary-base {
+}`,
+  },
+  secondary: {
+    note: "Recommended adds: color: var(--muted-text) / #6B6862 for secondary.",
+    css: `.text-secondary-base {
   font-family: var(--font-body);
   font-size: var(--text-base);
   font-weight: var(--font-normal);
   line-height: var(--leading-relaxed);
-}
-/* Recommended adds: color: var(--muted-text) / #6B6862 for secondary */`,
-  labelsCaptions: `.text-labels-captions {
+}`,
+  },
+  labelsCaptions: {
+    note: "Differs: recommended uses Open Sans + color: var(--muted-text).",
+    css: `.text-labels-captions {
   font-family: var(--font-display);   /* Arquitecta - recommended uses Open Sans */
   font-size: var(--text-base);
   font-weight: var(--font-normal);
   line-height: var(--leading-relaxed);
-}
-/* Differs: recommended uses Open Sans + color: var(--muted-text) */`,
-  label: `.text-label {
+}`,
+  },
+  label: {
+    note: "Recommended adds: color: var(--muted-text).",
+    css: `.text-label {
   font-family: var(--font-display);
   font-size: var(--text-base);
   font-weight: var(--font-bold);
   letter-spacing: var(--tracking-wider);
   line-height: var(--leading-tight);
   text-transform: uppercase;
-}
-/* Recommended adds: color: var(--muted-text) */`,
+}`,
+  },
 };
 
 const existingCssBlockClass =
   "mt-2 text-base font-mono text-charcoal bg-mist p-3 rounded border border-border-light overflow-x-auto";
+
+/** Renders "Existing CSS" label, optional recommendation note (as a small line above the code block), and the code. */
+function ExistingCssBlock({ scaleKey }: { scaleKey: keyof typeof EXISTING_CSS_BY_SCALE }) {
+  const { css, note } = EXISTING_CSS_BY_SCALE[scaleKey];
+  return (
+    <>
+      <p className="text-base font-bold uppercase tracking-wider text-muted-text font-arquitecta mb-1 mt-4">
+        Existing CSS
+      </p>
+      {note && (
+        <p
+          className="text-sm text-muted-text mt-1 mb-2 px-2 py-1.5 rounded bg-canvas border border-border-light"
+          title={note}
+        >
+          {note}
+        </p>
+      )}
+      <pre className={existingCssBlockClass}>{css}</pre>
+    </>
+  );
+}
 
 /** Section heading for the type page. */
 function SectionTitle({
@@ -286,10 +324,7 @@ font-weight: 900;
 color: var(--charcoal);
 letter-spacing: 0.025em;
 text-transform: uppercase;`}</pre>
-            <p className="text-base font-bold uppercase tracking-wider text-muted-text font-arquitecta mb-1 mt-4">
-              Existing CSS
-            </p>
-            <pre className={existingCssBlockClass}>{EXISTING_CSS_BY_SCALE.hero}</pre>
+            <ExistingCssBlock scaleKey="hero" />
           </div>
           <div className="border-b border-border-light pb-4 pt-4">
             <p className="text-base font-bold uppercase tracking-wider text-muted-text font-arquitecta mb-1">
@@ -304,10 +339,7 @@ font-weight: 900;
 color: var(--charcoal);
 letter-spacing: 0.025em;
 text-transform: uppercase;`}</pre>
-            <p className="text-base font-bold uppercase tracking-wider text-muted-text font-arquitecta mb-1 mt-4">
-              Existing CSS
-            </p>
-            <pre className={existingCssBlockClass}>{EXISTING_CSS_BY_SCALE.heroMobile}</pre>
+            <ExistingCssBlock scaleKey="heroMobile" />
           </div>
           <div className="border-b border-border-light pb-4 pt-4">
             <p className="text-base font-bold uppercase tracking-wider text-muted-text font-arquitecta mb-1">
@@ -322,10 +354,7 @@ font-weight: 900;
 color: var(--charcoal);
 letter-spacing: 0.025em;
 text-transform: uppercase;`}</pre>
-            <p className="text-base font-bold uppercase tracking-wider text-muted-text font-arquitecta mb-1 mt-4">
-              Existing CSS
-            </p>
-            <pre className={existingCssBlockClass}>{EXISTING_CSS_BY_SCALE.pageTitle}</pre>
+            <ExistingCssBlock scaleKey="pageTitle" />
           </div>
           <div className="border-b border-border-light pb-4 pt-4">
             <p className="text-base font-bold uppercase tracking-wider text-muted-text font-arquitecta mb-1">
@@ -340,10 +369,7 @@ font-weight: 900;
 color: var(--charcoal);
 letter-spacing: 0.025em;
 text-transform: uppercase;`}</pre>
-            <p className="text-base font-bold uppercase tracking-wider text-muted-text font-arquitecta mb-1 mt-4">
-              Existing CSS
-            </p>
-            <pre className={existingCssBlockClass}>{EXISTING_CSS_BY_SCALE.display}</pre>
+            <ExistingCssBlock scaleKey="display" />
           </div>
           <div className="border-b border-border-light pb-4 pt-4">
             <p className="text-base font-bold uppercase tracking-wider text-muted-text font-arquitecta mb-1">
@@ -358,10 +384,7 @@ font-weight: 900;
 color: var(--charcoal);
 letter-spacing: 0.025em;
 text-transform: uppercase;`}</pre>
-            <p className="text-base font-bold uppercase tracking-wider text-muted-text font-arquitecta mb-1 mt-4">
-              Existing CSS
-            </p>
-            <pre className={existingCssBlockClass}>{EXISTING_CSS_BY_SCALE.heading}</pre>
+            <ExistingCssBlock scaleKey="heading" />
           </div>
           <div className="border-b border-border-light pb-4 pt-4">
             <p className="text-base font-bold uppercase tracking-wider text-muted-text font-arquitecta mb-1">
@@ -376,10 +399,7 @@ font-weight: 900;
 color: var(--charcoal);
 letter-spacing: 0.025em;
 text-transform: uppercase;`}</pre>
-            <p className="text-base font-bold uppercase tracking-wider text-muted-text font-arquitecta mb-1 mt-4">
-              Existing CSS
-            </p>
-            <pre className={existingCssBlockClass}>{EXISTING_CSS_BY_SCALE.title}</pre>
+            <ExistingCssBlock scaleKey="title" />
           </div>
           <div className="border-b border-border-light pb-4 pt-4">
             <p className="text-base font-bold uppercase tracking-wider text-muted-text font-arquitecta mb-1">
@@ -393,10 +413,7 @@ font-size: 1rem; /* 16px */
 font-weight: 400;
 color: var(--charcoal);
 line-height: 1.5;`}</pre>
-            <p className="text-base font-bold uppercase tracking-wider text-muted-text font-arquitecta mb-1 mt-4">
-              Existing CSS
-            </p>
-            <pre className={existingCssBlockClass}>{EXISTING_CSS_BY_SCALE.body}</pre>
+            <ExistingCssBlock scaleKey="body" />
           </div>
           <div className="border-b border-border-light pb-4 pt-4">
             <p className="text-base font-bold uppercase tracking-wider text-muted-text font-arquitecta mb-1">
@@ -410,10 +427,7 @@ font-size: 1rem; /* 16px */
 font-weight: 400;
 color: var(--muted-text);
 line-height: 1.5;`}</pre>
-            <p className="text-base font-bold uppercase tracking-wider text-muted-text font-arquitecta mb-1 mt-4">
-              Existing CSS
-            </p>
-            <pre className={existingCssBlockClass}>{EXISTING_CSS_BY_SCALE.secondary}</pre>
+            <ExistingCssBlock scaleKey="secondary" />
           </div>
           <div className="border-b border-border-light pb-4 pt-4">
             <p className="text-base font-bold uppercase tracking-wider text-muted-text font-arquitecta mb-1">
@@ -427,10 +441,7 @@ font-size: 1rem; /* 16px */
 font-weight: 400;
 color: var(--muted-text);
 line-height: 1.5;`}</pre>
-            <p className="text-base font-bold uppercase tracking-wider text-muted-text font-arquitecta mb-1 mt-4">
-              Existing CSS
-            </p>
-            <pre className={existingCssBlockClass}>{EXISTING_CSS_BY_SCALE.labelsCaptions}</pre>
+            <ExistingCssBlock scaleKey="labelsCaptions" />
           </div>
           <div className="pt-4">
             <p className="text-base font-bold uppercase tracking-wider text-muted-text font-arquitecta mb-1">
@@ -445,60 +456,9 @@ font-weight: 700;
 color: var(--muted-text);
 letter-spacing: 0.05em;
 text-transform: uppercase;`}</pre>
-            <p className="text-base font-bold uppercase tracking-wider text-muted-text font-arquitecta mb-1 mt-4">
-              Existing CSS
-            </p>
-            <pre className={existingCssBlockClass}>{EXISTING_CSS_BY_SCALE.label}</pre>
+            <ExistingCssBlock scaleKey="label" />
           </div>
         </div>
-
-        {/* ── Base element styles (theme.css) ── */}
-        <SectionTitle id="base-styles">Base element styles (theme.css)</SectionTitle>
-        <p className="text-base text-muted-text mb-4">
-          Default typography for HTML elements in <code className="font-mono bg-mist px-1 rounded">@layer base</code>. Tailwind utilities override these.
-        </p>
-        <pre className="text-base font-mono text-charcoal bg-mist p-4 rounded-lg border border-border-light overflow-x-auto whitespace-pre-wrap">
-{`html {
-  font-size: var(--font-size);  /* 16px */
-}
-
-h1 {
-  font-size: var(--text-2xl);   /* 24px */
-  font-weight: var(--font-weight-medium);  /* 500 */
-  line-height: 1.5;
-}
-
-h2 {
-  font-size: var(--text-xl);    /* 20px */
-  font-weight: var(--font-weight-medium);
-  line-height: 1.5;
-}
-
-h3 {
-  font-size: var(--text-lg);    /* 18px */
-  font-weight: var(--font-weight-medium);
-  line-height: 1.5;
-}
-
-h4 {
-  font-size: var(--text-base);  /* 16px */
-  font-weight: var(--font-weight-medium);
-  line-height: 1.5;
-}
-
-label, button {
-  font-size: var(--text-base);
-  font-weight: var(--font-weight-medium);
-  line-height: 1.5;
-}
-
-input, select {
-  font-size: var(--text-base);
-  font-weight: var(--font-weight-normal);
-  line-height: 1.5;
-  min-height: 3.25rem;
-}`}
-        </pre>
 
         <p className="text-base text-muted-text mt-10">
           Typography reference — design system. See also{" "}

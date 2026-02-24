@@ -18,6 +18,7 @@ export interface Visit {
   status: 'upcoming' | 'past';
   formattedDate?: string;
   description?: string;
+  confirmationNumber?: string;
 }
 
 export interface ActionCard {
