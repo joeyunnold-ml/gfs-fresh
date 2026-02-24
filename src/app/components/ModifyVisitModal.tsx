@@ -39,7 +39,7 @@ const CardFieldRow: React.FC<{
         <div className="text-base text-charcoal">{value}</div>
       </div>
       <div className="flex items-center gap-2">
-        {onClear && value && (
+        {onClear && value && !expanded && (
           <button
             type="button"
             onClick={onClear}
@@ -123,8 +123,8 @@ export const ModifyVisitModal: React.FC<ModifyVisitModalProps> = ({
               <DialogTitle className="text-xl font-bold text-charcoal uppercase tracking-wider font-arquitecta">
                 Modify date & entry time
               </DialogTitle>
-              <div className="bg-canvas p-3 text-base text-muted-text leading-relaxed flex gap-2 mt-4">
-                <Info className="w-4 h-4 mt-0.5 shrink-0 text-muted-text" />
+              <div className="bg-canvas p-3 text-base text-muted-text leading-relaxed flex gap-2 items-center mt-4">
+                <Info className="w-4 h-4 shrink-0 text-muted-text self-center" />
                 <span>
                   If you need help, or for cancellations,{' '}
                   <a href="#" className="text-charcoal underline hover:no-underline">
