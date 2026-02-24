@@ -10,9 +10,10 @@ interface ActionCardProps {
   children?: React.ReactNode;
   onClick?: () => void;
   disabled?: boolean;
+  hideArrow?: boolean;
 }
 
-export const ActionCard: React.FC<ActionCardProps> = ({ title, subtitle, count, children, className, onClick, disabled = false }) => {
+export const ActionCard: React.FC<ActionCardProps> = ({ title, subtitle, count, children, className, onClick, disabled = false, hideArrow = false }) => {
   return (
     <div
       onClick={disabled ? undefined : onClick}
@@ -40,9 +41,11 @@ export const ActionCard: React.FC<ActionCardProps> = ({ title, subtitle, count, 
         {subtitle && <p className="text-base text-stone mt-2 italic">{subtitle}</p>}
       </div>
 
-      <div className={`absolute bottom-4 right-4 ${disabled ? 'opacity-60' : ''}`}>
-        <ArrowUpRight className="w-5 h-5 text-charcoal" />
-      </div>
+      {!hideArrow && (
+        <div className={`absolute bottom-4 right-4 ${disabled ? 'opacity-60' : ''}`}>
+          <ArrowUpRight className="w-5 h-5 text-charcoal" />
+        </div>
+      )}
 
       {children}
     </div>

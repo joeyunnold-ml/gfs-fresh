@@ -16,7 +16,7 @@ export const NonMemberPromoCard: React.FC<NonMemberPromoCardProps> = ({
   className = '',
 }) => (
   <div
-    className={`bg-white flex flex-col items-start p-4 border border-border-light rounded-none shadow-sm ${className}`}
+    className={`bg-white flex flex-col items-start p-4 border border-border-light rounded-none ${className}`}
     role="region"
     aria-label="Start a new membership"
   >

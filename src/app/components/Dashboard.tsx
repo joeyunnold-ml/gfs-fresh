@@ -87,13 +87,6 @@ export const Dashboard: React.FC<DashboardProps> = ({ onNavigate, sidebarVariant
       </div>
     </div>
 
-    {/* Mobile non-member only: promo card below hero, above card grid */}
-    {isNonMemberView && (
-      <div className="md:hidden px-4 pt-4 pb-2">
-        <NonMemberPromoCard onLearnMore={() => onNavigate?.('membership', 'overview')} />
-      </div>
-    )}
-
     <div className="p-4 md:p-8 max-w-7xl mx-auto">
       {/* Desktop: Expiring Soon card lives in the left rail (Sidebar) above member cards */}
 
@@ -143,6 +136,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ onNavigate, sidebarVariant
             className="order-1 min-h-[140px] md:min-h-[180px]"
             onClick={sidebarVariant === 'recently-expired' ? undefined : () => onNavigate?.('membership', 'guest-passes')}
             disabled={sidebarVariant === 'recently-expired'}
+            hideArrow={sidebarVariant === 'recently-expired'}
           />
           )}
           <ActionCard
@@ -239,6 +233,13 @@ export const Dashboard: React.FC<DashboardProps> = ({ onNavigate, sidebarVariant
         </div>
       </div>
     </div>
+
+    {/* Mobile non-member only: promo card at very bottom, below Booked Visits */}
+    {isNonMemberView && (
+      <div className="md:hidden px-4 pb-6">
+        <NonMemberPromoCard onLearnMore={() => onNavigate?.('membership', 'overview')} />
+      </div>
+    )}
     </>
   );
 };
