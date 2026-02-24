@@ -69,6 +69,7 @@ export const visits: Visit[] = [
     fee: "Included",
     status: "upcoming",
     description: "Explore an immersive installation featuring oversized sculptural noodle forms winding through the landscape. This interactive activation invites visitors to walk through, climb, and engage with the art.",
+    confirmationNumber: "239420942",
   },
   {
     id: "2",
@@ -80,6 +81,7 @@ export const visits: Visit[] = [
     fee: "Included",
     status: "upcoming",
     description: "Join us for an evening of plein air painting as the sun sets over the grounds. All materials are provided, and instructors will be on hand to guide painters of all skill levels.",
+    confirmationNumber: "239420943",
   },
   {
     id: "3",
@@ -91,6 +93,7 @@ export const visits: Visit[] = [
     fee: "Included",
     status: "upcoming",
     description: "A guided two-hour hike through the preserve trails led by our resident naturalist. Learn about the native flora and fauna while enjoying the scenic overlooks.",
+    confirmationNumber: "239420944",
   },
   {
     id: "4",
@@ -102,6 +105,7 @@ export const visits: Visit[] = [
     fee: "Included",
     status: "past",
     description: "A docent-led tour through our spring exhibition featuring works from emerging regional artists. The tour covered three gallery spaces and the outdoor sculpture garden.",
+    confirmationNumber: "239420941",
   },
 ];
 

@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
 import { visits } from '../mockData';
+import { Visit } from '../types';
+import { ModifyVisitModal } from './ModifyVisitModal';
 import { ChevronDown, ArrowUpRight, PartyPopper } from 'lucide-react';
 import clsx from 'clsx';
 
 export const Visits: React.FC = () => {
   const [activeTab, setActiveTab] = useState<'upcoming' | 'past'>('upcoming');
   const [expandedIds, setExpandedIds] = useState<Set<string>>(new Set());
+  const [modifyVisit, setModifyVisit] = useState<Visit | null>(null);
 
   const filteredVisits = visits.filter(v => v.status === activeTab);
 
@@ -98,9 +101,14 @@ export const Visits: React.FC = () => {
                   </div>
                   <div className="col-span-2 flex justify-end">
                     <div className="flex items-center gap-2">
-                      <button className="px-4 py-2 text-base font-bold uppercase tracking-wider border-[1.5px] border-charcoal hover:bg-hover transition-colors font-arquitecta">
+                      {activeTab === 'upcoming' && (
+                      <button
+                        onClick={() => setModifyVisit(visit)}
+                        className="px-4 py-2 text-base font-bold uppercase tracking-wider border-[1.5px] border-charcoal hover:bg-hover transition-colors font-arquitecta"
+                      >
                         MODIFY
                       </button>
+                      )}
                       <button
                         onClick={() => toggleExpanded(visit.id)}
                         className="px-2 py-2 border-[1.5px] border-charcoal hover:bg-hover transition-colors self-stretch"
@@ -112,15 +120,24 @@ export const Visits: React.FC = () => {
                 </div>
 
                 {/* Desktop Expanded Content */}
-                {isExpanded && visit.description && (
+                {isExpanded && (visit.description || visit.confirmationNumber) && (
                   <div className="hidden md:block border-t border-card-stroke mt-6 pt-6">
                     <div className="grid grid-cols-12 gap-6">
-                      <div className="col-span-3" />
-                      <div className="col-span-7">
-                        <p className="text-base text-muted-text leading-relaxed">{visit.description}</p>
-                        <a href="#" className="inline-flex items-center min-h-[44px] py-2 gap-1 mt-4 text-base font-semibold text-charcoal hover:underline font-arquitecta">
-                          More Info <ArrowUpRight className="w-3.5 h-3.5" />
-                        </a>
+                      {visit.confirmationNumber && (
+                        <div className="col-span-3">
+                          <p className="text-base font-bold text-muted-text uppercase tracking-wider mb-1 font-arquitecta">Conf. Number</p>
+                          <p className="text-base text-charcoal">{visit.confirmationNumber}</p>
+                        </div>
+                      )}
+                      <div className={visit.confirmationNumber ? 'col-span-9' : 'col-span-12'}>
+                        {visit.description && (
+                          <p className="text-base text-muted-text leading-relaxed">{visit.description}</p>
+                        )}
+                        {visit.description && (
+                          <a href="#" className="inline-flex items-center min-h-[44px] py-2 gap-1 mt-4 text-base font-semibold text-charcoal hover:underline font-arquitecta">
+                            More Info <ArrowUpRight className="w-3.5 h-3.5" />
+                          </a>
+                        )}
                       </div>
                     </div>
                   </div>
@@ -154,9 +171,14 @@ export const Visits: React.FC = () => {
                    </div>
 
                    <div className="pt-2 flex items-center gap-2">
-                      <button className="flex-1 min-h-[44px] py-3 text-base font-bold uppercase tracking-wider border-[1.5px] border-charcoal hover:bg-hover transition-colors text-center font-arquitecta">
+                      {activeTab === 'upcoming' && (
+                      <button
+                        onClick={() => setModifyVisit(visit)}
+                        className="flex-1 min-h-[44px] py-3 text-base font-bold uppercase tracking-wider border-[1.5px] border-charcoal hover:bg-hover transition-colors text-center font-arquitecta"
+                      >
                         MODIFY
                       </button>
+                      )}
                       <button
                         onClick={() => toggleExpanded(visit.id)}
                         className="min-w-[44px] min-h-[44px] py-3 px-3 border-[1.5px] border-charcoal hover:bg-hover transition-colors self-stretch"
@@ -166,12 +188,22 @@ export const Visits: React.FC = () => {
                    </div>
 
                    {/* Mobile Expanded Content */}
-                   {isExpanded && visit.description && (
-                     <div className="border-t border-card-stroke pt-6">
-                       <p className="text-base text-muted-text leading-relaxed">{visit.description}</p>
-                       <a href="#" className="text-base font-semibold text-charcoal flex items-center gap-1 mt-4 hover:underline font-arquitecta">
-                         More Info <ArrowUpRight className="w-3.5 h-3.5" />
-                       </a>
+                   {isExpanded && (visit.description || visit.confirmationNumber) && (
+                     <div className="border-t border-card-stroke pt-6 flex flex-col sm:flex-row gap-6">
+                       {visit.description && (
+                         <div className="flex-1 min-w-0">
+                           <p className="text-base text-muted-text leading-relaxed">{visit.description}</p>
+                           <a href="#" className="text-base font-semibold text-charcoal flex items-center gap-1 mt-4 hover:underline font-arquitecta">
+                             More Info <ArrowUpRight className="w-3.5 h-3.5" />
+                           </a>
+                         </div>
+                       )}
+                       {visit.confirmationNumber && (
+                         <div className="shrink-0">
+                           <p className="text-base font-bold text-muted-text uppercase tracking-wider mb-1 font-arquitecta">Conf. Number</p>
+                           <p className="text-base text-charcoal">{visit.confirmationNumber}</p>
+                         </div>
+                       )}
                      </div>
                    )}
                 </div>
@@ -182,6 +214,14 @@ export const Visits: React.FC = () => {
         )}
       </div>
     </div>
+
+    {modifyVisit && (
+      <ModifyVisitModal
+        visit={modifyVisit}
+        open={true}
+        onOpenChange={(open) => !open && setModifyVisit(null)}
+      />
+    )}
     </>
   );
 };
