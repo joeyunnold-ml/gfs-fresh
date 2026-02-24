@@ -10,8 +10,10 @@ import { LogoutModal } from './components/LogoutModal';
 
 type View = 'dashboard' | 'visits' | 'membership' | 'profile';
 
+type AppVariant = 'default' | 'expiring-soon' | 'recently-expired' | 'non-member';
+
 // Main App Component
-export default function App() {
+export default function App({ variant = 'default' }: { variant?: AppVariant }) {
   const [currentView, setCurrentView] = useState<View>('dashboard');
   const [hoveredView, setHoveredView] = useState<View | null>(null);
   const [logoutOpen, setLogoutOpen] = useState(false);
@@ -48,13 +50,30 @@ export default function App() {
       <Header currentView={currentView} onNavigate={handleNavigate} />
 
       <div className="max-w-[1400px] mx-auto md:flex min-h-screen bg-white">
-        <Sidebar />
+        <Sidebar onNavigate={handleNavigate} variant={variant} />
 
         <main className="flex-1 min-h-screen transition-all duration-300">
         {/* Desktop Top Navigation */}
         <div className="hidden md:flex justify-between items-end mx-8 pt-6 bg-white sticky top-0 z-40 border-b border-card-stroke">
           <nav ref={navRef} className="relative flex space-x-8" onMouseLeave={() => setHoveredView(null)}>
-            {(['dashboard', 'membership', 'visits', 'profile'] as View[]).map((view) => (
+            {(['dashboard', 'membership', 'visits', 'profile'] as View[]).map((view) =>
+              (variant === 'recently-expired' || variant === 'non-member') ? (
+                <a
+                  key={view}
+                  href="#"
+                  ref={(el) => { tabRefs.current[view] = el; }}
+                  onClick={(e) => e.preventDefault()}
+                  onMouseEnter={() => setHoveredView(view)}
+                  className={clsx(
+                    "text-base font-bold uppercase tracking-wider transition-colors duration-200 pb-3 font-arquitecta",
+                    (hoveredView === view || (!hoveredView && currentView === view))
+                      ? "text-charcoal"
+                      : "text-muted-text"
+                  )}
+                >
+                  {view === 'dashboard' ? 'Dashboard' : view === 'membership' ? 'Membership' : view === 'visits' ? 'Visits' : 'Profile'}
+                </a>
+              ) : (
               <button
                 key={view}
                 ref={(el) => { tabRefs.current[view] = el; }}
@@ -69,7 +88,8 @@ export default function App() {
               >
                 {view === 'dashboard' ? 'Dashboard' : view === 'membership' ? 'Membership' : view === 'visits' ? 'Visits' : 'Profile'}
               </button>
-            ))}
+              )
+            )}
             <div
               className="absolute bottom-0 h-[2px] bg-accent-green transition-all duration-300 ease-in-out"
               style={{ left: indicator.left, width: indicator.width }}
@@ -83,7 +103,7 @@ export default function App() {
 
         {/* Content Area */}
         <div className="bg-white">
-          {currentView === 'dashboard' && <Dashboard onNavigate={handleNavigate} />}
+          {currentView === 'dashboard' && <Dashboard onNavigate={handleNavigate} sidebarVariant={variant} />}
           {currentView === 'visits' && <Visits />}
           {currentView === 'membership' && <Membership initialSubTab={membershipSubTab} />}
           {currentView === 'profile' && <Profile />}

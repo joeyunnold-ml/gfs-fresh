@@ -65,6 +65,9 @@ createRoot(document.getElementById("root")!).render(
     <Routes>
       <Route path="/" element={<HomePage />} />
       <Route path="/current-member" element={<App />} />
+      <Route path="/expiring-soon" element={<App variant="expiring-soon" />} />
+      <Route path="/recently-expired" element={<App variant="recently-expired" />} />
+      <Route path="/non-member" element={<App variant="non-member" />} />
       <Route path="/never-member" element={<App />} />
       <Route path="/gfs-org" element={<GfsOrg />} />
       <Route path="/mp-style" element={<StyleGuide />} />

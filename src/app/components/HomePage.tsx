@@ -49,6 +49,30 @@ export const HomePage: React.FC = () => {
                   Current Member
                 </Link>
               </li>
+              <li>
+                <Link
+                  to="/expiring-soon"
+                  className="text-lg font-bold text-charcoal hover:text-accent-green transition-colors underline"
+                >
+                  Current Member (Expiring Soon)
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/recently-expired"
+                  className="text-lg font-bold text-charcoal hover:text-accent-green transition-colors underline"
+                >
+                  Recently Expired
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/non-member"
+                  className="text-lg font-bold text-charcoal hover:text-accent-green transition-colors underline"
+                >
+                  Non-Member
+                </Link>
+              </li>
             </ul>
           </section>
 
