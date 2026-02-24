@@ -37,7 +37,7 @@ class GuestFlowErrorBoundary extends React.Component<
     if (this.state.error) {
       return (
         <div style={{ padding: 24, fontFamily: "sans-serif", maxWidth: 640, fontSize: 16 }}>
-          <h2 style={{ color: "#CE4069", fontSize: "1.25rem", fontWeight: 700 }}>Guest flow error</h2>
+          <h2 style={{ color: "#b91c1c", fontSize: "1.25rem", fontWeight: 700 }}>Guest flow error</h2>
           <pre style={{ overflow: "auto", background: "#fef2f2", padding: 16, borderRadius: 8, fontSize: 16 }}>
             {this.state.error.message}
           </pre>
@@ -65,6 +65,9 @@ createRoot(document.getElementById("root")!).render(
     <Routes>
       <Route path="/" element={<HomePage />} />
       <Route path="/current-member" element={<App />} />
+      <Route path="/expiring-soon" element={<App variant="expiring-soon" />} />
+      <Route path="/recently-expired" element={<App variant="recently-expired" />} />
+      <Route path="/non-member" element={<App variant="non-member" />} />
       <Route path="/never-member" element={<App />} />
       <Route path="/gfs-org" element={<GfsOrg />} />
       <Route path="/mp-style" element={<StyleGuide />} />

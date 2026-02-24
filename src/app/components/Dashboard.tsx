@@ -2,51 +2,70 @@ import React from 'react';
 import { assets, bookedVisits, memberMornings, currentUser, members } from '../mockData';
 import { ActionCard } from './ActionCard';
 import { MemberCard } from './MemberCard';
+import { ExpiringSoonCard } from './ExpiringSoonCard';
+import { isExpiringWithinDays } from '../utils/expiringSoon';
+import { NonMemberPromoCard } from './NonMemberPromoCard';
+import { RecentlyExpiredAlertCard } from './RecentlyExpiredAlertCard';
+import { RecentlyExpiredMemberCard } from './RecentlyExpiredMemberCard';
 import { ArrowUpRight, CloudSun, Info } from 'lucide-react';
 
 interface DashboardProps {
   onNavigate?: (view: string, subTab?: string) => void;
+  /** When 'expiring-soon' or 'recently-expired', mobile member slider shows only Jane Jones. When 'non-member', mobile shows promo card only. */
+  sidebarVariant?: 'default' | 'expiring-soon' | 'recently-expired' | 'non-member';
 }
 
 // Force update: Removed slick-carousel and use native CSS scroll
-export const Dashboard: React.FC<DashboardProps> = ({ onNavigate }) => {
+export const Dashboard: React.FC<DashboardProps> = ({ onNavigate, sidebarVariant = 'default' }) => {
+  const primaryMember = members[0];
+  const showExpiringSoon = primaryMember && isExpiringWithinDays(primaryMember.expires, 90);
+  const isSingleMemberView = sidebarVariant === 'expiring-soon' || sidebarVariant === 'recently-expired';
+  const isNonMemberView = sidebarVariant === 'non-member';
+  const membersForSlider = isSingleMemberView
+    ? [{ ...members[0], name: 'Jane Jones' }]
+    : isNonMemberView
+      ? []
+      : members;
+
   return (
     <>
     {/* Mobile: Grey background extending from header through to mid-hero */}
     <div className="md:hidden bg-shell px-4 pb-4 pt-2">
-      <h1 className="text-2xl font-black uppercase tracking-wide mb-4 font-arquitecta">WELCOME, {currentUser.name}!</h1>
-      {/* Renewal Banner — commented out per request
-      <div className="bg-border-light p-4 mt-4 mb-4 relative overflow-hidden">
-        <div className="flex items-start gap-3">
-          <div className="mt-1">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M8 2V5" stroke="black" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-              <path d="M16 2V5" stroke="black" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-              <path d="M3.5 9.09H20.5" stroke="black" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-              <path d="M21 8.5V17C21 20 19.5 22 16 22H8C4.5 22 3 20 3 17V8.5C3 5.5 4.5 3.5 8 3.5H16C19.5 3.5 21 5.5 21 8.5Z" stroke="black" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-            </svg>
-          </div>
-          <div>
-            <p className="text-base font-semibold mb-1">Your membership ends on May 5th.</p>
-            <p className="text-base text-muted-text mb-3 leading-relaxed">
-              Renew your membership soon to continue visiting, reserving, and enjoying member perks.
-            </p>
-            <button className="text-base font-semibold flex items-center gap-1 hover:underline">
-              Renew Now <ArrowUpRight className="w-3 h-3" />
-            </button>
-          </div>
-        </div>
-      </div>
-      */}
+      <h1 className="text-2xl font-black uppercase tracking-wide mb-4 font-arquitecta">WELCOME, {isNonMemberView ? 'SUSAN' : sidebarVariant === 'recently-expired' ? 'LISA' : currentUser.name}!</h1>
 
-      {/* Mobile Member Slider (Native Scroll) */}
+      {showExpiringSoon && sidebarVariant === 'expiring-soon' && (
+        <ExpiringSoonCard
+          expires={primaryMember.expires}
+          onRenew={() => onNavigate?.('membership', 'overview')}
+          className="mt-0 mb-4"
+        />
+      )}
+
+      {/* Mobile: recently-expired shows the two expired cards; expiring-soon/default show member slider; non-member shows nothing here */}
+      {sidebarVariant === 'recently-expired' ? (
+        <div className="space-y-4 mb-4">
+          <RecentlyExpiredAlertCard onRenew={() => onNavigate?.('membership', 'overview')} />
+          <RecentlyExpiredMemberCard
+            memberName="Lisa Bloomfield"
+            memberType="Individual Plus Member"
+            memberSince="2002"
+            expiredDate="June 1, 2026"
+            displayId="29834928_1"
+            onRenew={() => onNavigate?.('membership', 'overview')}
+          />
+        </div>
+      ) : !isNonMemberView ? (
       <div className="-mx-4 px-4 overflow-x-auto pb-4 snap-x snap-mandatory flex gap-4 no-scrollbar">
-        {members.map((member, i) => (
-          <div key={member.id} className="min-w-[90%] snap-center shrink-0">
+        {membersForSlider.map((member, i) => (
+          <div
+            key={member.id}
+            className={sidebarVariant === 'expiring-soon' ? 'min-w-full snap-center shrink-0' : 'min-w-[90%] snap-center shrink-0'}
+          >
             <MemberCard member={member} isPrimary={i === 0} className="h-full" />
           </div>
         ))}
       </div>
+      ) : null}
     </div>
 
     {/* Mobile Hero — straddles grey/white boundary using pseudo-element for top half background */}
@@ -62,12 +81,23 @@ export const Dashboard: React.FC<DashboardProps> = ({ onNavigate }) => {
             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
           />
           <div className="absolute bottom-0 left-0 p-6 z-20 text-white max-w-2xl pointer-events-none">
-            <p className="text-accent-green font-medium tracking-wider text-base mb-2 uppercase font-arquitecta">Spring Member Preview Weekend</p>
+            {sidebarVariant !== 'recently-expired' && sidebarVariant !== 'non-member' && (
+              <p className="text-accent-green font-medium tracking-wider text-base mb-2 uppercase font-arquitecta">Spring Member Preview Weekend</p>
+            )}
             <h2 className="text-2xl font-black leading-tight mb-4 font-arquitecta">
-              SEE NEW INSTALLATIONS BEFORE THEY OPEN TO THE PUBLIC
+              {sidebarVariant === 'recently-expired'
+                ? 'RENEW AND ENJOY MORE ACCESS AND ADVENTURES AT GFS!'
+                : sidebarVariant === 'non-member'
+                  ? 'BECOME A MEMBER AND ENJOY MORE ACCESS AND ADVENTURES AT GFS!'
+                  : 'SEE NEW INSTALLATIONS BEFORE THEY OPEN TO THE PUBLIC'}
             </h2>
             <div className="flex items-center gap-2 text-base font-normal hover:text-accent-green transition-colors pointer-events-auto font-arquitecta uppercase">
-              RESERVE YOUR SPOT <ArrowUpRight className="w-4 h-4" />
+              {sidebarVariant === 'recently-expired'
+                ? 'Renew your membership'
+                : sidebarVariant === 'non-member'
+                  ? 'Learn more about membership'
+                  : 'RESERVE YOUR SPOT'}{' '}
+              <ArrowUpRight className="w-4 h-4" />
             </div>
           </div>
         </div>
@@ -75,6 +105,8 @@ export const Dashboard: React.FC<DashboardProps> = ({ onNavigate }) => {
     </div>
 
     <div className="p-4 md:p-8 max-w-7xl mx-auto">
+      {/* Desktop: Expiring Soon card lives in the left rail (Sidebar) above member cards */}
+
       {/* Desktop-only Hero Banner */}
       <div className="hidden md:block relative overflow-hidden mb-8 group cursor-pointer md:h-80">
         <div className="absolute inset-0 z-10 pointer-events-none" style={{ background: 'linear-gradient(45deg, rgba(26,26,26,0.75) 0%, rgba(26,26,26,0) 100%)' }} />
@@ -84,12 +116,23 @@ export const Dashboard: React.FC<DashboardProps> = ({ onNavigate }) => {
           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
         />
         <div className="absolute bottom-0 left-0 p-6 md:p-10 z-20 text-white max-w-2xl pointer-events-none">
-          <p className="text-accent-green font-medium tracking-wider text-base mb-2 uppercase font-arquitecta">Spring Member Preview Weekend</p>
+          {sidebarVariant !== 'recently-expired' && sidebarVariant !== 'non-member' && (
+            <p className="text-accent-green font-medium tracking-wider text-base mb-2 uppercase font-arquitecta">Spring Member Preview Weekend</p>
+          )}
           <h2 className="text-2xl md:text-4xl font-black leading-tight mb-4 font-arquitecta">
-            SEE NEW INSTALLATIONS BEFORE THEY OPEN TO THE PUBLIC
+            {sidebarVariant === 'recently-expired'
+              ? 'RENEW AND ENJOY MORE ACCESS AND ADVENTURES AT GFS!'
+              : sidebarVariant === 'non-member'
+                ? 'BECOME A MEMBER AND ENJOY MORE ACCESS AND ADVENTURES AT GFS!'
+                : 'SEE NEW INSTALLATIONS BEFORE THEY OPEN TO THE PUBLIC'}
           </h2>
           <div className="flex items-center gap-2 text-base font-normal hover:text-accent-green transition-colors pointer-events-auto font-arquitecta uppercase">
-            RESERVE YOUR SPOT <ArrowUpRight className="w-4 h-4" />
+            {sidebarVariant === 'recently-expired'
+              ? 'Renew your membership'
+              : sidebarVariant === 'non-member'
+                ? 'Learn more about membership'
+                : 'RESERVE YOUR SPOT'}{' '}
+            <ArrowUpRight className="w-4 h-4" />
           </div>
         </div>
       </div>
@@ -98,12 +141,21 @@ export const Dashboard: React.FC<DashboardProps> = ({ onNavigate }) => {
       <div className="flex flex-col min-[1400px]:flex-row gap-6">
         {/* Left side: action cards grid */}
         <div className="flex-1 min-w-0 grid grid-cols-2 gap-4 md:gap-6 auto-rows-min">
+          {sidebarVariant === 'non-member' ? (
+            <ActionCard
+              title="Open Interactive Map"
+              className="order-1 min-h-[140px] md:min-h-[180px]"
+            />
+          ) : (
           <ActionCard
             title="Guest Passes"
-            count="1 of 2 remaining"
+            count={sidebarVariant === 'recently-expired' ? 'Renew membership for new guest passes' : '1 of 2 remaining'}
             className="order-1 min-h-[140px] md:min-h-[180px]"
-            onClick={() => onNavigate?.('membership', 'guest-passes')}
+            onClick={sidebarVariant === 'recently-expired' ? undefined : () => onNavigate?.('membership', 'guest-passes')}
+            disabled={sidebarVariant === 'recently-expired'}
+            hideArrow={sidebarVariant === 'recently-expired'}
           />
+          )}
           <ActionCard
             title="Get Tickets"
             className="order-2 min-h-[140px] md:min-h-[180px]"
@@ -114,7 +166,13 @@ export const Dashboard: React.FC<DashboardProps> = ({ onNavigate }) => {
             onClick={() => onNavigate?.('membership', 'overview')}
           />
 
-          <div className="order-5 md:order-4 bg-canvas p-6 flex flex-col justify-between min-h-[180px] relative col-span-2 md:col-span-1">
+          <div
+            className={
+              isNonMemberView
+                ? 'order-4 col-span-1 min-h-[140px] md:min-h-[180px] bg-canvas p-6 flex flex-col justify-between relative md:col-span-1'
+                : 'order-5 md:order-4 bg-canvas p-6 flex flex-col justify-between min-h-[180px] relative col-span-2 md:col-span-1'
+            }
+          >
             <div>
               <h3 className="text-base font-black text-charcoal uppercase tracking-wide mb-4 font-arquitecta">Weather at GFS</h3>
               <div className="flex items-center gap-4">
@@ -127,18 +185,26 @@ export const Dashboard: React.FC<DashboardProps> = ({ onNavigate }) => {
             </div>
           </div>
 
+          {sidebarVariant !== 'non-member' && (
           <div className="order-4 md:order-5 md:col-span-2">
             <ActionCard
               title="Open Interactive Map"
               className="min-h-[140px] md:min-h-[90px] md:max-h-[90px]"
             />
           </div>
+          )}
         </div>
 
         {/* Right side: Booked Visits — below cards on mobile/md, sidebar at 1400px+ */}
         <div className="min-[1400px]:w-[300px] min-[1400px]:shrink-0">
           <div className="border border-card-stroke p-6">
             <h3 className="text-lg font-black uppercase mb-6 font-arquitecta">Booked Visits</h3>
+            {sidebarVariant === 'recently-expired' || sidebarVariant === 'non-member' ? (
+              <div className="bg-canvas p-3 text-base text-muted-text leading-relaxed">
+                No visits booked
+              </div>
+            ) : (
+            <>
             <div className="space-y-6">
               {bookedVisits.map((visit, i) => (
                 <div key={i} className="pb-6 border-b border-card-stroke last:border-0 last:pb-0">
@@ -173,6 +239,8 @@ export const Dashboard: React.FC<DashboardProps> = ({ onNavigate }) => {
                 </div>
               ))}
             </div>
+            </>
+            )}
           </div>
           <div className="mt-4 flex justify-end">
             <a className="inline-flex items-center min-h-[44px] py-2 gap-1 text-base font-semibold cursor-pointer hover:underline font-arquitecta">
@@ -182,6 +250,13 @@ export const Dashboard: React.FC<DashboardProps> = ({ onNavigate }) => {
         </div>
       </div>
     </div>
+
+    {/* Mobile non-member only: promo card at very bottom, below Booked Visits */}
+    {isNonMemberView && (
+      <div className="md:hidden px-4 pb-6">
+        <NonMemberPromoCard onLearnMore={() => onNavigate?.('membership', 'overview')} />
+      </div>
+    )}
     </>
   );
 };
