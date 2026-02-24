@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router';
-import { ArrowUpRight, CloudSun, Search, ChevronDown, ChevronRight, Check, X, Plus, Pencil, Loader2, Info, PartyPopper } from 'lucide-react';
+import { ArrowUpRight, CloudSun, Search, ChevronDown, ChevronRight, Check, X, Plus, Pencil, Loader2, Info, PartyPopper, Calendar } from 'lucide-react';
 
 /* ------------------------------------------------------------------ */
 /*  Helper: render a visual swatch                                     */
@@ -93,18 +93,13 @@ export const StyleGuide: React.FC = () => {
               ['#tooltips', 'Tooltips'],
               ['#dividers', 'Dividers'],
               ['#loaders', 'Loaders'],
+              ['#expiring-soon', 'Expiring Soon (Member Portal)'],
               ['#guest-checkout', 'Guest Checkout Components'],
-            ].map(([href, label]) =>
-              href.startsWith('/') ? (
-                <Link key={href} to={href} className="text-base text-charcoal hover:text-accent-green transition-colors font-semibold">
-                  {label}
-                </Link>
-              ) : (
-                <a key={href} href={href} className="text-base text-charcoal hover:text-accent-green transition-colors font-semibold">
-                  {label}
-                </a>
-              )
-            )}
+            ].map(([href, label]) => (
+              <a key={href} href={href} className="text-base text-charcoal hover:text-accent-green transition-colors font-semibold">
+                {label}
+              </a>
+            ))}
           </div>
         </div>
 
@@ -112,7 +107,8 @@ export const StyleGuide: React.FC = () => {
         {/*  1. TYPOGRAPHY                                                */}
         {/* ============================================================ */}
         <SectionTitle id="typography">Typography</SectionTitle>
-        <p className="text-base text-muted-text mb-6">
+
+        <p className="text-base text-muted-text mb-4">
           For token-level details (typeface, size, color, letter-spacing, line-height) and stylesheet definitions, see the <Link to="/type" className="text-accent-green font-semibold hover:underline">Type reference page</Link>.
         </p>
 
@@ -247,10 +243,9 @@ export const StyleGuide: React.FC = () => {
         <SubSection title="Semantic Colors">
           <div className="flex flex-wrap gap-6">
             <Swatch color="#B6D840" label="Success" hex="#B6D840" />
-            <Swatch color="#CE4069" label="Error" hex="#CE4069" />
-            <Swatch color="#D4567A" label="Accent Pink" hex="#D4567A" />
+            <Swatch color="#CE4069" label="Error / Accent" hex="#CE4069" />
           </div>
-          <p className="text-base text-muted-text mt-3"><code className="font-mono text-charcoal">#CE4069</code> is used for error/destructive states. <code className="font-mono text-charcoal">#D4567A</code> is the secondary brand accent (required asterisks, links, badges).</p>
+          <p className="text-base text-muted-text mt-3"><code className="font-mono text-charcoal">#CE4069</code> serves double duty as the error/destructive color and as a secondary brand accent.</p>
         </SubSection>
 
         <SubSection title="Overlay & Shadow Colors">
@@ -301,7 +296,7 @@ export const StyleGuide: React.FC = () => {
             <div className="py-2 text-base font-bold uppercase tracking-wider font-arquitecta text-accent-green mt-2">Brand</div>
             <TokenRow token="#B6D840" value="Accent Green" desc="Logo, active indicators, accent borders, links hover" />
             <TokenRow token="#C5D63D" value="Lime" desc="Active member badge border (lighter green variant)" />
-            <TokenRow token="#D4567A" value="Accent Pink" desc="Secondary brand accent (required asterisks, links, badges)" />
+            <TokenRow token="#D4567A" value="Accent Pink" desc="Secondary brand accent (error/destructive uses --destructive #CE4069)" />
             <TokenRow token="#343433" value="Charcoal" desc="Primary text, button fills, heading text" />
             <TokenRow token="#1A1A1A" value="Near Black" desc="Hover state for primary buttons, deep text" />
 
@@ -325,14 +320,14 @@ export const StyleGuide: React.FC = () => {
             <TokenRow token="#6B6862" value="Muted Text" desc="Secondary text, labels, inactive nav, descriptions" />
 
             <div className="py-2 text-base font-bold uppercase tracking-wider font-arquitecta text-muted-text mt-2">Semantic</div>
-            <TokenRow token="#CE4069" value="Error" desc="Error borders, validation messages, destructive actions" />
+            <TokenRow token="#CE4069" value="Error / Accent" desc="Error borders, validation messages, secondary brand accent" />
 
             <div className="py-2 text-base font-bold uppercase tracking-wider font-arquitecta text-muted-text mt-2">CSS Theme Variables</div>
             <TokenRow token="--background" value="#FFFFFF" desc="Page background" />
             <TokenRow token="--foreground" value="#343433 (var(--charcoal))" desc="Default text color" />
             <TokenRow token="--primary" value="#343433 (var(--charcoal))" desc="shadcn/ui primary (buttons, links)" />
             <TokenRow token="--card-stroke" value="#CCCCCC" desc="Card borders, dividers" />
-            <TokenRow token="--destructive" value="#CE4069" desc="Error states, destructive actions" />
+            <TokenRow token="--destructive" value="#CE4069" desc="Error states, destructive actions, accent" />
             <TokenRow token="--muted" value="#ECEAE7" desc="Muted backgrounds" />
             <TokenRow token="--muted-foreground" value="#736E69" desc="Placeholder text, disabled text" />
             <TokenRow token="--ring" value="#8B8178 (var(--stone))" desc="Focus ring color" />
@@ -1071,7 +1066,33 @@ export const StyleGuide: React.FC = () => {
         </div>
 
         {/* ============================================================ */}
-        {/*  20. GUEST CHECKOUT COMPONENTS                                 */}
+        {/*  20. EXPIRING SOON (MEMBER PORTAL)                            */}
+        {/* ============================================================ */}
+        <SectionTitle id="expiring-soon">Expiring Soon (Member Portal)</SectionTitle>
+        <p className="text-base text-muted-text mb-4">
+          Alert card shown on the dashboard when the primary member&apos;s membership is expiring within 90 days. Uses <code className="font-mono text-charcoal">ExpiringSoonCard</code>. See <Link to="/current-member" className="font-semibold text-charcoal underline hover:text-accent-green transition-colors">Current Member Dashboard</Link> for live usage (when mock expiry is within 90 days).
+        </p>
+        <SubSection title="Expiring Soon Card">
+          <p className="text-base text-muted-text mb-4">Card with calendar icon, headline (&quot;Your membership ends on [date].&quot;), description, and &quot;Renew Now&quot; CTA. Card: <code className="font-mono text-charcoal">bg-muted-bg</code>, <code className="font-mono text-charcoal">border-border-light</code>, <code className="font-mono text-charcoal">rounded-none</code>. CTA uses Tertiary / Text style: Open Sans, <code className="font-mono text-charcoal">text-charcoal</code>, <code className="font-mono text-charcoal">font-semibold</code>, <code className="font-mono text-charcoal">hover:underline</code>.</p>
+          <div className="max-w-2xl">
+            <div className="bg-muted-bg border border-border-light rounded-none p-4">
+              <div className="flex flex-col gap-2">
+                <div>
+                  <Calendar className="w-5 h-5 text-charcoal shrink-0" strokeWidth={1.5} aria-hidden />
+                </div>
+                <p className="text-[16px] font-bold text-charcoal">Your membership ends on May 5th.</p>
+                <p className="text-base text-muted-text leading-relaxed">Renew your membership soon to continue visiting, reserving, and enjoying member perks.</p>
+                <div className="flex justify-end">
+                  <a href="#expiring-soon" className="text-base font-semibold text-charcoal hover:underline inline-flex items-center gap-1 font-opensans">Renew Now <ArrowUpRight className="w-4 h-4" /></a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <p className="text-base text-muted-text mt-3">Component: <code className="font-mono text-charcoal">ExpiringSoonCard</code> (accepts <code className="font-mono text-charcoal">expires</code>, optional <code className="font-mono text-charcoal">onRenew</code>). Visibility controlled by <code className="font-mono text-charcoal">isExpiringWithinDays(expires, 90)</code>.</p>
+        </SubSection>
+
+        {/* ============================================================ */}
+        {/*  21. GUEST CHECKOUT COMPONENTS                                 */}
         {/* ============================================================ */}
         <SectionTitle id="guest-checkout">Guest Checkout Components</SectionTitle>
         <p className="text-base text-muted-text mb-8">
