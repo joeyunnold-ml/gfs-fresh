@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router';
-import { ArrowUpRight, CloudSun, Search, ChevronDown, ChevronRight, Check, X, Plus, Pencil, Loader2, Info, PartyPopper } from 'lucide-react';
+import { ArrowUpRight, CloudSun, Search, ChevronDown, ChevronRight, Check, X, Plus, Pencil, Loader2, Info, PartyPopper, Calendar } from 'lucide-react';
 
 /* ------------------------------------------------------------------ */
 /*  Helper: render a visual swatch                                     */
@@ -93,6 +93,7 @@ export const StyleGuide: React.FC = () => {
               ['#tooltips', 'Tooltips'],
               ['#dividers', 'Dividers'],
               ['#loaders', 'Loaders'],
+              ['#expiring-soon', 'Expiring Soon (Member Portal)'],
               ['#guest-checkout', 'Guest Checkout Components'],
             ].map(([href, label]) => (
               <a key={href} href={href} className="text-base text-charcoal hover:text-accent-green transition-colors font-semibold">
@@ -1065,7 +1066,33 @@ export const StyleGuide: React.FC = () => {
         </div>
 
         {/* ============================================================ */}
-        {/*  20. GUEST CHECKOUT COMPONENTS                                 */}
+        {/*  20. EXPIRING SOON (MEMBER PORTAL)                            */}
+        {/* ============================================================ */}
+        <SectionTitle id="expiring-soon">Expiring Soon (Member Portal)</SectionTitle>
+        <p className="text-base text-muted-text mb-4">
+          Alert card shown on the dashboard when the primary member&apos;s membership is expiring within 90 days. Uses <code className="font-mono text-charcoal">ExpiringSoonCard</code>. See <Link to="/current-member" className="font-semibold text-charcoal underline hover:text-accent-green transition-colors">Current Member Dashboard</Link> for live usage (when mock expiry is within 90 days).
+        </p>
+        <SubSection title="Expiring Soon Card">
+          <p className="text-base text-muted-text mb-4">Card with calendar icon, headline (&quot;Your membership ends on [date].&quot;), description, and &quot;Renew Now&quot; CTA. Card: <code className="font-mono text-charcoal">bg-muted-bg</code>, <code className="font-mono text-charcoal">border-border-light</code>, <code className="font-mono text-charcoal">rounded-none</code>. CTA uses Tertiary / Text style: Open Sans, <code className="font-mono text-charcoal">text-charcoal</code>, <code className="font-mono text-charcoal">font-semibold</code>, <code className="font-mono text-charcoal">hover:underline</code>.</p>
+          <div className="max-w-2xl">
+            <div className="bg-muted-bg border border-border-light rounded-none p-4">
+              <div className="flex flex-col gap-2">
+                <div>
+                  <Calendar className="w-5 h-5 text-charcoal shrink-0" strokeWidth={1.5} aria-hidden />
+                </div>
+                <p className="text-[16px] font-bold text-charcoal">Your membership ends on May 5th.</p>
+                <p className="text-base text-muted-text leading-relaxed">Renew your membership soon to continue visiting, reserving, and enjoying member perks.</p>
+                <div className="flex justify-end">
+                  <a href="#expiring-soon" className="text-base font-semibold text-charcoal hover:underline inline-flex items-center gap-1 font-opensans">Renew Now <ArrowUpRight className="w-4 h-4" /></a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <p className="text-base text-muted-text mt-3">Component: <code className="font-mono text-charcoal">ExpiringSoonCard</code> (accepts <code className="font-mono text-charcoal">expires</code>, optional <code className="font-mono text-charcoal">onRenew</code>). Visibility controlled by <code className="font-mono text-charcoal">isExpiringWithinDays(expires, 90)</code>.</p>
+        </SubSection>
+
+        {/* ============================================================ */}
+        {/*  21. GUEST CHECKOUT COMPONENTS                                 */}
         {/* ============================================================ */}
         <SectionTitle id="guest-checkout">Guest Checkout Components</SectionTitle>
         <p className="text-base text-muted-text mb-8">

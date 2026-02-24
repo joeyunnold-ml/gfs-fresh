@@ -460,54 +460,6 @@ text-transform: uppercase;`}</pre>
           </div>
         </div>
 
-        {/* ── Base element styles (theme.css) ── */}
-        <SectionTitle id="base-styles">Base element styles (theme.css)</SectionTitle>
-        <p className="text-base text-muted-text mb-4">
-          Default typography for HTML elements in <code className="font-mono bg-mist px-1 rounded">@layer base</code>. Tailwind utilities override these.
-        </p>
-        <pre className="text-base font-mono text-charcoal bg-mist p-4 rounded-lg border border-border-light overflow-x-auto whitespace-pre-wrap">
-{`html {
-  font-size: var(--font-size);  /* 16px */
-}
-
-h1 {
-  font-size: var(--text-2xl);   /* 24px */
-  font-weight: var(--font-weight-medium);  /* 500 */
-  line-height: 1.5;
-}
-
-h2 {
-  font-size: var(--text-xl);    /* 20px */
-  font-weight: var(--font-weight-medium);
-  line-height: 1.5;
-}
-
-h3 {
-  font-size: var(--text-lg);    /* 18px */
-  font-weight: var(--font-weight-medium);
-  line-height: 1.5;
-}
-
-h4 {
-  font-size: var(--text-base);  /* 16px */
-  font-weight: var(--font-weight-medium);
-  line-height: 1.5;
-}
-
-label, button {
-  font-size: var(--text-base);
-  font-weight: var(--font-weight-medium);
-  line-height: 1.5;
-}
-
-input, select {
-  font-size: var(--text-base);
-  font-weight: var(--font-weight-normal);
-  line-height: 1.5;
-  min-height: 3.25rem;
-}`}
-        </pre>
-
         <p className="text-base text-muted-text mt-10">
           Typography reference — design system. See also{" "}
           <Link to="/mp-style#typography" className="text-accent-green font-semibold hover:underline">
