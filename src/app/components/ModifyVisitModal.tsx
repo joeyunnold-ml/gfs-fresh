@@ -130,6 +130,7 @@ export const ModifyVisitModal: React.FC<ModifyVisitModalProps> = ({
                   <a href="#" className="text-charcoal underline hover:no-underline">
                     contact us
                   </a>
+                  .
                 </span>
               </div>
             </div>
@@ -144,7 +145,6 @@ export const ModifyVisitModal: React.FC<ModifyVisitModalProps> = ({
                   <CardFieldRow
                     label="Date"
                     value={selectedDate}
-                    onClear={selectedDate ? () => setSelectedDate('') : undefined}
                     expanded={calendarOpen}
                     onToggle={() => {
                       setTimeListOpen(false);
